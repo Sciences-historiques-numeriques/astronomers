@@ -13,7 +13,8 @@
     <p>PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;</p>
     <p><code>select distinct ?item ?itemLabel ?itemDescription ?birthDate ?year ?birthPlace ?birthPlaceLabel<br />where {<br />&nbsp;&nbsp;&nbsp; ?item wdt:P31 wd:Q5;&nbsp; # Any instance of a human.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wdt:P106 wd:Q11063;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wdt:P569 ?birthDate;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wdt:P19 ?birthPlace.<br />#&nbsp;&nbsp;&nbsp; ?birthPlace wdt:P31 ?birthPlaceType.<br />#&nbsp;&nbsp; filter not exists {?birthPlace a wdno:P6}.<br /><br />BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)<br />FILTER(?year &gt; '1400' &amp;&amp; ?year &lt; '1760')<br />### Filtrage sur les ann&eacute;es comme entiers si souhait&eacute;<br /># FILTER(xsd:integer(?year) &lt; "890"^^xsd:integer)<br />SERVICE wikibase:label { bd:serviceParam wikibase:language "en,nl" }<br />}</code><code></code>
     </p>
-    <p>ORDER BY ?<code>year<br />}<br /><br />LIMIT 500&nbsp; </code><code></code><br /><br /></p>
+    <p>ORDER BY ?<code>year<br />
+   <br />LIMIT 500&nbsp; </code><code></code><br /><br /></p>
 
 </body>
 

@@ -1,0 +1,16 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+
+select ?p (count(*) as ?eff)
+where {
+
+###{?s dbo:occupation dbr:Astronomy}
+###UNION
+###{?s dbo:occupation dbr:Astronomer}
+?s dbo:occupation dbr:Astronomer.
+?s ?p ?o
+
+}
+group by ?p
+order by desc (?eff)
