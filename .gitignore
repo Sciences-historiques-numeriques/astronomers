@@ -1,7 +1,7 @@
 
 
 *.code-workspace
-.~lock*
+.~lock.*
 
 
 
