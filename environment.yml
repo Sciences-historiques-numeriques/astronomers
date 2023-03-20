@@ -1,9 +1,14 @@
-name: astronomers_py310
+name: py310_data_analysis
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python=3.10
+  - sparqlwrapper
   - pandas
-  - plotly
   - ipykernel
+  - ipywidgets
+  - seaborn
+  - plotly
+  - ipyleaflet
+  - networkx

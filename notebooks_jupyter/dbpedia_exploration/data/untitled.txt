@@ -1,0 +1,19 @@
+"width": {{block.width}},
+  "height": {{block.height}},
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  }
+  
+  
+  ,
+      "params": [{
+        "name": "hover",
+        "select": {
+          "type": "point",
+          "fields": ["idealConsumption"],
+          "nearest": true,
+          "on": "mouseover",
+          "clear": "mouseout"
+        }
+      }]
