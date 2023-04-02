@@ -1,0 +1,132 @@
+,occupation,effectif,classe
+0,Mathematics,96,math
+1,Astronomy,84,astron
+2,Mathematician,63,math
+3,Astronomer,32,astron
+4,Physics,20,phil_2
+5,Physicist,10,phil_2
+6,Astrologer,9,astrol
+7,Medicine,7,med
+8,Astrology,7,astrol
+9,Natural philosophy,6,phil_1
+10,Physician,6,phil_2
+11,Geometry,5,math
+12,Theology,5,rel
+13,Philosopher,5,phil_1
+14,Cartography,5,ing
+15,Jesuit,4,rel
+16,Engineering,4,ing
+17,Natural history,4,phil_2
+18,Mechanics,4,ing
+19,Geography,3,phil_2
+20,Historian,3,phil_1
+21,Navigation,3,ing
+22,Botanist,3,phil_2
+23,Biology,3,phil_2
+24,Alchemy,3,autres
+25,Jurisprudence,2,autres
+26,Optics,2,phil_2
+27,Geology,2,phil_2
+28,Philosophy,2,phil_1
+29,Music,2,ing
+30,Hydraulics,2,ing
+31,Law,2,autres
+32,Surveying,2,ing
+33,Scientist,2,phil_2
+34,Author,2,phil_1
+35,Architecture,2,ing
+36,Professor,2,autres
+37,Cartographer,2,ing
+38,Translator,1,phil_1
+39,Teacher,1,phil_1
+40,Mysticism,1,rel
+41,Theologian,1,rel
+42,Music theorist,1,math
+43,Translation,1,phil_1
+44,Politics,1,autres
+45,Naturalist,1,phil_2
+46,Moral philosophy,1,phil_1
+47,Monk,1,rel
+48,Missionary,1,rel
+49,Trigonometry,1,math
+50,Typography,1,ing
+51,Watchmaker,1,ing
+52,Mining engineer,1,ing
+53,Writer,1,phil_1
+54,Military Engineering,1,ing
+55,Mughal Empire,1,
+56,Soldier,1,autres
+57,Nautical science,1,ing
+58,Politician,1,autres
+59,Political economy,1,phil_2
+60,Poet,1,phil_1
+61,Physiologist,1,phil_2
+62,Priest,1,rel
+63,Meteorologist,1,phil_2
+64,Private collection,1,
+65,Regent,1,autres
+66,Religion,1,rel
+67,Patristics,1,rel
+68,Parliament of Ireland,1,autres
+69,Painting,1,autres
+70,Renaissance Humanism,1,phil_1
+71,Renaissance humanist,1,phil_1
+72,Ornithology,1,phil_2
+73,Riobamba,1,
+74,Officer of arms,1,autres
+75,Occult,1,autres
+76,Metereology,1,phil_2
+77,Alchemist,1,autres
+78,Metaphysic,1,phil_1
+79,Economics,1,phil_2
+80,Dialectologist,1,phil_1
+81,Deputy (legislator),1,autres
+82,Demography,1,phil_2
+83,Cosmographer,1,phil_1
+84,Conics,1,math
+85,Chronology,1,phil_1
+86,Chronobiology,1,phil_2
+87,Choreographer,1,autres
+88,Chemistry,1,phil_2
+89,Chemist,1,phil_2
+90,Canon law of the Catholic Church,1,rel
+91,Cadastre,1,ing
+92,Cadastral,1,ing
+93,Brewing,1,ing
+94,Botany,1,phil_2
+95,Artist,1,autres
+96,Architectural theory,1,phil_2
+97,Architect,1,ing
+98,Archdeacon,1,rel
+99,Apothecary,1,med
+100,Antiquary,1,phil_1
+101,Antiquarian,1,phil_1
+102,Anatomy,1,phil_2
+103,Diplomat,1,autres
+104,Educator,1,autres
+105,Metallurgy,1,ing
+106,Electricity,1,ing
+107,Medical practitioner,1,med
+108,Mathematical analysis,1,math
+109,Maidservant,1,autres
+110,Magnetism,1,autres
+111,Linguist,1,phil_1
+112,Landlord,1,autres
+113,Jurist,1,phil_1
+114,Ichthyology,1,phil_2
+115,Humanist,1,phil_1
+116,Humanism,1,phil_1
+117,Hot air ballooning,1,ing
+118,Horologist,1,ing
+119,History of mathematics,1,phil_1
+120,Hermeticism,1,autres
+121,Herbalism,1,med
+122,Graphics,1,ing
+123,Geophysics,1,phil_2
+124,Geographer,1,phil_2
+125,Franciscan priest,1,rel
+126,Farmer,1,autres
+127,Explorer,1,autres
+128,Experimental physics,1,phil_2
+129,Engineer,1,ing
+130,Zoologist,1,phil_2
