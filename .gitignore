@@ -1,12 +1,12 @@
 
 
+## fichiers provisoirement invisibles
+dbp_reseaux_influences.ipynb
+
+
+
 *.code-workspace
 .~lock.*
-
-
-
-
-
 
 
 # Byte-compiled / optimized / DLL files
@@ -138,3 +138,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+notebooks_jupyter/dbpedia_exploration/data/dbpedia_sparql_influences.csv
