@@ -2,8 +2,6 @@
 
 ## fichiers provisoirement invisibles
 
-dbp_reseaux_relations.ipynb
-
 
 *.code-workspace
 .~lock.*
