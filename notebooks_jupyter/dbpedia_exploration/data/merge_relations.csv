@@ -1,0 +1,1366 @@
+,relation,periode,effectif
+0,Argentina-Argentina,1451-1800,0
+1,Argentina-Argentina,1801-1850,0
+2,Argentina-Argentina,1851-1900,0
+3,Argentina-Argentina,1901-1950,0
+4,Argentina-Argentina,1951-2000,2
+5,Argentina-Germany,1451-1800,0
+6,Argentina-Germany,1801-1850,0
+7,Argentina-Germany,1851-1900,0
+8,Argentina-Germany,1901-1950,1
+9,Argentina-Germany,1951-2000,0
+10,Argentina-Puerto Rico,1451-1800,0
+11,Argentina-Puerto Rico,1801-1850,0
+12,Argentina-Puerto Rico,1851-1900,0
+13,Argentina-Puerto Rico,1901-1950,1
+14,Argentina-Puerto Rico,1951-2000,0
+15,Argentina-United States of America,1451-1800,0
+16,Argentina-United States of America,1801-1850,0
+17,Argentina-United States of America,1851-1900,0
+18,Argentina-United States of America,1901-1950,3
+19,Argentina-United States of America,1951-2000,1
+20,Armenia-Armenia,1451-1800,0
+21,Armenia-Armenia,1801-1850,0
+22,Armenia-Armenia,1851-1900,0
+23,Armenia-Armenia,1901-1950,5
+24,Armenia-Armenia,1951-2000,0
+25,Armenia-Russia,1451-1800,0
+26,Armenia-Russia,1801-1850,0
+27,Armenia-Russia,1851-1900,0
+28,Armenia-Russia,1901-1950,4
+29,Armenia-Russia,1951-2000,0
+30,Australia-Australia,1451-1800,0
+31,Australia-Australia,1801-1850,0
+32,Australia-Australia,1851-1900,0
+33,Australia-Australia,1901-1950,3
+34,Australia-Australia,1951-2000,2
+35,Australia-New Zealand,1451-1800,0
+36,Australia-New Zealand,1801-1850,0
+37,Australia-New Zealand,1851-1900,0
+38,Australia-New Zealand,1901-1950,1
+39,Australia-New Zealand,1951-2000,0
+40,Australia-United Kingdom,1451-1800,0
+41,Australia-United Kingdom,1801-1850,0
+42,Australia-United Kingdom,1851-1900,0
+43,Australia-United Kingdom,1901-1950,8
+44,Australia-United Kingdom,1951-2000,2
+45,Australia-United States of America,1451-1800,0
+46,Australia-United States of America,1801-1850,0
+47,Australia-United States of America,1851-1900,0
+48,Australia-United States of America,1901-1950,1
+49,Australia-United States of America,1951-2000,0
+50,Austria-Austria,1451-1800,2
+51,Austria-Austria,1801-1850,1
+52,Austria-Austria,1851-1900,6
+53,Austria-Austria,1901-1950,2
+54,Austria-Austria,1951-2000,0
+55,Austria-France,1451-1800,0
+56,Austria-France,1801-1850,0
+57,Austria-France,1851-1900,0
+58,Austria-France,1901-1950,0
+59,Austria-France,1951-2000,1
+60,Austria-Germany,1451-1800,0
+61,Austria-Germany,1801-1850,0
+62,Austria-Germany,1851-1900,0
+63,Austria-Germany,1901-1950,0
+64,Austria-Germany,1951-2000,2
+65,Austria-Poland,1451-1800,0
+66,Austria-Poland,1801-1850,1
+67,Austria-Poland,1851-1900,0
+68,Austria-Poland,1901-1950,0
+69,Austria-Poland,1951-2000,0
+70,Austria-United Kingdom,1451-1800,0
+71,Austria-United Kingdom,1801-1850,0
+72,Austria-United Kingdom,1851-1900,0
+73,Austria-United Kingdom,1901-1950,0
+74,Austria-United Kingdom,1951-2000,2
+75,Austria-United States of America,1451-1800,0
+76,Austria-United States of America,1801-1850,0
+77,Austria-United States of America,1851-1900,1
+78,Austria-United States of America,1901-1950,0
+79,Austria-United States of America,1951-2000,0
+80,Bangladesh-Canada,1451-1800,0
+81,Bangladesh-Canada,1801-1850,0
+82,Bangladesh-Canada,1851-1900,0
+83,Bangladesh-Canada,1901-1950,3
+84,Bangladesh-Canada,1951-2000,0
+85,Bangladesh-United States of America,1451-1800,0
+86,Bangladesh-United States of America,1801-1850,0
+87,Bangladesh-United States of America,1851-1900,0
+88,Bangladesh-United States of America,1901-1950,1
+89,Bangladesh-United States of America,1951-2000,0
+90,Belgium-Belgium,1451-1800,0
+91,Belgium-Belgium,1801-1850,0
+92,Belgium-Belgium,1851-1900,0
+93,Belgium-Belgium,1901-1950,1
+94,Belgium-Belgium,1951-2000,0
+95,Belgium-Germany,1451-1800,0
+96,Belgium-Germany,1801-1850,0
+97,Belgium-Germany,1851-1900,0
+98,Belgium-Germany,1901-1950,0
+99,Belgium-Germany,1951-2000,2
+100,Belgium-Iran,1451-1800,0
+101,Belgium-Iran,1801-1850,0
+102,Belgium-Iran,1851-1900,0
+103,Belgium-Iran,1901-1950,1
+104,Belgium-Iran,1951-2000,0
+105,Belgium-Netherlands,1451-1800,0
+106,Belgium-Netherlands,1801-1850,0
+107,Belgium-Netherlands,1851-1900,2
+108,Belgium-Netherlands,1901-1950,0
+109,Belgium-Netherlands,1951-2000,0
+110,Belgium-United Kingdom,1451-1800,0
+111,Belgium-United Kingdom,1801-1850,0
+112,Belgium-United Kingdom,1851-1900,0
+113,Belgium-United Kingdom,1901-1950,0
+114,Belgium-United Kingdom,1951-2000,1
+115,Belgium-United States of America,1451-1800,0
+116,Belgium-United States of America,1801-1850,0
+117,Belgium-United States of America,1851-1900,0
+118,Belgium-United States of America,1901-1950,1
+119,Belgium-United States of America,1951-2000,0
+120,Brazil-Belgium,1451-1800,0
+121,Brazil-Belgium,1801-1850,0
+122,Brazil-Belgium,1851-1900,0
+123,Brazil-Belgium,1901-1950,0
+124,Brazil-Belgium,1951-2000,1
+125,Brazil-Brazil,1451-1800,0
+126,Brazil-Brazil,1801-1850,0
+127,Brazil-Brazil,1851-1900,0
+128,Brazil-Brazil,1901-1950,1
+129,Brazil-Brazil,1951-2000,1
+130,Brazil-Peru,1451-1800,0
+131,Brazil-Peru,1801-1850,0
+132,Brazil-Peru,1851-1900,0
+133,Brazil-Peru,1901-1950,2
+134,Brazil-Peru,1951-2000,0
+135,Brazil-Portugal,1451-1800,0
+136,Brazil-Portugal,1801-1850,0
+137,Brazil-Portugal,1851-1900,0
+138,Brazil-Portugal,1901-1950,0
+139,Brazil-Portugal,1951-2000,2
+140,Brazil-South Africa,1451-1800,0
+141,Brazil-South Africa,1801-1850,0
+142,Brazil-South Africa,1851-1900,0
+143,Brazil-South Africa,1901-1950,1
+144,Brazil-South Africa,1951-2000,0
+145,Brazil-United Kingdom,1451-1800,0
+146,Brazil-United Kingdom,1801-1850,0
+147,Brazil-United Kingdom,1851-1900,0
+148,Brazil-United Kingdom,1901-1950,1
+149,Brazil-United Kingdom,1951-2000,2
+150,Brazil-United States of America,1451-1800,0
+151,Brazil-United States of America,1801-1850,0
+152,Brazil-United States of America,1851-1900,0
+153,Brazil-United States of America,1901-1950,5
+154,Brazil-United States of America,1951-2000,2
+155,Bulgaria-France,1451-1800,0
+156,Bulgaria-France,1801-1850,0
+157,Bulgaria-France,1851-1900,0
+158,Bulgaria-France,1901-1950,2
+159,Bulgaria-France,1951-2000,0
+160,Canada-Australia,1451-1800,0
+161,Canada-Australia,1801-1850,0
+162,Canada-Australia,1851-1900,0
+163,Canada-Australia,1901-1950,2
+164,Canada-Australia,1951-2000,0
+165,Canada-Brazil,1451-1800,0
+166,Canada-Brazil,1801-1850,0
+167,Canada-Brazil,1851-1900,0
+168,Canada-Brazil,1901-1950,1
+169,Canada-Brazil,1951-2000,0
+170,Canada-Canada,1451-1800,0
+171,Canada-Canada,1801-1850,0
+172,Canada-Canada,1851-1900,1
+173,Canada-Canada,1901-1950,20
+174,Canada-Canada,1951-2000,10
+175,Canada-Japan,1451-1800,0
+176,Canada-Japan,1801-1850,0
+177,Canada-Japan,1851-1900,0
+178,Canada-Japan,1901-1950,1
+179,Canada-Japan,1951-2000,0
+180,Canada-Netherlands,1451-1800,0
+181,Canada-Netherlands,1801-1850,0
+182,Canada-Netherlands,1851-1900,0
+183,Canada-Netherlands,1901-1950,1
+184,Canada-Netherlands,1951-2000,0
+185,Canada-New Zealand,1451-1800,0
+186,Canada-New Zealand,1801-1850,0
+187,Canada-New Zealand,1851-1900,0
+188,Canada-New Zealand,1901-1950,2
+189,Canada-New Zealand,1951-2000,0
+190,Canada-United Kingdom,1451-1800,0
+191,Canada-United Kingdom,1801-1850,0
+192,Canada-United Kingdom,1851-1900,0
+193,Canada-United Kingdom,1901-1950,0
+194,Canada-United Kingdom,1951-2000,3
+195,Canada-United States of America,1451-1800,0
+196,Canada-United States of America,1801-1850,0
+197,Canada-United States of America,1851-1900,1
+198,Canada-United States of America,1901-1950,15
+199,Canada-United States of America,1951-2000,6
+200,China-Canada,1451-1800,0
+201,China-Canada,1801-1850,0
+202,China-Canada,1851-1900,0
+203,China-Canada,1901-1950,0
+204,China-Canada,1951-2000,3
+205,China-China,1451-1800,0
+206,China-China,1801-1850,0
+207,China-China,1851-1900,0
+208,China-China,1901-1950,4
+209,China-China,1951-2000,4
+210,China-France,1451-1800,0
+211,China-France,1801-1850,0
+212,China-France,1851-1900,0
+213,China-France,1901-1950,1
+214,China-France,1951-2000,0
+215,China-Germany,1451-1800,0
+216,China-Germany,1801-1850,0
+217,China-Germany,1851-1900,0
+218,China-Germany,1901-1950,1
+219,China-Germany,1951-2000,0
+220,China-United Kingdom,1451-1800,0
+221,China-United Kingdom,1801-1850,0
+222,China-United Kingdom,1851-1900,0
+223,China-United Kingdom,1901-1950,0
+224,China-United Kingdom,1951-2000,1
+225,China-United States of America,1451-1800,0
+226,China-United States of America,1801-1850,0
+227,China-United States of America,1851-1900,0
+228,China-United States of America,1901-1950,3
+229,China-United States of America,1951-2000,8
+230,Colombia-France,1451-1800,0
+231,Colombia-France,1801-1850,0
+232,Colombia-France,1851-1900,0
+233,Colombia-France,1901-1950,0
+234,Colombia-France,1951-2000,1
+235,Colombia-United States of America,1451-1800,0
+236,Colombia-United States of America,1801-1850,0
+237,Colombia-United States of America,1851-1900,0
+238,Colombia-United States of America,1901-1950,0
+239,Colombia-United States of America,1951-2000,1
+240,Czechia-Austria,1451-1800,1
+241,Czechia-Austria,1801-1850,0
+242,Czechia-Austria,1851-1900,0
+243,Czechia-Austria,1901-1950,0
+244,Czechia-Austria,1951-2000,0
+245,Czechia-Poland,1451-1800,1
+246,Czechia-Poland,1801-1850,0
+247,Czechia-Poland,1851-1900,0
+248,Czechia-Poland,1901-1950,0
+249,Czechia-Poland,1951-2000,0
+250,Czechia-Switzerland,1451-1800,0
+251,Czechia-Switzerland,1801-1850,0
+252,Czechia-Switzerland,1851-1900,0
+253,Czechia-Switzerland,1901-1950,0
+254,Czechia-Switzerland,1951-2000,2
+255,Czechia-United Kingdom,1451-1800,0
+256,Czechia-United Kingdom,1801-1850,0
+257,Czechia-United Kingdom,1851-1900,0
+258,Czechia-United Kingdom,1901-1950,1
+259,Czechia-United Kingdom,1951-2000,0
+260,Czechia-United States of America,1451-1800,0
+261,Czechia-United States of America,1801-1850,0
+262,Czechia-United States of America,1851-1900,0
+263,Czechia-United States of America,1901-1950,5
+264,Czechia-United States of America,1951-2000,0
+265,Denmark-Croatia,1451-1800,0
+266,Denmark-Croatia,1801-1850,0
+267,Denmark-Croatia,1851-1900,0
+268,Denmark-Croatia,1901-1950,1
+269,Denmark-Croatia,1951-2000,0
+270,Denmark-Denmark,1451-1800,0
+271,Denmark-Denmark,1801-1850,0
+272,Denmark-Denmark,1851-1900,0
+273,Denmark-Denmark,1901-1950,3
+274,Denmark-Denmark,1951-2000,0
+275,Denmark-Germany,1451-1800,1
+276,Denmark-Germany,1801-1850,0
+277,Denmark-Germany,1851-1900,0
+278,Denmark-Germany,1901-1950,1
+279,Denmark-Germany,1951-2000,0
+280,Denmark-Norway,1451-1800,0
+281,Denmark-Norway,1801-1850,0
+282,Denmark-Norway,1851-1900,2
+283,Denmark-Norway,1901-1950,0
+284,Denmark-Norway,1951-2000,0
+285,Denmark-United Kingdom,1451-1800,0
+286,Denmark-United Kingdom,1801-1850,0
+287,Denmark-United Kingdom,1851-1900,0
+288,Denmark-United Kingdom,1901-1950,1
+289,Denmark-United Kingdom,1951-2000,0
+290,Denmark-United States of America,1451-1800,0
+291,Denmark-United States of America,1801-1850,0
+292,Denmark-United States of America,1851-1900,0
+293,Denmark-United States of America,1901-1950,1
+294,Denmark-United States of America,1951-2000,0
+295,Egypt-Germany,1451-1800,0
+296,Egypt-Germany,1801-1850,0
+297,Egypt-Germany,1851-1900,1
+298,Egypt-Germany,1901-1950,0
+299,Egypt-Germany,1951-2000,0
+300,Egypt-India,1451-1800,0
+301,Egypt-India,1801-1850,0
+302,Egypt-India,1851-1900,2
+303,Egypt-India,1901-1950,0
+304,Egypt-India,1951-2000,0
+305,Egypt-Italy,1451-1800,0
+306,Egypt-Italy,1801-1850,0
+307,Egypt-Italy,1851-1900,2
+308,Egypt-Italy,1901-1950,0
+309,Egypt-Italy,1951-2000,0
+310,Egypt-United Kingdom,1451-1800,0
+311,Egypt-United Kingdom,1801-1850,0
+312,Egypt-United Kingdom,1851-1900,3
+313,Egypt-United Kingdom,1901-1950,0
+314,Egypt-United Kingdom,1951-2000,0
+315,Estonia-Estonia,1451-1800,0
+316,Estonia-Estonia,1801-1850,1
+317,Estonia-Estonia,1851-1900,0
+318,Estonia-Estonia,1901-1950,0
+319,Estonia-Estonia,1951-2000,0
+320,Finland-Finland,1451-1800,0
+321,Finland-Finland,1801-1850,0
+322,Finland-Finland,1851-1900,1
+323,Finland-Finland,1901-1950,0
+324,Finland-Finland,1951-2000,0
+325,France-Belgium,1451-1800,0
+326,France-Belgium,1801-1850,0
+327,France-Belgium,1851-1900,0
+328,France-Belgium,1901-1950,2
+329,France-Belgium,1951-2000,0
+330,France-Canada,1451-1800,0
+331,France-Canada,1801-1850,0
+332,France-Canada,1851-1900,0
+333,France-Canada,1901-1950,0
+334,France-Canada,1951-2000,1
+335,France-France,1451-1800,0
+336,France-France,1801-1850,0
+337,France-France,1851-1900,1
+338,France-France,1901-1950,10
+339,France-France,1951-2000,4
+340,France-Germany,1451-1800,0
+341,France-Germany,1801-1850,0
+342,France-Germany,1851-1900,0
+343,France-Germany,1901-1950,1
+344,France-Germany,1951-2000,1
+345,France-India,1451-1800,0
+346,France-India,1801-1850,0
+347,France-India,1851-1900,0
+348,France-India,1901-1950,4
+349,France-India,1951-2000,0
+350,France-Netherlands,1451-1800,0
+351,France-Netherlands,1801-1850,0
+352,France-Netherlands,1851-1900,0
+353,France-Netherlands,1901-1950,0
+354,France-Netherlands,1951-2000,1
+355,France-Romania,1451-1800,0
+356,France-Romania,1801-1850,0
+357,France-Romania,1851-1900,0
+358,France-Romania,1901-1950,4
+359,France-Romania,1951-2000,0
+360,France-Switzerland,1451-1800,0
+361,France-Switzerland,1801-1850,0
+362,France-Switzerland,1851-1900,0
+363,France-Switzerland,1901-1950,0
+364,France-Switzerland,1951-2000,2
+365,France-United Kingdom,1451-1800,0
+366,France-United Kingdom,1801-1850,0
+367,France-United Kingdom,1851-1900,0
+368,France-United Kingdom,1901-1950,1
+369,France-United Kingdom,1951-2000,6
+370,France-United States of America,1451-1800,0
+371,France-United States of America,1801-1850,0
+372,France-United States of America,1851-1900,1
+373,France-United States of America,1901-1950,8
+374,France-United States of America,1951-2000,9
+375,Georgia-Germany,1451-1800,0
+376,Georgia-Germany,1801-1850,0
+377,Georgia-Germany,1851-1900,1
+378,Georgia-Germany,1901-1950,0
+379,Georgia-Germany,1951-2000,0
+380,Germany-Australia,1451-1800,0
+381,Germany-Australia,1801-1850,0
+382,Germany-Australia,1851-1900,0
+383,Germany-Australia,1901-1950,1
+384,Germany-Australia,1951-2000,0
+385,Germany-Austria,1451-1800,0
+386,Germany-Austria,1801-1850,1
+387,Germany-Austria,1851-1900,8
+388,Germany-Austria,1901-1950,0
+389,Germany-Austria,1951-2000,0
+390,Germany-Belgium,1451-1800,0
+391,Germany-Belgium,1801-1850,0
+392,Germany-Belgium,1851-1900,0
+393,Germany-Belgium,1901-1950,1
+394,Germany-Belgium,1951-2000,0
+395,Germany-Canada,1451-1800,0
+396,Germany-Canada,1801-1850,0
+397,Germany-Canada,1851-1900,0
+398,Germany-Canada,1901-1950,2
+399,Germany-Canada,1951-2000,0
+400,Germany-Croatia,1451-1800,0
+401,Germany-Croatia,1801-1850,0
+402,Germany-Croatia,1851-1900,0
+403,Germany-Croatia,1901-1950,1
+404,Germany-Croatia,1951-2000,0
+405,Germany-Denmark,1451-1800,1
+406,Germany-Denmark,1801-1850,0
+407,Germany-Denmark,1851-1900,0
+408,Germany-Denmark,1901-1950,0
+409,Germany-Denmark,1951-2000,0
+410,Germany-France,1451-1800,0
+411,Germany-France,1801-1850,1
+412,Germany-France,1851-1900,0
+413,Germany-France,1901-1950,0
+414,Germany-France,1951-2000,2
+415,Germany-Germany,1451-1800,4
+416,Germany-Germany,1801-1850,16
+417,Germany-Germany,1851-1900,36
+418,Germany-Germany,1901-1950,39
+419,Germany-Germany,1951-2000,9
+420,Germany-Hungary,1451-1800,0
+421,Germany-Hungary,1801-1850,0
+422,Germany-Hungary,1851-1900,0
+423,Germany-Hungary,1901-1950,1
+424,Germany-Hungary,1951-2000,0
+425,Germany-Italy,1451-1800,0
+426,Germany-Italy,1801-1850,0
+427,Germany-Italy,1851-1900,0
+428,Germany-Italy,1901-1950,1
+429,Germany-Italy,1951-2000,0
+430,Germany-Netherlands,1451-1800,0
+431,Germany-Netherlands,1801-1850,0
+432,Germany-Netherlands,1851-1900,0
+433,Germany-Netherlands,1901-1950,2
+434,Germany-Netherlands,1951-2000,2
+435,Germany-Norway,1451-1800,0
+436,Germany-Norway,1801-1850,0
+437,Germany-Norway,1851-1900,0
+438,Germany-Norway,1901-1950,3
+439,Germany-Norway,1951-2000,0
+440,Germany-Poland,1451-1800,0
+441,Germany-Poland,1801-1850,0
+442,Germany-Poland,1851-1900,1
+443,Germany-Poland,1901-1950,0
+444,Germany-Poland,1951-2000,0
+445,Germany-Romania,1451-1800,0
+446,Germany-Romania,1801-1850,0
+447,Germany-Romania,1851-1900,0
+448,Germany-Romania,1901-1950,0
+449,Germany-Romania,1951-2000,1
+450,Germany-Russia,1451-1800,0
+451,Germany-Russia,1801-1850,1
+452,Germany-Russia,1851-1900,0
+453,Germany-Russia,1901-1950,7
+454,Germany-Russia,1951-2000,0
+455,Germany-Switzerland,1451-1800,0
+456,Germany-Switzerland,1801-1850,0
+457,Germany-Switzerland,1851-1900,3
+458,Germany-Switzerland,1901-1950,1
+459,Germany-Switzerland,1951-2000,0
+460,Germany-United Kingdom,1451-1800,0
+461,Germany-United Kingdom,1801-1850,0
+462,Germany-United Kingdom,1851-1900,1
+463,Germany-United Kingdom,1901-1950,9
+464,Germany-United Kingdom,1951-2000,4
+465,Germany-United States of America,1451-1800,0
+466,Germany-United States of America,1801-1850,0
+467,Germany-United States of America,1851-1900,5
+468,Germany-United States of America,1901-1950,7
+469,Germany-United States of America,1951-2000,2
+470,Greece-United States of America,1451-1800,0
+471,Greece-United States of America,1801-1850,0
+472,Greece-United States of America,1851-1900,0
+473,Greece-United States of America,1901-1950,1
+474,Greece-United States of America,1951-2000,0
+475,Hungary-Austria,1451-1800,1
+476,Hungary-Austria,1801-1850,0
+477,Hungary-Austria,1851-1900,0
+478,Hungary-Austria,1901-1950,0
+479,Hungary-Austria,1951-2000,0
+480,Hungary-Canada,1451-1800,0
+481,Hungary-Canada,1801-1850,0
+482,Hungary-Canada,1851-1900,0
+483,Hungary-Canada,1901-1950,0
+484,Hungary-Canada,1951-2000,1
+485,Hungary-Czechia,1451-1800,1
+486,Hungary-Czechia,1801-1850,0
+487,Hungary-Czechia,1851-1900,0
+488,Hungary-Czechia,1901-1950,0
+489,Hungary-Czechia,1951-2000,0
+490,Hungary-Germany,1451-1800,0
+491,Hungary-Germany,1801-1850,0
+492,Hungary-Germany,1851-1900,1
+493,Hungary-Germany,1901-1950,1
+494,Hungary-Germany,1951-2000,0
+495,Hungary-Hungary,1451-1800,0
+496,Hungary-Hungary,1801-1850,0
+497,Hungary-Hungary,1851-1900,0
+498,Hungary-Hungary,1901-1950,5
+499,Hungary-Hungary,1951-2000,1
+500,Hungary-Israel,1451-1800,0
+501,Hungary-Israel,1801-1850,0
+502,Hungary-Israel,1851-1900,0
+503,Hungary-Israel,1901-1950,1
+504,Hungary-Israel,1951-2000,0
+505,Hungary-Palestine,1451-1800,0
+506,Hungary-Palestine,1801-1850,0
+507,Hungary-Palestine,1851-1900,0
+508,Hungary-Palestine,1901-1950,1
+509,Hungary-Palestine,1951-2000,0
+510,Hungary-Poland,1451-1800,1
+511,Hungary-Poland,1801-1850,0
+512,Hungary-Poland,1851-1900,0
+513,Hungary-Poland,1901-1950,0
+514,Hungary-Poland,1951-2000,0
+515,Hungary-United Kingdom,1451-1800,0
+516,Hungary-United Kingdom,1801-1850,0
+517,Hungary-United Kingdom,1851-1900,0
+518,Hungary-United Kingdom,1901-1950,5
+519,Hungary-United Kingdom,1951-2000,0
+520,Hungary-United States of America,1451-1800,0
+521,Hungary-United States of America,1801-1850,0
+522,Hungary-United States of America,1851-1900,1
+523,Hungary-United States of America,1901-1950,12
+524,Hungary-United States of America,1951-2000,4
+525,India-France,1451-1800,0
+526,India-France,1801-1850,0
+527,India-France,1851-1900,0
+528,India-France,1901-1950,2
+529,India-France,1951-2000,0
+530,India-Germany,1451-1800,0
+531,India-Germany,1801-1850,0
+532,India-Germany,1851-1900,4
+533,India-Germany,1901-1950,0
+534,India-Germany,1951-2000,0
+535,India-India,1451-1800,0
+536,India-India,1801-1850,0
+537,India-India,1851-1900,3
+538,India-India,1901-1950,6
+539,India-India,1951-2000,0
+540,India-Italy,1451-1800,0
+541,India-Italy,1801-1850,0
+542,India-Italy,1851-1900,4
+543,India-Italy,1901-1950,0
+544,India-Italy,1951-2000,0
+545,India-United Kingdom,1451-1800,0
+546,India-United Kingdom,1801-1850,0
+547,India-United Kingdom,1851-1900,9
+548,India-United Kingdom,1901-1950,2
+549,India-United Kingdom,1951-2000,0
+550,India-United States of America,1451-1800,0
+551,India-United States of America,1801-1850,0
+552,India-United States of America,1851-1900,0
+553,India-United States of America,1901-1950,1
+554,India-United States of America,1951-2000,0
+555,Ireland-Germany,1451-1800,0
+556,Ireland-Germany,1801-1850,0
+557,Ireland-Germany,1851-1900,1
+558,Ireland-Germany,1901-1950,3
+559,Ireland-Germany,1951-2000,0
+560,Ireland-Ireland,1451-1800,0
+561,Ireland-Ireland,1801-1850,0
+562,Ireland-Ireland,1851-1900,0
+563,Ireland-Ireland,1901-1950,1
+564,Ireland-Ireland,1951-2000,0
+565,Ireland-United Kingdom,1451-1800,0
+566,Ireland-United Kingdom,1801-1850,0
+567,Ireland-United Kingdom,1851-1900,0
+568,Ireland-United Kingdom,1901-1950,10
+569,Ireland-United Kingdom,1951-2000,0
+570,Ireland-United States of America,1451-1800,0
+571,Ireland-United States of America,1801-1850,0
+572,Ireland-United States of America,1851-1900,1
+573,Ireland-United States of America,1901-1950,0
+574,Ireland-United States of America,1951-2000,0
+575,Israel-Israel,1451-1800,0
+576,Israel-Israel,1801-1850,0
+577,Israel-Israel,1851-1900,0
+578,Israel-Israel,1901-1950,2
+579,Israel-Israel,1951-2000,0
+580,Israel-Palestine,1451-1800,0
+581,Israel-Palestine,1801-1850,0
+582,Israel-Palestine,1851-1900,0
+583,Israel-Palestine,1901-1950,2
+584,Israel-Palestine,1951-2000,0
+585,Israel-United Kingdom,1451-1800,0
+586,Israel-United Kingdom,1801-1850,0
+587,Israel-United Kingdom,1851-1900,0
+588,Israel-United Kingdom,1901-1950,1
+589,Israel-United Kingdom,1951-2000,1
+590,Israel-United States of America,1451-1800,0
+591,Israel-United States of America,1801-1850,0
+592,Israel-United States of America,1851-1900,0
+593,Israel-United States of America,1901-1950,4
+594,Israel-United States of America,1951-2000,2
+595,Italy-Australia,1451-1800,0
+596,Italy-Australia,1801-1850,0
+597,Italy-Australia,1851-1900,0
+598,Italy-Australia,1901-1950,1
+599,Italy-Australia,1951-2000,0
+600,Italy-Austria,1451-1800,2
+601,Italy-Austria,1801-1850,0
+602,Italy-Austria,1851-1900,1
+603,Italy-Austria,1901-1950,0
+604,Italy-Austria,1951-2000,0
+605,Italy-Brazil,1451-1800,0
+606,Italy-Brazil,1801-1850,0
+607,Italy-Brazil,1851-1900,0
+608,Italy-Brazil,1901-1950,4
+609,Italy-Brazil,1951-2000,1
+610,Italy-Germany,1451-1800,0
+611,Italy-Germany,1801-1850,0
+612,Italy-Germany,1851-1900,2
+613,Italy-Germany,1901-1950,0
+614,Italy-Germany,1951-2000,0
+615,Italy-Italy,1451-1800,7
+616,Italy-Italy,1801-1850,11
+617,Italy-Italy,1851-1900,45
+618,Italy-Italy,1901-1950,11
+619,Italy-Italy,1951-2000,0
+620,Italy-Pakistan,1451-1800,0
+621,Italy-Pakistan,1801-1850,0
+622,Italy-Pakistan,1851-1900,0
+623,Italy-Pakistan,1901-1950,4
+624,Italy-Pakistan,1951-2000,0
+625,Italy-Romania,1451-1800,0
+626,Italy-Romania,1801-1850,0
+627,Italy-Romania,1851-1900,1
+628,Italy-Romania,1901-1950,2
+629,Italy-Romania,1951-2000,0
+630,Italy-Saudi Arabia,1451-1800,0
+631,Italy-Saudi Arabia,1801-1850,0
+632,Italy-Saudi Arabia,1851-1900,0
+633,Italy-Saudi Arabia,1901-1950,1
+634,Italy-Saudi Arabia,1951-2000,0
+635,Italy-United Kingdom,1451-1800,0
+636,Italy-United Kingdom,1801-1850,0
+637,Italy-United Kingdom,1851-1900,0
+638,Italy-United Kingdom,1901-1950,3
+639,Italy-United Kingdom,1951-2000,0
+640,Italy-United States of America,1451-1800,0
+641,Italy-United States of America,1801-1850,0
+642,Italy-United States of America,1851-1900,1
+643,Italy-United States of America,1901-1950,3
+644,Italy-United States of America,1951-2000,0
+645,Japan-Canada,1451-1800,0
+646,Japan-Canada,1801-1850,0
+647,Japan-Canada,1851-1900,0
+648,Japan-Canada,1901-1950,1
+649,Japan-Canada,1951-2000,0
+650,Japan-Japan,1451-1800,0
+651,Japan-Japan,1801-1850,0
+652,Japan-Japan,1851-1900,0
+653,Japan-Japan,1901-1950,26
+654,Japan-Japan,1951-2000,7
+655,Japan-United States of America,1451-1800,0
+656,Japan-United States of America,1801-1850,0
+657,Japan-United States of America,1851-1900,0
+658,Japan-United States of America,1901-1950,7
+659,Japan-United States of America,1951-2000,3
+660,Malaysia-Canada,1451-1800,0
+661,Malaysia-Canada,1801-1850,0
+662,Malaysia-Canada,1851-1900,0
+663,Malaysia-Canada,1901-1950,1
+664,Malaysia-Canada,1951-2000,0
+665,Mexico-France,1451-1800,0
+666,Mexico-France,1801-1850,0
+667,Mexico-France,1851-1900,1
+668,Mexico-France,1901-1950,0
+669,Mexico-France,1951-2000,0
+670,Mexico-United States of America,1451-1800,0
+671,Mexico-United States of America,1801-1850,0
+672,Mexico-United States of America,1851-1900,2
+673,Mexico-United States of America,1901-1950,0
+674,Mexico-United States of America,1951-2000,0
+675,Moldova-Russia,1451-1800,0
+676,Moldova-Russia,1801-1850,0
+677,Moldova-Russia,1851-1900,0
+678,Moldova-Russia,1901-1950,1
+679,Moldova-Russia,1951-2000,0
+680,Morocco-France,1451-1800,0
+681,Morocco-France,1801-1850,0
+682,Morocco-France,1851-1900,0
+683,Morocco-France,1901-1950,0
+684,Morocco-France,1951-2000,1
+685,Netherlands-Austria,1451-1800,0
+686,Netherlands-Austria,1801-1850,0
+687,Netherlands-Austria,1851-1900,1
+688,Netherlands-Austria,1901-1950,0
+689,Netherlands-Austria,1951-2000,0
+690,Netherlands-France,1451-1800,0
+691,Netherlands-France,1801-1850,0
+692,Netherlands-France,1851-1900,0
+693,Netherlands-France,1901-1950,0
+694,Netherlands-France,1951-2000,1
+695,Netherlands-Germany,1451-1800,0
+696,Netherlands-Germany,1801-1850,0
+697,Netherlands-Germany,1851-1900,0
+698,Netherlands-Germany,1901-1950,2
+699,Netherlands-Germany,1951-2000,1
+700,Netherlands-Netherlands,1451-1800,0
+701,Netherlands-Netherlands,1801-1850,0
+702,Netherlands-Netherlands,1851-1900,2
+703,Netherlands-Netherlands,1901-1950,16
+704,Netherlands-Netherlands,1951-2000,2
+705,Netherlands-Poland,1451-1800,0
+706,Netherlands-Poland,1801-1850,0
+707,Netherlands-Poland,1851-1900,0
+708,Netherlands-Poland,1901-1950,2
+709,Netherlands-Poland,1951-2000,0
+710,Netherlands-Switzerland,1451-1800,0
+711,Netherlands-Switzerland,1801-1850,0
+712,Netherlands-Switzerland,1851-1900,1
+713,Netherlands-Switzerland,1901-1950,2
+714,Netherlands-Switzerland,1951-2000,0
+715,Netherlands-United Kingdom,1451-1800,0
+716,Netherlands-United Kingdom,1801-1850,0
+717,Netherlands-United Kingdom,1851-1900,0
+718,Netherlands-United Kingdom,1901-1950,4
+719,Netherlands-United Kingdom,1951-2000,0
+720,Netherlands-United States of America,1451-1800,0
+721,Netherlands-United States of America,1801-1850,0
+722,Netherlands-United States of America,1851-1900,1
+723,Netherlands-United States of America,1901-1950,5
+724,Netherlands-United States of America,1951-2000,2
+725,New Zealand-New Zealand,1451-1800,0
+726,New Zealand-New Zealand,1801-1850,0
+727,New Zealand-New Zealand,1851-1900,0
+728,New Zealand-New Zealand,1901-1950,2
+729,New Zealand-New Zealand,1951-2000,1
+730,New Zealand-United Kingdom,1451-1800,0
+731,New Zealand-United Kingdom,1801-1850,0
+732,New Zealand-United Kingdom,1851-1900,0
+733,New Zealand-United Kingdom,1901-1950,2
+734,New Zealand-United Kingdom,1951-2000,1
+735,New Zealand-United States of America,1451-1800,0
+736,New Zealand-United States of America,1801-1850,0
+737,New Zealand-United States of America,1851-1900,0
+738,New Zealand-United States of America,1901-1950,1
+739,New Zealand-United States of America,1951-2000,4
+740,Norway-Canada,1451-1800,0
+741,Norway-Canada,1801-1850,0
+742,Norway-Canada,1851-1900,0
+743,Norway-Canada,1901-1950,1
+744,Norway-Canada,1951-2000,0
+745,Norway-Norway,1451-1800,0
+746,Norway-Norway,1801-1850,0
+747,Norway-Norway,1851-1900,0
+748,Norway-Norway,1901-1950,1
+749,Norway-Norway,1951-2000,1
+750,Pakistan-Italy,1451-1800,0
+751,Pakistan-Italy,1801-1850,0
+752,Pakistan-Italy,1851-1900,0
+753,Pakistan-Italy,1901-1950,1
+754,Pakistan-Italy,1951-2000,0
+755,Pakistan-Pakistan,1451-1800,0
+756,Pakistan-Pakistan,1801-1850,0
+757,Pakistan-Pakistan,1851-1900,0
+758,Pakistan-Pakistan,1901-1950,5
+759,Pakistan-Pakistan,1951-2000,1
+760,Pakistan-United Kingdom,1451-1800,0
+761,Pakistan-United Kingdom,1801-1850,0
+762,Pakistan-United Kingdom,1851-1900,0
+763,Pakistan-United Kingdom,1901-1950,4
+764,Pakistan-United Kingdom,1951-2000,1
+765,Pakistan-United States of America,1451-1800,0
+766,Pakistan-United States of America,1801-1850,0
+767,Pakistan-United States of America,1851-1900,0
+768,Pakistan-United States of America,1901-1950,3
+769,Pakistan-United States of America,1951-2000,0
+770,Palestine-France,1451-1800,0
+771,Palestine-France,1801-1850,0
+772,Palestine-France,1851-1900,0
+773,Palestine-France,1901-1950,1
+774,Palestine-France,1951-2000,0
+775,Palestine-Germany,1451-1800,0
+776,Palestine-Germany,1801-1850,0
+777,Palestine-Germany,1851-1900,1
+778,Palestine-Germany,1901-1950,0
+779,Palestine-Germany,1951-2000,0
+780,Palestine-Israel,1451-1800,0
+781,Palestine-Israel,1801-1850,0
+782,Palestine-Israel,1851-1900,0
+783,Palestine-Israel,1901-1950,1
+784,Palestine-Israel,1951-2000,2
+785,Palestine-Palestine,1451-1800,0
+786,Palestine-Palestine,1801-1850,0
+787,Palestine-Palestine,1851-1900,0
+788,Palestine-Palestine,1901-1950,1
+789,Palestine-Palestine,1951-2000,1
+790,Palestine-Russia,1451-1800,0
+791,Palestine-Russia,1801-1850,0
+792,Palestine-Russia,1851-1900,0
+793,Palestine-Russia,1901-1950,1
+794,Palestine-Russia,1951-2000,0
+795,Palestine-United Kingdom,1451-1800,0
+796,Palestine-United Kingdom,1801-1850,0
+797,Palestine-United Kingdom,1851-1900,0
+798,Palestine-United Kingdom,1901-1950,1
+799,Palestine-United Kingdom,1951-2000,3
+800,Palestine-United States of America,1451-1800,0
+801,Palestine-United States of America,1801-1850,0
+802,Palestine-United States of America,1851-1900,0
+803,Palestine-United States of America,1901-1950,8
+804,Palestine-United States of America,1951-2000,4
+805,Peru-Peru,1451-1800,0
+806,Peru-Peru,1801-1850,0
+807,Peru-Peru,1851-1900,1
+808,Peru-Peru,1901-1950,0
+809,Peru-Peru,1951-2000,0
+810,Poland-Austria,1451-1800,1
+811,Poland-Austria,1801-1850,1
+812,Poland-Austria,1851-1900,0
+813,Poland-Austria,1901-1950,0
+814,Poland-Austria,1951-2000,0
+815,Poland-Netherlands,1451-1800,0
+816,Poland-Netherlands,1801-1850,0
+817,Poland-Netherlands,1851-1900,0
+818,Poland-Netherlands,1901-1950,1
+819,Poland-Netherlands,1951-2000,0
+820,Poland-Poland,1451-1800,0
+821,Poland-Poland,1801-1850,0
+822,Poland-Poland,1851-1900,1
+823,Poland-Poland,1901-1950,6
+824,Poland-Poland,1951-2000,0
+825,Poland-Switzerland,1451-1800,0
+826,Poland-Switzerland,1801-1850,0
+827,Poland-Switzerland,1851-1900,0
+828,Poland-Switzerland,1901-1950,1
+829,Poland-Switzerland,1951-2000,0
+830,Poland-United States of America,1451-1800,0
+831,Poland-United States of America,1801-1850,0
+832,Poland-United States of America,1851-1900,1
+833,Poland-United States of America,1901-1950,0
+834,Poland-United States of America,1951-2000,0
+835,Portugal-United States of America,1451-1800,0
+836,Portugal-United States of America,1801-1850,0
+837,Portugal-United States of America,1851-1900,0
+838,Portugal-United States of America,1901-1950,0
+839,Portugal-United States of America,1951-2000,3
+840,Puerto Rico-United States of America,1451-1800,0
+841,Puerto Rico-United States of America,1801-1850,0
+842,Puerto Rico-United States of America,1851-1900,0
+843,Puerto Rico-United States of America,1901-1950,3
+844,Puerto Rico-United States of America,1951-2000,1
+845,Romania-Austria,1451-1800,0
+846,Romania-Austria,1801-1850,0
+847,Romania-Austria,1851-1900,0
+848,Romania-Austria,1901-1950,1
+849,Romania-Austria,1951-2000,0
+850,Romania-France,1451-1800,0
+851,Romania-France,1801-1850,0
+852,Romania-France,1851-1900,0
+853,Romania-France,1901-1950,4
+854,Romania-France,1951-2000,0
+855,Romania-Germany,1451-1800,0
+856,Romania-Germany,1801-1850,0
+857,Romania-Germany,1851-1900,0
+858,Romania-Germany,1901-1950,3
+859,Romania-Germany,1951-2000,0
+860,Romania-Italy,1451-1800,0
+861,Romania-Italy,1801-1850,0
+862,Romania-Italy,1851-1900,2
+863,Romania-Italy,1901-1950,1
+864,Romania-Italy,1951-2000,0
+865,Romania-Romania,1451-1800,0
+866,Romania-Romania,1801-1850,0
+867,Romania-Romania,1851-1900,4
+868,Romania-Romania,1901-1950,10
+869,Romania-Romania,1951-2000,1
+870,Romania-United Kingdom,1451-1800,0
+871,Romania-United Kingdom,1801-1850,0
+872,Romania-United Kingdom,1851-1900,0
+873,Romania-United Kingdom,1901-1950,1
+874,Romania-United Kingdom,1951-2000,0
+875,Romania-United States of America,1451-1800,0
+876,Romania-United States of America,1801-1850,0
+877,Romania-United States of America,1851-1900,0
+878,Romania-United States of America,1901-1950,7
+879,Romania-United States of America,1951-2000,4
+880,Russia-Armenia,1451-1800,0
+881,Russia-Armenia,1801-1850,0
+882,Russia-Armenia,1851-1900,0
+883,Russia-Armenia,1901-1950,4
+884,Russia-Armenia,1951-2000,0
+885,Russia-Austria,1451-1800,0
+886,Russia-Austria,1801-1850,0
+887,Russia-Austria,1851-1900,1
+888,Russia-Austria,1901-1950,0
+889,Russia-Austria,1951-2000,0
+890,Russia-Belgium,1451-1800,0
+891,Russia-Belgium,1801-1850,0
+892,Russia-Belgium,1851-1900,0
+893,Russia-Belgium,1901-1950,0
+894,Russia-Belgium,1951-2000,1
+895,Russia-Brazil,1451-1800,0
+896,Russia-Brazil,1801-1850,0
+897,Russia-Brazil,1851-1900,0
+898,Russia-Brazil,1901-1950,0
+899,Russia-Brazil,1951-2000,1
+900,Russia-Canada,1451-1800,0
+901,Russia-Canada,1801-1850,0
+902,Russia-Canada,1851-1900,0
+903,Russia-Canada,1901-1950,1
+904,Russia-Canada,1951-2000,0
+905,Russia-China,1451-1800,0
+906,Russia-China,1801-1850,0
+907,Russia-China,1851-1900,0
+908,Russia-China,1901-1950,2
+909,Russia-China,1951-2000,0
+910,Russia-Estonia,1451-1800,0
+911,Russia-Estonia,1801-1850,0
+912,Russia-Estonia,1851-1900,1
+913,Russia-Estonia,1901-1950,0
+914,Russia-Estonia,1951-2000,0
+915,Russia-Germany,1451-1800,0
+916,Russia-Germany,1801-1850,0
+917,Russia-Germany,1851-1900,0
+918,Russia-Germany,1901-1950,0
+919,Russia-Germany,1951-2000,1
+920,Russia-Israel,1451-1800,0
+921,Russia-Israel,1801-1850,0
+922,Russia-Israel,1851-1900,0
+923,Russia-Israel,1901-1950,1
+924,Russia-Israel,1951-2000,3
+925,Russia-Russia,1451-1800,0
+926,Russia-Russia,1801-1850,0
+927,Russia-Russia,1851-1900,6
+928,Russia-Russia,1901-1950,24
+929,Russia-Russia,1951-2000,8
+930,Russia-Ukraine,1451-1800,0
+931,Russia-Ukraine,1801-1850,0
+932,Russia-Ukraine,1851-1900,0
+933,Russia-Ukraine,1901-1950,2
+934,Russia-Ukraine,1951-2000,0
+935,Russia-United Kingdom,1451-1800,0
+936,Russia-United Kingdom,1801-1850,0
+937,Russia-United Kingdom,1851-1900,0
+938,Russia-United Kingdom,1901-1950,0
+939,Russia-United Kingdom,1951-2000,5
+940,Russia-United States of America,1451-1800,0
+941,Russia-United States of America,1801-1850,0
+942,Russia-United States of America,1851-1900,4
+943,Russia-United States of America,1901-1950,4
+944,Russia-United States of America,1951-2000,11
+945,Russia-Uzbekistan,1451-1800,0
+946,Russia-Uzbekistan,1801-1850,0
+947,Russia-Uzbekistan,1851-1900,0
+948,Russia-Uzbekistan,1901-1950,1
+949,Russia-Uzbekistan,1951-2000,0
+950,Saudi Arabia-Pakistan,1451-1800,0
+951,Saudi Arabia-Pakistan,1801-1850,0
+952,Saudi Arabia-Pakistan,1851-1900,0
+953,Saudi Arabia-Pakistan,1901-1950,3
+954,Saudi Arabia-Pakistan,1951-2000,0
+955,Saudi Arabia-United Kingdom,1451-1800,0
+956,Saudi Arabia-United Kingdom,1801-1850,0
+957,Saudi Arabia-United Kingdom,1851-1900,0
+958,Saudi Arabia-United Kingdom,1901-1950,1
+959,Saudi Arabia-United Kingdom,1951-2000,0
+960,Saudi Arabia-United States of America,1451-1800,0
+961,Saudi Arabia-United States of America,1801-1850,0
+962,Saudi Arabia-United States of America,1851-1900,0
+963,Saudi Arabia-United States of America,1901-1950,4
+964,Saudi Arabia-United States of America,1951-2000,0
+965,Serbia-Serbia,1451-1800,0
+966,Serbia-Serbia,1801-1850,0
+967,Serbia-Serbia,1851-1900,0
+968,Serbia-Serbia,1901-1950,4
+969,Serbia-Serbia,1951-2000,0
+970,South Africa-South Africa,1451-1800,0
+971,South Africa-South Africa,1801-1850,0
+972,South Africa-South Africa,1851-1900,0
+973,South Africa-South Africa,1901-1950,2
+974,South Africa-South Africa,1951-2000,0
+975,South Africa-United Kingdom,1451-1800,0
+976,South Africa-United Kingdom,1801-1850,0
+977,South Africa-United Kingdom,1851-1900,0
+978,South Africa-United Kingdom,1901-1950,1
+979,South Africa-United Kingdom,1951-2000,0
+980,South Africa-United States of America,1451-1800,0
+981,South Africa-United States of America,1801-1850,0
+982,South Africa-United States of America,1851-1900,0
+983,South Africa-United States of America,1901-1950,2
+984,South Africa-United States of America,1951-2000,0
+985,Spain-Argentina,1451-1800,0
+986,Spain-Argentina,1801-1850,0
+987,Spain-Argentina,1851-1900,2
+988,Spain-Argentina,1901-1950,0
+989,Spain-Argentina,1951-2000,0
+990,Spain-France,1451-1800,0
+991,Spain-France,1801-1850,0
+992,Spain-France,1851-1900,0
+993,Spain-France,1901-1950,0
+994,Spain-France,1951-2000,1
+995,Spain-Germany,1451-1800,0
+996,Spain-Germany,1801-1850,0
+997,Spain-Germany,1851-1900,0
+998,Spain-Germany,1901-1950,0
+999,Spain-Germany,1951-2000,1
+1000,Spain-Spain,1451-1800,0
+1001,Spain-Spain,1801-1850,0
+1002,Spain-Spain,1851-1900,0
+1003,Spain-Spain,1901-1950,1
+1004,Spain-Spain,1951-2000,0
+1005,Spain-United Kingdom,1451-1800,0
+1006,Spain-United Kingdom,1801-1850,0
+1007,Spain-United Kingdom,1851-1900,0
+1008,Spain-United Kingdom,1901-1950,0
+1009,Spain-United Kingdom,1951-2000,1
+1010,Sweden-Sweden,1451-1800,0
+1011,Sweden-Sweden,1801-1850,0
+1012,Sweden-Sweden,1851-1900,1
+1013,Sweden-Sweden,1901-1950,2
+1014,Sweden-Sweden,1951-2000,0
+1015,Sweden-United States of America,1451-1800,0
+1016,Sweden-United States of America,1801-1850,0
+1017,Sweden-United States of America,1851-1900,0
+1018,Sweden-United States of America,1901-1950,3
+1019,Sweden-United States of America,1951-2000,0
+1020,Switzerland-France,1451-1800,0
+1021,Switzerland-France,1801-1850,0
+1022,Switzerland-France,1851-1900,0
+1023,Switzerland-France,1901-1950,1
+1024,Switzerland-France,1951-2000,0
+1025,Switzerland-Germany,1451-1800,0
+1026,Switzerland-Germany,1801-1850,1
+1027,Switzerland-Germany,1851-1900,5
+1028,Switzerland-Germany,1901-1950,0
+1029,Switzerland-Germany,1951-2000,0
+1030,Switzerland-Israel,1451-1800,0
+1031,Switzerland-Israel,1801-1850,0
+1032,Switzerland-Israel,1851-1900,0
+1033,Switzerland-Israel,1901-1950,0
+1034,Switzerland-Israel,1951-2000,1
+1035,Switzerland-Netherlands,1451-1800,0
+1036,Switzerland-Netherlands,1801-1850,0
+1037,Switzerland-Netherlands,1851-1900,1
+1038,Switzerland-Netherlands,1901-1950,0
+1039,Switzerland-Netherlands,1951-2000,0
+1040,Switzerland-Switzerland,1451-1800,0
+1041,Switzerland-Switzerland,1801-1850,0
+1042,Switzerland-Switzerland,1851-1900,6
+1043,Switzerland-Switzerland,1901-1950,0
+1044,Switzerland-Switzerland,1951-2000,0
+1045,Switzerland-United Kingdom,1451-1800,0
+1046,Switzerland-United Kingdom,1801-1850,0
+1047,Switzerland-United Kingdom,1851-1900,2
+1048,Switzerland-United Kingdom,1901-1950,0
+1049,Switzerland-United Kingdom,1951-2000,0
+1050,Switzerland-United States of America,1451-1800,0
+1051,Switzerland-United States of America,1801-1850,0
+1052,Switzerland-United States of America,1851-1900,2
+1053,Switzerland-United States of America,1901-1950,1
+1054,Switzerland-United States of America,1951-2000,3
+1055,Turkey-Japan,1451-1800,0
+1056,Turkey-Japan,1801-1850,0
+1057,Turkey-Japan,1851-1900,0
+1058,Turkey-Japan,1901-1950,2
+1059,Turkey-Japan,1951-2000,0
+1060,Turkey-Turkey,1451-1800,0
+1061,Turkey-Turkey,1801-1850,0
+1062,Turkey-Turkey,1851-1900,0
+1063,Turkey-Turkey,1901-1950,1
+1064,Turkey-Turkey,1951-2000,9
+1065,Uganda-Norway,1451-1800,0
+1066,Uganda-Norway,1801-1850,0
+1067,Uganda-Norway,1851-1900,0
+1068,Uganda-Norway,1901-1950,0
+1069,Uganda-Norway,1951-2000,1
+1070,Ukraine-Ukraine,1451-1800,0
+1071,Ukraine-Ukraine,1801-1850,0
+1072,Ukraine-Ukraine,1851-1900,0
+1073,Ukraine-Ukraine,1901-1950,1
+1074,Ukraine-Ukraine,1951-2000,0
+1075,United Kingdom-Australia,1451-1800,0
+1076,United Kingdom-Australia,1801-1850,0
+1077,United Kingdom-Australia,1851-1900,0
+1078,United Kingdom-Australia,1901-1950,1
+1079,United Kingdom-Australia,1951-2000,0
+1080,United Kingdom-Austria,1451-1800,0
+1081,United Kingdom-Austria,1801-1850,0
+1082,United Kingdom-Austria,1851-1900,0
+1083,United Kingdom-Austria,1901-1950,0
+1084,United Kingdom-Austria,1951-2000,2
+1085,United Kingdom-Bangladesh,1451-1800,0
+1086,United Kingdom-Bangladesh,1801-1850,0
+1087,United Kingdom-Bangladesh,1851-1900,0
+1088,United Kingdom-Bangladesh,1901-1950,1
+1089,United Kingdom-Bangladesh,1951-2000,0
+1090,United Kingdom-Belgium,1451-1800,0
+1091,United Kingdom-Belgium,1801-1850,0
+1092,United Kingdom-Belgium,1851-1900,0
+1093,United Kingdom-Belgium,1901-1950,0
+1094,United Kingdom-Belgium,1951-2000,1
+1095,United Kingdom-Canada,1451-1800,0
+1096,United Kingdom-Canada,1801-1850,0
+1097,United Kingdom-Canada,1851-1900,0
+1098,United Kingdom-Canada,1901-1950,12
+1099,United Kingdom-Canada,1951-2000,3
+1100,United Kingdom-France,1451-1800,0
+1101,United Kingdom-France,1801-1850,0
+1102,United Kingdom-France,1851-1900,0
+1103,United Kingdom-France,1901-1950,1
+1104,United Kingdom-France,1951-2000,2
+1105,United Kingdom-Germany,1451-1800,2
+1106,United Kingdom-Germany,1801-1850,0
+1107,United Kingdom-Germany,1851-1900,7
+1108,United Kingdom-Germany,1901-1950,4
+1109,United Kingdom-Germany,1951-2000,4
+1110,United Kingdom-Italy,1451-1800,0
+1111,United Kingdom-Italy,1801-1850,0
+1112,United Kingdom-Italy,1851-1900,6
+1113,United Kingdom-Italy,1901-1950,2
+1114,United Kingdom-Italy,1951-2000,0
+1115,United Kingdom-Netherlands,1451-1800,0
+1116,United Kingdom-Netherlands,1801-1850,0
+1117,United Kingdom-Netherlands,1851-1900,0
+1118,United Kingdom-Netherlands,1901-1950,2
+1119,United Kingdom-Netherlands,1951-2000,0
+1120,United Kingdom-New Zealand,1451-1800,0
+1121,United Kingdom-New Zealand,1801-1850,0
+1122,United Kingdom-New Zealand,1851-1900,0
+1123,United Kingdom-New Zealand,1901-1950,2
+1124,United Kingdom-New Zealand,1951-2000,1
+1125,United Kingdom-Nigeria,1451-1800,0
+1126,United Kingdom-Nigeria,1801-1850,0
+1127,United Kingdom-Nigeria,1851-1900,0
+1128,United Kingdom-Nigeria,1901-1950,1
+1129,United Kingdom-Nigeria,1951-2000,0
+1130,United Kingdom-Norway,1451-1800,0
+1131,United Kingdom-Norway,1801-1850,0
+1132,United Kingdom-Norway,1851-1900,0
+1133,United Kingdom-Norway,1901-1950,5
+1134,United Kingdom-Norway,1951-2000,0
+1135,United Kingdom-Pakistan,1451-1800,0
+1136,United Kingdom-Pakistan,1801-1850,0
+1137,United Kingdom-Pakistan,1851-1900,1
+1138,United Kingdom-Pakistan,1901-1950,12
+1139,United Kingdom-Pakistan,1951-2000,1
+1140,United Kingdom-Poland,1451-1800,0
+1141,United Kingdom-Poland,1801-1850,0
+1142,United Kingdom-Poland,1851-1900,0
+1143,United Kingdom-Poland,1901-1950,1
+1144,United Kingdom-Poland,1951-2000,0
+1145,United Kingdom-Portugal,1451-1800,0
+1146,United Kingdom-Portugal,1801-1850,0
+1147,United Kingdom-Portugal,1851-1900,0
+1148,United Kingdom-Portugal,1901-1950,0
+1149,United Kingdom-Portugal,1951-2000,1
+1150,United Kingdom-Romania,1451-1800,0
+1151,United Kingdom-Romania,1801-1850,0
+1152,United Kingdom-Romania,1851-1900,0
+1153,United Kingdom-Romania,1901-1950,2
+1154,United Kingdom-Romania,1951-2000,0
+1155,United Kingdom-Russia,1451-1800,0
+1156,United Kingdom-Russia,1801-1850,0
+1157,United Kingdom-Russia,1851-1900,0
+1158,United Kingdom-Russia,1901-1950,0
+1159,United Kingdom-Russia,1951-2000,1
+1160,United Kingdom-Saudi Arabia,1451-1800,0
+1161,United Kingdom-Saudi Arabia,1801-1850,0
+1162,United Kingdom-Saudi Arabia,1851-1900,0
+1163,United Kingdom-Saudi Arabia,1901-1950,2
+1164,United Kingdom-Saudi Arabia,1951-2000,0
+1165,United Kingdom-South Africa,1451-1800,0
+1166,United Kingdom-South Africa,1801-1850,0
+1167,United Kingdom-South Africa,1851-1900,1
+1168,United Kingdom-South Africa,1901-1950,3
+1169,United Kingdom-South Africa,1951-2000,0
+1170,United Kingdom-Spain,1451-1800,0
+1171,United Kingdom-Spain,1801-1850,0
+1172,United Kingdom-Spain,1851-1900,0
+1173,United Kingdom-Spain,1901-1950,0
+1174,United Kingdom-Spain,1951-2000,1
+1175,United Kingdom-Switzerland,1451-1800,0
+1176,United Kingdom-Switzerland,1801-1850,0
+1177,United Kingdom-Switzerland,1851-1900,1
+1178,United Kingdom-Switzerland,1901-1950,0
+1179,United Kingdom-Switzerland,1951-2000,0
+1180,United Kingdom-United Kingdom,1451-1800,4
+1181,United Kingdom-United Kingdom,1801-1850,18
+1182,United Kingdom-United Kingdom,1851-1900,48
+1183,United Kingdom-United Kingdom,1901-1950,219
+1184,United Kingdom-United Kingdom,1951-2000,88
+1185,United Kingdom-United States of America,1451-1800,0
+1186,United Kingdom-United States of America,1801-1850,3
+1187,United Kingdom-United States of America,1851-1900,5
+1188,United Kingdom-United States of America,1901-1950,45
+1189,United Kingdom-United States of America,1951-2000,15
+1190,United States of America-Argentina,1451-1800,0
+1191,United States of America-Argentina,1801-1850,0
+1192,United States of America-Argentina,1851-1900,0
+1193,United States of America-Argentina,1901-1950,3
+1194,United States of America-Argentina,1951-2000,0
+1195,United States of America-Australia,1451-1800,0
+1196,United States of America-Australia,1801-1850,0
+1197,United States of America-Australia,1851-1900,0
+1198,United States of America-Australia,1901-1950,3
+1199,United States of America-Australia,1951-2000,1
+1200,United States of America-Austria,1451-1800,0
+1201,United States of America-Austria,1801-1850,0
+1202,United States of America-Austria,1851-1900,3
+1203,United States of America-Austria,1901-1950,7
+1204,United States of America-Austria,1951-2000,1
+1205,United States of America-Belgium,1451-1800,0
+1206,United States of America-Belgium,1801-1850,0
+1207,United States of America-Belgium,1851-1900,0
+1208,United States of America-Belgium,1901-1950,2
+1209,United States of America-Belgium,1951-2000,1
+1210,United States of America-Brazil,1451-1800,0
+1211,United States of America-Brazil,1801-1850,0
+1212,United States of America-Brazil,1851-1900,0
+1213,United States of America-Brazil,1901-1950,0
+1214,United States of America-Brazil,1951-2000,4
+1215,United States of America-Canada,1451-1800,0
+1216,United States of America-Canada,1801-1850,0
+1217,United States of America-Canada,1851-1900,2
+1218,United States of America-Canada,1901-1950,39
+1219,United States of America-Canada,1951-2000,9
+1220,United States of America-China,1451-1800,0
+1221,United States of America-China,1801-1850,0
+1222,United States of America-China,1851-1900,0
+1223,United States of America-China,1901-1950,3
+1224,United States of America-China,1951-2000,10
+1225,United States of America-Croatia,1451-1800,0
+1226,United States of America-Croatia,1801-1850,0
+1227,United States of America-Croatia,1851-1900,0
+1228,United States of America-Croatia,1901-1950,3
+1229,United States of America-Croatia,1951-2000,0
+1230,United States of America-Czechia,1451-1800,0
+1231,United States of America-Czechia,1801-1850,0
+1232,United States of America-Czechia,1851-1900,0
+1233,United States of America-Czechia,1901-1950,1
+1234,United States of America-Czechia,1951-2000,0
+1235,United States of America-Denmark,1451-1800,0
+1236,United States of America-Denmark,1801-1850,0
+1237,United States of America-Denmark,1851-1900,0
+1238,United States of America-Denmark,1901-1950,3
+1239,United States of America-Denmark,1951-2000,0
+1240,United States of America-Finland,1451-1800,0
+1241,United States of America-Finland,1801-1850,0
+1242,United States of America-Finland,1851-1900,0
+1243,United States of America-Finland,1901-1950,1
+1244,United States of America-Finland,1951-2000,0
+1245,United States of America-France,1451-1800,0
+1246,United States of America-France,1801-1850,0
+1247,United States of America-France,1851-1900,6
+1248,United States of America-France,1901-1950,3
+1249,United States of America-France,1951-2000,2
+1250,United States of America-Germany,1451-1800,0
+1251,United States of America-Germany,1801-1850,0
+1252,United States of America-Germany,1851-1900,17
+1253,United States of America-Germany,1901-1950,20
+1254,United States of America-Germany,1951-2000,6
+1255,United States of America-Greece,1451-1800,0
+1256,United States of America-Greece,1801-1850,0
+1257,United States of America-Greece,1851-1900,0
+1258,United States of America-Greece,1901-1950,0
+1259,United States of America-Greece,1951-2000,1
+1260,United States of America-Hungary,1451-1800,0
+1261,United States of America-Hungary,1801-1850,0
+1262,United States of America-Hungary,1851-1900,0
+1263,United States of America-Hungary,1901-1950,2
+1264,United States of America-Hungary,1951-2000,1
+1265,United States of America-India,1451-1800,0
+1266,United States of America-India,1801-1850,0
+1267,United States of America-India,1851-1900,0
+1268,United States of America-India,1901-1950,1
+1269,United States of America-India,1951-2000,2
+1270,United States of America-Israel,1451-1800,0
+1271,United States of America-Israel,1801-1850,0
+1272,United States of America-Israel,1851-1900,0
+1273,United States of America-Israel,1901-1950,11
+1274,United States of America-Israel,1951-2000,3
+1275,United States of America-Italy,1451-1800,0
+1276,United States of America-Italy,1801-1850,0
+1277,United States of America-Italy,1851-1900,1
+1278,United States of America-Italy,1901-1950,4
+1279,United States of America-Italy,1951-2000,1
+1280,United States of America-Japan,1451-1800,0
+1281,United States of America-Japan,1801-1850,0
+1282,United States of America-Japan,1851-1900,0
+1283,United States of America-Japan,1901-1950,9
+1284,United States of America-Japan,1951-2000,2
+1285,United States of America-Mexico,1451-1800,0
+1286,United States of America-Mexico,1801-1850,0
+1287,United States of America-Mexico,1851-1900,2
+1288,United States of America-Mexico,1901-1950,0
+1289,United States of America-Mexico,1951-2000,0
+1290,United States of America-Netherlands,1451-1800,0
+1291,United States of America-Netherlands,1801-1850,0
+1292,United States of America-Netherlands,1851-1900,1
+1293,United States of America-Netherlands,1901-1950,8
+1294,United States of America-Netherlands,1951-2000,0
+1295,United States of America-Norway,1451-1800,0
+1296,United States of America-Norway,1801-1850,0
+1297,United States of America-Norway,1851-1900,0
+1298,United States of America-Norway,1901-1950,5
+1299,United States of America-Norway,1951-2000,0
+1300,United States of America-Pakistan,1451-1800,0
+1301,United States of America-Pakistan,1801-1850,0
+1302,United States of America-Pakistan,1851-1900,0
+1303,United States of America-Pakistan,1901-1950,16
+1304,United States of America-Pakistan,1951-2000,4
+1305,United States of America-Palestine,1451-1800,0
+1306,United States of America-Palestine,1801-1850,0
+1307,United States of America-Palestine,1851-1900,0
+1308,United States of America-Palestine,1901-1950,1
+1309,United States of America-Palestine,1951-2000,0
+1310,United States of America-Poland,1451-1800,0
+1311,United States of America-Poland,1801-1850,0
+1312,United States of America-Poland,1851-1900,1
+1313,United States of America-Poland,1901-1950,11
+1314,United States of America-Poland,1951-2000,2
+1315,United States of America-Puerto Rico,1451-1800,0
+1316,United States of America-Puerto Rico,1801-1850,0
+1317,United States of America-Puerto Rico,1851-1900,0
+1318,United States of America-Puerto Rico,1901-1950,1
+1319,United States of America-Puerto Rico,1951-2000,0
+1320,United States of America-Romania,1451-1800,0
+1321,United States of America-Romania,1801-1850,0
+1322,United States of America-Romania,1851-1900,0
+1323,United States of America-Romania,1901-1950,10
+1324,United States of America-Romania,1951-2000,3
+1325,United States of America-Russia,1451-1800,0
+1326,United States of America-Russia,1801-1850,0
+1327,United States of America-Russia,1851-1900,2
+1328,United States of America-Russia,1901-1950,7
+1329,United States of America-Russia,1951-2000,6
+1330,United States of America-Slovenia,1451-1800,0
+1331,United States of America-Slovenia,1801-1850,0
+1332,United States of America-Slovenia,1851-1900,0
+1333,United States of America-Slovenia,1901-1950,1
+1334,United States of America-Slovenia,1951-2000,2
+1335,United States of America-South Africa,1451-1800,0
+1336,United States of America-South Africa,1801-1850,0
+1337,United States of America-South Africa,1851-1900,0
+1338,United States of America-South Africa,1901-1950,1
+1339,United States of America-South Africa,1951-2000,5
+1340,United States of America-Sweden,1451-1800,0
+1341,United States of America-Sweden,1801-1850,0
+1342,United States of America-Sweden,1851-1900,0
+1343,United States of America-Sweden,1901-1950,11
+1344,United States of America-Sweden,1951-2000,0
+1345,United States of America-Switzerland,1451-1800,0
+1346,United States of America-Switzerland,1801-1850,0
+1347,United States of America-Switzerland,1851-1900,12
+1348,United States of America-Switzerland,1901-1950,0
+1349,United States of America-Switzerland,1951-2000,1
+1350,United States of America-Turkey,1451-1800,0
+1351,United States of America-Turkey,1801-1850,0
+1352,United States of America-Turkey,1851-1900,0
+1353,United States of America-Turkey,1901-1950,0
+1354,United States of America-Turkey,1951-2000,10
+1355,United States of America-United Kingdom,1451-1800,0
+1356,United States of America-United Kingdom,1801-1850,3
+1357,United States of America-United Kingdom,1851-1900,13
+1358,United States of America-United Kingdom,1901-1950,83
+1359,United States of America-United Kingdom,1951-2000,41
+1360,United States of America-United States of America,1451-1800,3
+1361,United States of America-United States of America,1801-1850,5
+1362,United States of America-United States of America,1851-1900,172
+1363,United States of America-United States of America,1901-1950,756
+1364,United States of America-United States of America,1951-2000,228
