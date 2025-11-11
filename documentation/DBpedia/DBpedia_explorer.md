@@ -25,7 +25,7 @@
 
 <https://dbpedia.org/page/Giovanni_Domenico_Cassini>
 
-Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le protocole RDF. En d'autres termes, si la page apparaît comme étant du texte, en réalité elle présente, et rend lisibles, les données structurées du graphe concernant cette personne.
+Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le [modéle RDF](https://fr.wikipedia.org/wiki/Resource_Description_Framework). En d'autres termes, si la page apparaît comme étant du texte, en réalité elle présente, et rend lisibles, les données structurées du graphe concernant cette personne.
 
 On peut donc les interroger et les récupérer grâce à des requêtes formulées dans le langage SPARQL.
 
@@ -52,14 +52,14 @@ Exemples de propriétés:
 
 * dbr:List_of_astrologers
 * dbr:List_of_astronomers
-* [dbr:Astronomer]()
+* [dbr:Astronomer](http://dbpedia.org/resource/astronomer)
 * dbr:Astrology
 * dbr:Astronomy
 
 
 dbr: est le préfixe qui remplace http://dbpedia.org/resource/. En entier la première entrée donne http://dbpedia.org/resource/List_of_astrologers.
 
-dbr:List_of_astrologers est donc un QName
+*dbr:List_of_astrologers* est donc un QName
 
 &nbsp;
 
@@ -72,20 +72,22 @@ Présentation de DBPedia dans Wikipedia:
 Documentation:
 
 * [Linked Data Access](https://www.dbpedia.org/resources/linked-data/). Entre autres: spécification des URI, Content Negotiation
-* [SPARQL over Online Databases](https://www.dbpedia.org/resources/sparql/) (documentation)
+* [SPARQL over Online Databases](https://www.dbpedia.org/resources/sparql/) (documentation en partie obsolète)
 * __Interfaces__ pour requêtes __SPARQL__:
   * <https://dbpedia.org/sparql>
-  * <https://dbpedia.org/snorql/>  (navigateur)  
+  * <https://dbpedia.org/snorql/>  (navigateur, apparaît désactivé en novembre 2025)  
 
 ### DBPedia Live
 
 Modifier Wikipedia et voir les résultats en temps réel
 
 * <https://www.dbpedia.org/resources/live/>
-* <https://live.dbpedia.org/sparql>
+* <https://live.dbpedia.org/sparql> (inaccessible en novembre 2025)
 * NB : Default Data Set Name :  <http://live.dbpedia.org>
 
 ### SPARQLIS
+
+Une application qui liste les classes et les propriétés d'un graphe et facilite la recherche d'information
 
 * [SPARQLIS sur DBPedia](http://www.irisa.fr/LIS/ferre/sparklis/?title=Core%20English%20DBpedia&endpoint=http%3A//servolis.irisa.fr/dbpedia/sparql)
 * [Example queries for Sparklis](http://www.irisa.fr/LIS/ferre/sparklis/examples.html)
@@ -97,7 +99,8 @@ SPARQLIS permet de construire des requêtes SPARQL grâce à une interface graph
 ## Requêtes d'exploration
 
 * Interface pour requêtes: __<https://dbpedia.org/sparql>__
-* La syntaxe des requêtes: <https://www.w3.org/TR/sparql11-query>
+* La syntaxe des requêtes (la recommandation du consortium W3C ): <https://www.w3.org/TR/sparql11-query>
+  * Noter les exemples en particulier qui facilitent la compréhension et l'apprentissage
 * Tutoriels:
   * [Le tutoriel SPARQL](https://web-semantique.developpez.com/tutoriels/jena/arq/introduction-sparql/) 
   * Tutoriel vidéo: [Partie I](https://www.youtube.com/watch?v=Z8_rTxy67-8) , [Partie II](https://www.youtube.com/watch?v=HlOJSsu3_to)
@@ -109,23 +112,30 @@ SPARQLIS permet de construire des requêtes SPARQL grâce à une interface graph
     PREFIX dbr: <http://dbpedia.org/resource/>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     
-    SELECT DISTINCT ?thing_1 ?birthDate
-    WHERE { ?thing_1 dbo:occupation dbr:Astronomer .
+    SELECT DISTINCT ?s1 ?birthDate
+    WHERE { ?s1 dbo:occupation dbr:Astronomer .
         OPTIONAL { 
-                   ?thing_1 dbo:birthYear ?birthDate .
+                   ?s1 dbo:birthYear ?birthDate .
                    }
           }
+    LIMIT 10
 
+* Ici on utilise la propriété *dbo:occupation* en lien avec le concept (occupation) d'astronome (une ressource, dbr) pour retrover toutes les ressources en sujet qui ont 
 
-* Noter que changer les espaces de noms dbp et dbo donne des résultats différents
-* Cette requête liste 160 astronomes (3 décembre 2022), le maximum des effectifs avec cette approche
+* Cette requête liste 200 astronomes (novembre 2025), le maximum des effectifs avec cette approche
+
+#### Compter les astronomes
 
       PREFIX dbr: <http://dbpedia.org/resource/>
       PREFIX dbo: <http://dbpedia.org/ontology/>
       PREFIX dbp: <http://dbpedia.org/property/>
       SELECT (COUNT(*) as ?effectif)
       WHERE { ?thing_1 dbo:occupation dbr:Astronomer .
-            }
+      }
+
+* Noter que changer les espaces de noms dbp et dbo donne des résultats différents: essayez avec la propriété dbr:occupation
+
+&nbsp;
 
 ### Astronomes nés entre 1371 et nous jours / 1770
 
