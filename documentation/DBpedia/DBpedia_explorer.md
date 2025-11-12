@@ -130,10 +130,38 @@ SPARQLIS permet de construire des requêtes SPARQL grâce à une interface graph
       PREFIX dbo: <http://dbpedia.org/ontology/>
       PREFIX dbp: <http://dbpedia.org/property/>
       SELECT (COUNT(*) as ?effectif)
-      WHERE { ?thing_1 dbo:occupation dbr:Astronomer .
+      WHERE { ?s1 dbo:occupation dbr:Astronomer .
       }
 
 * Noter que changer les espaces de noms dbp et dbo donne des résultats différents: essayez avec la propriété dbr:occupation
+
+#### Compter les astronomes en tant que personnes
+
+
+      PREFIX dbr: <http://dbpedia.org/resource/>
+      PREFIX dbo: <http://dbpedia.org/ontology/>
+      PREFIX dbp: <http://dbpedia.org/property/>
+      SELECT (COUNT(*) as ?effectif)
+      WHERE { ?s1 dbo:occupation dbr:Astronomer ;
+                  a dbo:Person.
+      }
+
+* On cherche seulement les personnes
+* rdf:type est raccourci avec l'expression 'is a' et donc 'a'
+
+
+#### Quel astronome n'est pas une personne ?
+
+      PREFIX dbr: <http://dbpedia.org/resource/>
+      PREFIX dbo: <http://dbpedia.org/ontology/>
+      PREFIX dbp: <http://dbpedia.org/property/>
+      SELECT ?s1
+      WHERE { ?s1 dbo:occupation dbr:Astronomer.
+                  MINUS { ?s1 a dbo:Person.}
+      }
+
+http://dbpedia.org/resource/Senku_Ishigami: un personnage de fiction
+
 
 &nbsp;
 
@@ -190,9 +218,19 @@ La requête ci-dessous ne change rien, en espace de noms dbr seulement 13 astron
       }
     LIMIT 10
 
+#### Objets qui ne sont pas des personnes
+
+    PREFIX dbr: <http://dbpedia.org/resource/>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    SELECT ?o1    # (COUNT(*) as ?eff)
+    WHERE { 
+    dbr:List_of_astronomers ?p ?o1.
+    MINUS {?o1 a dbo:Person.}
+      }
+
 ### Effectif de la population
 
-Effectifs au 3 décembre 2022 : 762
+Effectifs au 12 novembre 2025 : 768
 
     PREFIX dbr: <http://dbpedia.org/resource/>
     PREFIX dbo: <http://dbpedia.org/ontology/>
