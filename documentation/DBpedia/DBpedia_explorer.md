@@ -21,47 +21,8 @@
 
 &nbsp;
 
-### Une fiche d'astronome dans DBPedia (données structurées)
 
-<https://dbpedia.org/page/Giovanni_Domenico_Cassini>
-
-Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le [modéle RDF](https://fr.wikipedia.org/wiki/Resource_Description_Framework). En d'autres termes, si la page apparaît comme étant du texte, en réalité elle présente, et rend lisibles, les données structurées du graphe concernant cette personne.
-
-On peut donc les interroger et les récupérer grâce à des requêtes formulées dans le langage SPARQL.
-
-Il s'agit d'abord d'inspecter la page et relever les  informations intéressantes qui sont disponibles. RDF fonctionne sur un modèle "sujet -> prédicat-> objet" qui constitue les triplets.
-
-Le sujet de la page est le sujet de tous les triplets (dans ce cas la personne). Les prédicats sont exprimés sous forme de propriétés (<u>_properties_</u> en anglais) 
-
-Exemples de propriétés:
-
-* dbp:birthDate
-  * URI complète de la propriété: <http://dbpedia.org/property/birthDate>
-  * préfixe de l'espace de noms: 'dbp' (pour <http://dbpedia.org/property/>)
-  * dbp:birthDate est un qualified name, ou QName
-  * noter que ces propriétés ont généralement comme cible une valeur (chaîne de caractères ou nombre) même si elles pointent sur un objet
-* dbo:influencedBy
-  * URI complète de la propriété: https://dbpedia.org/ontology/influenced
-  * préfixe de l'espace de noms 'dbo': <http://dbpedia.org/ontology>
-  * ce type de proriétés associée généralement un objet à un autre objet (et non à une valeur) et donc en sobjet du triplet on trouve une URI
-  * essayez de naviguer d'un _influencer_ vers autre: c'est là qu'on voit des données structurées, toutes définies par des URI
-  
-&nbsp;
-
-À noter (parmi d'autres entités):
-
-* dbr:List_of_astrologers
-* dbr:List_of_astronomers
-* [dbr:Astronomer](http://dbpedia.org/resource/astronomer)
-* dbr:Astrology
-* dbr:Astronomy
-
-
-dbr: est le préfixe qui remplace http://dbpedia.org/resource/. En entier la première entrée donne http://dbpedia.org/resource/List_of_astrologers.
-
-*dbr:List_of_astrologers* est donc un QName
-
-&nbsp;
+## La 'transcription' dans DBpedia
 
 
 ## DBPedia  
@@ -84,6 +45,82 @@ Modifier Wikipedia et voir les résultats en temps réel
 * <https://www.dbpedia.org/resources/live/>
 * <https://live.dbpedia.org/sparql> (inaccessible en novembre 2025)
 * NB : Default Data Set Name :  <http://live.dbpedia.org>
+
+&nbsp;
+
+### Une fiche d'astronome dans DBPedia (données structurées)
+
+<https://dbpedia.org/page/Giovanni_Domenico_Cassini>
+
+Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le [modéle RDF](https://fr.wikipedia.org/wiki/Resource_Description_Framework).
+
+En d'autres termes, si la page apparaît comme étant du texte, en réalité elle présente, et rend lisibles, les données structurées sous forme de graphe concernant cette personne: un ensemble de triplets dont le sujet est toujours le même identifiant, ou URI/IRI, qui se réfère à la *ressouce* qu'il identifie.
+
+Une ressource dans DBPedia est identifée par un URI dans l'espace de noms des ressources *http://dbpedia.org/resource/* et cette identification s'effectue par un nom qui est identifique à la partie spécifique de l'URL page web [*Giovanni_Domenico_Cassini*](https://en.wikipedia.org/wiki/Giovanni_Domenico_Cassini), *https://en.wikipedia.org/wiki/*. DBpedia (dbpedia.org) est une version sous forme de données structurées de la version anglophone de Wikipedia. Il existe aussi quelques versions linguistiques, français notamment.
+
+On peut interroger le graphe DBpedia (voici l'adresse: https://dbpedia.org/sparql) et récupérer les triplets grâce à des requêtes formulées dans le langage SPARQL. Ce langage est une variante adapté au web sémantique du langage SQL.
+
+    SELECT *  # ou ?p ?o 
+    
+    # FROM ... -- pas nécessaire, il y a une seule 'table', tout le 'triplestore'
+    
+    WHERE {
+      <http://dbpedia.org/resource/Giovanni_Domenico_Cassini> ?p ?o
+    }
+
+
+
+Le contenu du graphe qui part du *sujet Cassini* (URI: http://dbpedia.org/resource/Giovanni_Domenico_Cassini) est identique à celui affiché sur la [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini). Notez que l'URI, même si formulée sour forme d'URL, c'est un identifiant et il contient le terme */resource/* alors que l'URL de la page, un vrai URL, contient le terme */page/*. On appelle ça le *dereferencing* de l'URI sur la page et donc l'URL. 
+
+Notons aussi qu'on peut reécrire de manière plus compacte la requête en utilisant des préfixes:
+
+    PREFIX dbr: <http://dbpedia.org/resource/>
+    SELECT *
+    WHERE 
+    {
+      dbr:Giovanni_Domenico_Cassini ?p ?o
+    }
+
+Par convention le préfixe-alias pour les ressources de DBpedia est dbr, pour *resources*.
+
+
+Il s'agit maintenant d'inspecter la page [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini) (qui rend visible le graphe) et de  relever les  informations intéressantes qui sont disponibles. RDF fonctionne sur un modèle "sujet -> prédicat-> objet" qui constitue les triplets.
+
+Le sujet de la page est le sujet de tous les triplets (dans ce cas la personne). Les prédicats sont exprimés sous forme de propriétés (<u>_properties_</u> en anglais) 
+
+Exemples de propriétés:
+
+* dbp:birthDate
+  * URI complète de la propriété: <http://dbpedia.org/property/birthDate>
+  * préfixe de l'espace de noms: 'dbp' (pour <http://dbpedia.org/property/>) c'est-à-dire issu directement des liens hypertexte et de l'infobox
+  * *dbp:birthDate* est ce qu'on appelle un qualified name, ou QName
+  * noter que ces propriétés ont généralement comme cible une valeur (chaîne de caractères ou nombre) même si elles pointent sur un objet
+* dbo:influencedBy
+  * URI complète de la propriété: https://dbpedia.org/ontology/influenced
+  * préfixe de l'espace de noms 'dbo': <http://dbpedia.org/ontology> qui se référe à des donnes qui ont été nettoyées
+  * ce type de proriétés associée généralement un objet à un autre objet (et non à une valeur) et donc en sobjet du triplet on trouve une URI
+  * essayez de naviguer d'un _influencer_ vers autre: c'est là qu'on voit des données structurées, toutes définies par des URI
+  
+&nbsp;
+
+À noter (parmi d'autres entités):
+
+* dbr:List_of_astrologers
+* [dbr:List_of_astronomers](http://dbpedia.org/resource/List_of_astronomers)
+  * En entier la première entrée donne http://dbpedia.org/resource/List_of_astrologers.
+  * dbr:List_of_astrologers* est donc un QName
+* [dbr:Astronomer](http://dbpedia.org/resource/astronomer)
+* dbr:Astrology
+* dbr:Astronomy
+
+
+dbr: est le préfixe qui remplace http://dbpedia.org/resource/, le monde des ressources donc qui peuvent être des personnes, mais aussi des pages web, des concepts, etc. 
+
+
+
+&nbsp;
+
+## Explorer DBpedia
 
 ### SPARQLIS
 
