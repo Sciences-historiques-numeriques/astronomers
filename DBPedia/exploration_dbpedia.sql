@@ -22,25 +22,6 @@ SELECT sp.person, sp.persName, sp.birthYear
 FROM  sparql_person sp ;
 
 
-
-
-select 
-	case 
-		when date_naiss > 750 AND Date_naiss < 1401
-		then 'moyen-age'
-		when date_naiss > 1400 AND Date_naiss < 1551
-		then 'renaissance'
-		when date_naiss > 1550 AND Date_naiss < 1771
-		then 'ancien-regime'
-		when date_naiss > 1770 AND Date_naiss < 1880
-		then '19-siecle'
-		when date_naiss > 1881 
-		then 'epoque-contemporaine'
-	end epoque
-FROM "20170907_persovd" p 
-where Date_naiss > 750
-and Date_naiss < 2010;
-
 with epoque as (
 select 
 	case 

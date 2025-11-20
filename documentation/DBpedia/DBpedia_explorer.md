@@ -52,17 +52,27 @@ Modifier Wikipedia et voir les résultats en temps réel
 
 <https://dbpedia.org/page/Giovanni_Domenico_Cassini>
 
-Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le [modéle RDF](https://fr.wikipedia.org/wiki/Resource_Description_Framework).
+Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le [modéle RDF](https://fr.wikipedia.org/wiki/Resource_Description_Framework). RDF fonctionne sur un modèle "sujet -> prédicat-> objet" qui constitue les triplets formant un graphe orienté.
 
-En d'autres termes, si la page apparaît comme étant du texte, en réalité elle présente, et rend lisibles, les données structurées sous forme de graphe concernant cette personne: un ensemble de triplets dont le sujet est toujours le même identifiant, ou URI/IRI, qui se réfère à la *ressouce* qu'il identifie.
+En d'autres termes, si la page apparaît comme étant du texte, en réalité elle présente, et rend lisibles, les données structurées sous forme de graphe de triplets concernant cette personne: un ensemble de triplets dont le sujet est toujours le même identifiant, ou URI/IRI, qui se réfère à la *ressouce* du monde que l'URI/IRI identifie.
 
-Une ressource dans DBPedia est identifée par un URI dans l'espace de noms des ressources *http://dbpedia.org/resource/* et cette identification s'effectue par un nom qui est identifique à la partie spécifique de l'URL page web [*Giovanni_Domenico_Cassini*](https://en.wikipedia.org/wiki/Giovanni_Domenico_Cassini), *https://en.wikipedia.org/wiki/*. DBpedia (dbpedia.org) est une version sous forme de données structurées de la version anglophone de Wikipedia. Il existe aussi quelques versions linguistiques, en français notamment.
+Une ressource dans DBPedia est identifée par un URI dans l'espace de noms des ressources *http://dbpedia.org/resource/* et cette identification s'effectue par un **nom** qui est identifique à la partie spécifique de l'URL page web [_**Giovanni_Domenico_Cassini**_](https://en.wikipedia.org/wiki/Giovanni_Domenico_Cassini), *https://en.wikipedia.org/wiki/*. DBpedia (dbpedia.org) est une version sous forme de données structurées de la version anglophone de Wikipedia. Il existe aussi quelques versions linguistiques, en [français notamment](https://fr.dbpedia.org/) avec son propre [accès de requêtes SPARQL](https://fr.dbpedia.org/sparql).
 
 On peut interroger le graphe DBpedia (voici l'adresse: https://dbpedia.org/sparql) et récupérer les triplets grâce à des requêtes formulées dans le langage SPARQL. Ce langage est une variante adapté au web sémantique du langage SQL.
 
-    SELECT *  # ou ?p ?o 
+    SELECT *
+    WHERE {
+      <http://dbpedia.org/resource/Giovanni_Domenico_Cassini> ?p ?o
+    }
+
+Plus en détail:
+
+    # des commentaires peuvent être ajoutés en les 
+    # faisant précéder par un dièse
+
+    SELECT *  # ?p ?o 
     
-    # FROM ... -- pas nécessaire, il y a une seule 'table', tout le 'triplestore'
+    # FROM ... -- la clause FROM pas nécessaire, il y a une seule 'table' pour ainsi dire et elle comprend tout le 'triplestore'
     
     WHERE {
       <http://dbpedia.org/resource/Giovanni_Domenico_Cassini> ?p ?o
@@ -70,9 +80,10 @@ On peut interroger le graphe DBpedia (voici l'adresse: https://dbpedia.org/sparq
 
 
 
-Le contenu du graphe qui part du *sujet Cassini* (URI: http://dbpedia.org/resource/Giovanni_Domenico_Cassini) est identique à celui affiché sur la [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini). Notez que l'URI, même si formulée sour forme d'URL, c'est un identifiant et il contient le terme */resource/* alors que l'URL de la page, un vrai URL, contient le terme */page/*. On appelle ça le *dereferencing* de l'URI sur la page et donc l'URL. 
 
-Notons aussi qu'on peut reécrire de manière plus compacte la requête en utilisant des préfixes:
+Le contenu du graphe qui part du *sujet Cassini* de la requête ci-dessus (URI: http://dbpedia.org/resource/Giovanni_Domenico_Cassini) est identique à celui affiché sur la [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini). Notez que l'URI de la ressource Cassini (formulée sour forme d'URL) est un identifiant unique dans le monde (espace de noms) de DBpedia et il contient le terme */resource/* alors que l'URL de la page qui permet de lire le graphe est un vrai URL et contient le terme */page/*. On appelle ça le *dereferencing* de l'URI sur la page et donc l'URL. 
+
+Notons aussi qu'on peut reécrire de manière plus compacte la requête en utilisant des préfixes permettant de ne pas répéter les espaces de noms:
 
     PREFIX dbr: <http://dbpedia.org/resource/>
     SELECT *
@@ -81,10 +92,10 @@ Notons aussi qu'on peut reécrire de manière plus compacte la requête en utili
       dbr:Giovanni_Domenico_Cassini ?p ?o
     }
 
-Par convention le préfixe-alias pour les ressources de DBpedia est dbr, pour *resources*.
+Par convention le préfixe-alias pour les ressources de DBpedia est **dbr**. 
 
 
-Il s'agit maintenant d'inspecter la page [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini) (qui rend visible le graphe) et de  relever les  informations intéressantes qui sont disponibles. RDF fonctionne sur un modèle "sujet -> prédicat-> objet" qui constitue les triplets.
+Il s'agit maintenant d'inspecter la page [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini)(qui rend visible le graphe de triplets et de relever les  informations intéressantes qui sont disponibles.
 
 Le sujet de la page est le sujet de tous les triplets (dans ce cas la personne). Les prédicats sont exprimés sous forme de propriétés (<u>_properties_</u> en anglais) 
 
