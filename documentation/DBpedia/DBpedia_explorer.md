@@ -1,5 +1,5 @@
 
-## Le point de départ: Wikpedia
+## Le point de départ: Wikipedia
 
 
 ### Population d'astronomes
@@ -22,8 +22,9 @@
 &nbsp;
 
 
-## La 'transcription' dans DBpedia
+## La 'transcription' sous forme de graphe dans DBpedia
 
+Le texte de Wikipedia est transformé en graphe rémantique basé sur des triplets RDF.
 
 ## DBPedia  
 
@@ -52,13 +53,15 @@ Modifier Wikipedia et voir les résultats en temps réel
 
 <https://dbpedia.org/page/Giovanni_Domenico_Cassini>
 
-Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le [modéle RDF](https://fr.wikipedia.org/wiki/Resource_Description_Framework). RDF fonctionne sur un modèle "sujet -> prédicat-> objet" qui constitue les triplets formant un graphe orienté.
+Les informations qui figurent sur cette page sont extraites de Wikipedia et produites sous forme de données structurées selon le [modéle RDF](https://fr.wikipedia.org/wiki/Resource_Description_Framework). RDF fonctionne sur un modèle "sujet -> prédicat-> objet", un **triplet**, l'ensemble des triplets formant un graphe orienté.
 
 En d'autres termes, si la page apparaît comme étant du texte, en réalité elle présente, et rend lisibles, les données structurées sous forme de graphe de triplets concernant cette personne: un ensemble de triplets dont le sujet est toujours le même identifiant, ou URI/IRI, qui se réfère à la *ressouce* du monde que l'URI/IRI identifie.
 
-Une ressource dans DBPedia est identifée par un URI dans l'espace de noms des ressources *http://dbpedia.org/resource/* et cette identification s'effectue par un **nom** qui est identifique à la partie spécifique de l'URL page web [_**Giovanni_Domenico_Cassini**_](https://en.wikipedia.org/wiki/Giovanni_Domenico_Cassini), *https://en.wikipedia.org/wiki/*. DBpedia (dbpedia.org) est une version sous forme de données structurées de la version anglophone de Wikipedia. Il existe aussi quelques versions linguistiques, en [français notamment](https://fr.dbpedia.org/) avec son propre [accès de requêtes SPARQL](https://fr.dbpedia.org/sparql).
+Une ressource dans DBPedia est identifée par un URI dans l'espace de noms des ressources *http://dbpedia.org/resource/* et cette identification s'effectue par un **nom** qui est identifique à la partie spécifique de l'URL page web [_**Giovanni_Domenico_Cassini**_](https://en.wikipedia.org/wiki/Giovanni_Domenico_Cassini), *https://en.wikipedia.org/wiki/*. 
 
-On peut interroger le graphe DBpedia (voici l'adresse: https://dbpedia.org/sparql) et récupérer les triplets grâce à des requêtes formulées dans le langage SPARQL. Ce langage est une variante adapté au web sémantique du langage SQL.
+DBpedia (dbpedia.org) est une version sous forme de données structurées de la version anglophone de Wikipedia. Il existe aussi quelques versions linguistiques, en [français notamment](https://fr.dbpedia.org/) avec son propre [accès de requêtes SPARQL](https://fr.dbpedia.org/sparql).
+
+On peut interroger le graphe DBpedia (voici l'adresse: **https://dbpedia.org/sparql**) et récupérer les triplets grâce à des requêtes formulées dans le langage SPARQL. Ce langage est une variante adapté au web sémantique du langage SQL.
 
     SELECT *
     WHERE {
@@ -81,7 +84,7 @@ Plus en détail:
 
 
 
-Le contenu du graphe qui part du *sujet Cassini* de la requête ci-dessus (URI: http://dbpedia.org/resource/Giovanni_Domenico_Cassini) est identique à celui affiché sur la [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini). Notez que l'URI de la ressource Cassini (formulée sour forme d'URL) est un identifiant unique dans le monde (espace de noms) de DBpedia et il contient le terme */resource/* alors que l'URL de la page qui permet de lire le graphe est un vrai URL et contient le terme */page/*. On appelle ça le *dereferencing* de l'URI sur la page et donc l'URL. 
+Le contenu du graphe qui part du *sujet Cassini* de la requête ci-dessus (URI: http://dbpedia.org/resource/Giovanni_Domenico_Cassini) est identique à celui affiché sur la [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini). Notez que l'URI ( I = identifier) de la ressource Cassini (formulée sour forme d'URL) est un identifiant unique dans le monde de DBpedia (l'espace de noms de DBPedia) et il contient le terme */resource/* alors que l'URL (L = locator) de la page qui permet de lire le graphe est un vrai URL et contient le terme */page/*. Dans le contexte des technologies du web sémantique on appelle ça le *dereferencing* de l'URI sur la page et donc sur l'URL. 
 
 Notons aussi qu'on peut reécrire de manière plus compacte la requête en utilisant des préfixes permettant de ne pas répéter les espaces de noms:
 
@@ -94,8 +97,9 @@ Notons aussi qu'on peut reécrire de manière plus compacte la requête en utili
 
 Par convention le préfixe-alias pour les ressources de DBpedia est **dbr**. 
 
+Cf. le [carnet SPARQL](../../sparqlbooks/dbp_explore.sparqlbook.md) qui permet d'exécuter directement et de documenter en même temps les requêtes effectuées.
 
-Il s'agit maintenant d'inspecter la page [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini)(qui rend visible le graphe de triplets et de relever les  informations intéressantes qui sont disponibles.
+Il s'agit maintenant d'inspecter la page [page DBpedia](https://dbpedia.org/page/Giovanni_Domenico_Cassini) qui rend visible le graphe de triplets et de relever les  informations intéressantes qui sont disponibles.
 
 Le sujet de la page est le sujet de tous les triplets (dans ce cas la personne). Les prédicats sont exprimés sous forme de propriétés (<u>_properties_</u> en anglais) 
 
@@ -109,8 +113,10 @@ Exemples de propriétés:
 * dbo:influencedBy
   * URI complète de la propriété: https://dbpedia.org/ontology/influenced
   * préfixe de l'espace de noms 'dbo': <http://dbpedia.org/ontology> qui se référe à des donnes qui ont été nettoyées
-  * ce type de proriétés associée généralement un objet à un autre objet (et non à une valeur) et donc en sobjet du triplet on trouve une URI
+  * ce type de proriétés associée généralement un objet à un autre objet (et non à une valeur) et donc en objet du triplet on trouve une URI
   * essayez de naviguer d'un _influencer_ vers autre: c'est là qu'on voit des données structurées, toutes définies par des URI
+
+Les triplets qui utilisent les propriétés de l'espace de noms 'http://dbpedia.org/property/' sont issues d'une première extraction, celles de l'espace de noms http://dbpedia.org/ontology/ ont été soumises à un processus de nettoyage et sont donc généralement à préférer.
   
 &nbsp;
 
@@ -129,7 +135,7 @@ dbr: est le préfixe qui remplace http://dbpedia.org/resource/, le monde des res
 
 ### Inspecter les propriétés disponibles
 
-Cf. le [carnet SPARQL](../../sparqlbooks/dbp_explore.sparqlbook.md) qui documente les requêtes effectuées
+
 
     ### Regrouper et compter les propriétés disponibles
     PREFIX dbr: <http://dbpedia.org/resource/>
@@ -164,12 +170,15 @@ SPARQLIS permet de construire des requêtes SPARQL grâce à une interface graph
 * La syntaxe des requêtes (la recommandation du consortium W3C ): <https://www.w3.org/TR/sparql11-query>
   * Noter les exemples en particulier qui facilitent la compréhension et l'apprentissage
 * Tutoriels:
-  * [Le tutoriel SPARQL](https://web-semantique.developpez.com/tutoriels/jena/arq/introduction-sparql/) 
-  * Tutoriel vidéo: [Partie I](https://www.youtube.com/watch?v=Z8_rTxy67-8) , [Partie II](https://www.youtube.com/watch?v=HlOJSsu3_to)
+  * [Tutoriel: *SPARQL Query Examples for Querying DBpedia*](https://sparql.dev/article/SPARQL_query_examples_for_querying_DBpedia.html)
+  * [Un autre tutoriel SPARQL](https://web-semantique.developpez.com/tutoriels/jena/arq/introduction-sparql/) (plus technique) 
+  
 
 &nbsp;
 
 ### Occupation: astronomer
+
+Dans l'exploration d'une population, on pourrait partir du métier ou autre forme d'activité, cf. la notice de Wikipedia [Astronomer](https://en.wikipedia.org/wiki/Astronomer) dont on utilise l'URI dans la requête SPARQL qui suit: 
 
     PREFIX dbr: <http://dbpedia.org/resource/>
     PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -183,8 +192,8 @@ SPARQLIS permet de construire des requêtes SPARQL grâce à une interface graph
     LIMIT 10
 
 * Ici on utilise la propriété *dbo:occupation* en lien avec le concept (occupation) d'astronome (une ressource, dbr) pour retrover toutes les ressources en sujet qui ont 
-
-* Cette requête liste 200 astronomes (novembre 2025), le maximum des effectifs avec cette approche
+* on associe en même temps la propriété facultative années de naissance
+* cette requête liste 200 astronomes (novembre 2025), le maximum des effectifs avec cette approche
 
 #### Compter les astronomes
 
@@ -196,6 +205,7 @@ SPARQLIS permet de construire des requêtes SPARQL grâce à une interface graph
       }
 
 * Noter que changer les espaces de noms dbp et dbo donne des résultats différents: essayez avec la propriété dbr:occupation
+* Les données liées à la propriété dbr étant en partie des chaînes de caractères 'astronomer' et non des URI, elles ne sortiront pas et il y a donc moins de résultats
 
 #### Compter les astronomes en tant que personnes
 
@@ -306,6 +316,8 @@ Noter ces propriétés:
        dbr:List_of_astronomers ?p ?person.
        ?person a dbo:Person;
             dbo:birthDate ?birthDate.
+
+        # noter ici la restriction à l'année, la chaîne de caractères de la date au format ISO est transformée en entier    
         BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
         FILTER ( ?birthYear > 1770) 
       }
@@ -370,44 +382,28 @@ Effectifs au 17 novembre 2025 : 368
 Avec les labels des noms (en anglais), même effectif:
 
     PREFIX dbr: <http://dbpedia.org/resource/>
-    PREFIX dbp: <http://dbpedia.org/property/>
     PREFIX dbo: <http://dbpedia.org/ontology/>
-    SELECT (COUNT(*) as ?effectif)
-    WHERE {
-      SELECT DISTINCT ?o1 ?birthDate ?birthYear ?label
-      WHERE { 
-        {
-              {dbr:List_of_astronomers ?p ?o1.}
-          UNION
-              {dbr:List_of_astrologers ?p ?o1.}
-          UNION
-              {?o1 ?p dbr:Astrologer.}
-          UNION
-              {?o1 ?p dbr:Astronomer.}
-          UNION
-              {?o1 ?p dbr:Mathematician.}
-          UNION
-              {?o1 ?p dbr:Physicist.}
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-        }
-        ?o1 a dbo:Person;
-          dbp:birthDate | dbo:birthDate ?birthDate;
-          rdfs:label ?label.
+    SELECT (COUNT(*) AS ?number)
+    WHERE { 
+        dbr:List_of_astronomers ?p ?person.
+        ?person a dbo:Person;
+                dbo:birthDate ?birthDate;
+                rdfs:label ?label.
         BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
-        FILTER ( (?birthYear >= 1371
-              #      && ?birthYear < 1771 
-                  )
-                    && LANG(?label) = 'en') 
-              }
+        FILTER ( ?birthYear > 1770
+                && LANG(?label) = 'en')
       }
 
+Toutes les personnes ont donc un (et apparemment un seul) nom en anglais, mais on va encore verifier.
 
 
 ## Liste des astronomes
 
 Cette requête produit une liste de personnes avec leur nom en anglais et année de naissance.
 
-Pour importer les données dans une base de données SQLite, suivre les // en cours // [instructions indiquées sur ces pages](DBpedia_importer_dans_base_personnelle.md): 
+Pour importer les données dans une base de données SQLite, suivre les [instructions indiquées sur cette page](DBpedia_importer_dans_base_personnelle.md) (et les suivantes): 
 
 
 

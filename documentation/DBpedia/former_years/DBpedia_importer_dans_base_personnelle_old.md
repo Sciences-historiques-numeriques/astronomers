@@ -9,7 +9,7 @@ Dans le contexte du présent projet elle s'appelle _astronomers_import.db_ et se
 
 Créer une copie de la base de données du projet personnel (par simple copier-coller du fichier contenant la base de données SQLite dans le dossier de travail), puir renommer la copie en ajoutant à la fin du nom, par exemple, '_import' ou semblable.
 
-N.B.: au fur et à mesure de l'avancement de la recherche faire des *commits* avec Git dans VSCode afin de pouvoir revenir à une version précédente de la base de données si nécessaire.
+N.B.: au fur et à mesure de l'avancement de la recherche faire une sauvegarde de la base de données sur un ou plusieurs disques externes (et également de toutes les données de l'ordinateur).
 
 
 Vider complètement les tables en utilisant l'instruction suivante. Mais attention: cette instruction est irréversible !
@@ -40,38 +40,49 @@ Vider complètement les tables en utilisant l'instruction suivante. Mais attenti
 ## Production des données à importer
 
 
-### Liste des astronomes à exporter
+### Liste des astronomes—astrologues à exporter
 
-Exécuter la requête suivante sur le [serveur SPARQL de DBpedia](https://dbpedia.org), d'abord au format de réponse HTML pour l'inspecter, puis en texte séparé par virgule (CSV) et enregistrer le fichier exporté dans un espace dédié (sous-dossier) du dossier de travail.
+Exécuter la requête suivante, d'abord au format de réponse HTML pour l'inspecter, puis en texte séparé par tabulateur (\t) (TSV) ou texte séparé par virgule (CSV) et enregistrer le fichier exporté dans un espace dédié (sous-dossier) du dossier de travail.
 
 N.B. Le genre n'est pas renseigné dans DBpaedia. Noter également que plusieurs noms sont disponibles, on choisit ici de ne retenir que les noms en anglais, normalement un nom par personne.
 
 
     PREFIX dbr: <http://dbpedia.org/resource/>
-
-    PREFIX dbr: <http://dbpedia.org/resource/>
+    PREFIX dbp: <http://dbpedia.org/property/>
     PREFIX dbo: <http://dbpedia.org/ontology/>
-    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-
-    SELECT ?person (STR(?label) AS ?persName) ?birthYear
+    PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+    SELECT DISTINCT (?o1 AS ?subject_uri) ?birthYear ?label
+    WHERE {
+    SELECT DISTINCT ?o1 ?birthYear ?label
     WHERE { 
-        dbr:List_of_astronomers ?p ?person.
-        ?person a dbo:Person;
-                dbo:birthDate ?birthDate;
-                rdfs:label ?label.
-        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
-        FILTER ( ?birthYear > 1770
-                && LANG(?label) = 'en')
-      }
+        {
+            {dbr:List_of_astronomers ?p ?o1.}
+        UNION
+            {dbr:List_of_astrologers ?p ?o1.}
+        UNION
+            {?o1 ?p dbr:Astrologer.}
+        UNION
+            {?o1 ?p dbr:Astronomer.}
+        UNION
+            {?o1 ?p dbr:Mathematician.}
+        }
+        ?o1 a dbo:Person;
+        dbp:birthDate | dbo:birthDate ?birthDate;
+    rdfs:label ?langLabel.
+    BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
+    BIND(STR(?langLabel) AS ?label)
+        FILTER ( (?birthYear >= 1351   )  && LANG(?langLabel) = 'en') 
+    ##  && ?birthYear < 1771
+            }
     ORDER BY ?birthYear
-
+    }
 
 
 ### Creation de la table dans la base SQLIte
 
 En utilisant DBeaver, sélectionner la base de données 'astronomers_import' et activer par click droit l'import des données, puis suivre les étapes:
 
-* selectionner le fichier CSV à importer
+* selectionner le fichier TSV (CSV) à importer
 * dans le dialogue 'CSV' vérifier que le séparateur de colonnes (column delimiter) est bien tabulation (\t) et non virgule
 * une nouvelle table sera créée, vous pouvez en modifier le nom sous 'target' et elle sera appelée: *dbp_liste_personnes* 
 * le reste est à laisser comme tel, on peut vérifier dans l'étape 'Confirm' que tout est correct (ou revenir), puis:
