@@ -2,12 +2,12 @@
 
 Cette documentation concerne l'importation de données issues de DBpedia dans une base de données SQLite qui a la structure de celle du projet personnel.
 
-Dans le contexte du présent projet elle s'appelle _astronomers_import.db_ et se trouve dans le dossier [_astronomers/data/astronomers_import.db_](https://github.com/Sciences-historiques-numeriques/astronomers/tree/main/data)
+Dans le contexte du présent projet la base de données s'appelle _astronomers_import.db_ et se trouve dans le dossier [_astronomers/data/astronomers_import.db_](https://github.com/Sciences-historiques-numeriques/astronomers/tree/main/data)
 
 
 ## Préparation de la base de données
 
-Créer une copie de la base de données du projet personnel (par simple copier-coller du fichier contenant la base de données SQLite dans le dossier de travail), puir renommer la copie en ajoutant à la fin du nom, par exemple, '_import' ou semblable.
+Créer une copie de la base de données du projet personnel (par simple copier-coller du fichier SQLite contenant la base de données dans le dossier de travail), puir renommer la copie en ajoutant à la fin du nom, par exemple, '_import' ou semblable.
 
 N.B.: au fur et à mesure de l'avancement de la recherche faire des *commits* avec Git dans VSCode afin de pouvoir revenir à une version précédente de la base de données si nécessaire.
 
@@ -42,37 +42,39 @@ Vider complètement les tables en utilisant l'instruction suivante. Mais attenti
 
 ### Liste des astronomes à exporter
 
-Exécuter la requête suivante sur le [serveur SPARQL de DBpedia](https://dbpedia.org), d'abord au format de réponse HTML pour l'inspecter, puis en texte séparé par virgule (CSV) et enregistrer le fichier exporté dans un espace dédié (sous-dossier) du dossier de travail.
+Exécuter la requête suivante sur le [serveur SPARQL de DBpedia](https://dbpedia.org) et choisir d'abord dans *result formats* le format de réponse HTML pour l'inspecter. Puis rééexecuter la requête en choisissant comme *result format* le 'texte séparé par virgule' (CSV) et enregistrer le fichier exporté dans un espace dédié (sous-dossier) du dossier de travail.
 
-N.B. Le genre n'est pas renseigné dans DBpaedia. Noter également que plusieurs noms sont disponibles, on choisit ici de ne retenir que les noms en anglais, normalement un nom par personne.
+N.B. 
 
+* Le genre n'est pas renseigné dans DBpaedia. 
+* Noter également que plusieurs noms sont disponibles, on choisit ici de ne retenir que les noms en anglais, normalement un nom par personne.
 
-    PREFIX dbr: <http://dbpedia.org/resource/>
+### Requête sur le serveur SPARQL de DBPedia
 
     PREFIX dbr: <http://dbpedia.org/resource/>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-    SELECT ?person (STR(?label) AS ?persName) ?birthYear
+    SELECT DISTINCT ?person_uri (STR(?label) AS ?persName) ?birthYear
     WHERE { 
-        dbr:List_of_astronomers ?p ?person.
-        ?person a dbo:Person;
+        dbr:List_of_astronomers ?p ?person_uri.
+        ?person_uri a dbo:Person;
                 dbo:birthDate ?birthDate;
                 rdfs:label ?label.
         BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
         FILTER ( ?birthYear > 1770
                 && LANG(?label) = 'en')
-      }
+    }
     ORDER BY ?birthYear
 
 
 
 ### Creation de la table dans la base SQLIte
 
-En utilisant DBeaver, sélectionner la base de données 'astronomers_import' et activer par click droit l'import des données, puis suivre les étapes:
+En utilisant DBeaver, sélectionner dans la base de données 'astronomers_import' à gauche l'onglet tables et activer par click droit l'import des données, puis suivre les étapes:
 
-* selectionner le fichier CSV à importer
-* dans le dialogue 'CSV' vérifier que le séparateur de colonnes (column delimiter) est bien tabulation (\t) et non virgule
+* selectionner le fichier CSV à importer qui vient d'être téléchargé à partir de la requête SQL
+* dans le dialogue 'CSV' vérifier que le séparateur de colonnes (column delimiter) est bien virgule
 * une nouvelle table sera créée, vous pouvez en modifier le nom sous 'target' et elle sera appelée: *dbp_liste_personnes* 
 * le reste est à laisser comme tel, on peut vérifier dans l'étape 'Confirm' que tout est correct (ou revenir), puis:
 * bouton 'Proceed' et la table sera créée
@@ -83,9 +85,15 @@ En utilisant DBeaver, sélectionner la base de données 'astronomers_import' et 
 
 ## Importer les personnes
 
- Chercher les doublons de la table des personnes importée (il faut supprimer manuellement les doublons éventuels, i.e. mêmes URI plus d'une fois, donc plusieurs lignes pour la même personne, inacceptable car dans la table Personne il y a une ligne par individu)
 
-    -- si le résultat est vide (pas de lignes) il n'y a pas de doublons
+### Vérifier l'absence de doublons
+
+ Chercher les doublons de la table des personnes importée depuis DBpedia. Si on trouve des doublons, c'est-à-dire les mêmes URI plus d'une fois, et donc plusieurs lignes avec différents noms pour la même personne, il est impératif d'éliminer les doulbons car la table *person* ne doit comprendre qu'une ligne par individu.
+ 
+ Si les doublons ne 
+ faut supprimer manuellement les doublons éventuels, i.e. m inacceptable )
+
+    # si le résultat est vide (pas de lignes) il n'y a pas de doublons
     SELECT person_uri
     FROM dbp_liste_personnes lp 
     GROUP BY person_uri
@@ -102,17 +110,12 @@ En utilisant DBeaver, sélectionner la base de données 'astronomers_import' et 
 
 &nbsp;
 
-    INSERT INTO person (birth_year, dbpedia_uri, import_metadata)
-    SELECT birthYear, person_uri, "Importé le 15 mars 2024 depuis le résultat d'une requête SPARQL sur DBPedia, cf. astronomers/DBpedia_importer_dans_base_personnelle"
+    INSERT INTO person (birth_year, dbpedia_uri, label, import_metadata)
+    SELECT birthYear, person_uri, persname, "Importé le 22 novembre 2025 depuis le résultat d'une requête SPARQL sur DBPedia, cf. astronomers/DBpedia_importer_dans_base_personnelle"
     FROM dbp_liste_personnes lp ;    
 
-Noter que on a ajouté également une note d'importation qui indique l'origine des données, avec un renvoi à la documentation. On peut aussi créer une documentation plus précise avec la table 'reference' qui fait le lien entre chaque objet et la requête dont il est issu. Un exemple ci-dessous.
+Noter qu'on a ajouté également une note d'importation qui indique l'origine des données, avec un renvoi à la documentation. On peut aussi créer une documentation plus précise avec la table 'reference' qui fait le lien entre chaque objet et la requête dont il est issu. Un exemple ci-dessous.
 
-
-### Ajouter les noms
-
-    UPDATE person 
-    SET label = TRIM(REPLACE(SUBSTR(dbpedia_uri,LENGTH('http://dbpedia.org/resource/')+ 1), '_', ' '));
 
 
 
