@@ -1,6 +1,15 @@
 
-## configuraion !
+## configuration !
 config.py
+
+
+## database trop volumineuse pour GitHub
+# mettre en ligne un fichier zippé
+data/astronomers_import_before_202511.db
+
+# les csv téléchargés ne seront plus versionnés
+DBPedia/exports_csv
+
 
 
 ## fichiers provisoirement invisibles
