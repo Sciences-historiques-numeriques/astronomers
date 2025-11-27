@@ -110,7 +110,7 @@ En utilisant DBeaver, sélectionner dans la base de données 'astronomers_import
             FROM dbp_liste_personnes lp
             GROUP BY person_uri;
 
-Cf. le [document SQL](../../DBPedia/import_persons.sql).
+Cf. le [document SQL](../../DBPedia/import_persons.sql) qui contient les requêtes permettant d'importer, puis d'inspecter les données importées.
 
 
 &nbsp;
