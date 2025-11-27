@@ -147,3 +147,9 @@ Noter qu'on a ajouté également une note d'importation qui indique l'origine de
 Avec cette requête on créé les lignes dans la table _reference_ associant chaque personne à la requête SPARQL d'origine et on indique quelle est l'URI de la personne dans la requête d'origine. On peut ainsi documenter différentes origines des données.
 
 
+## Importations ultérieures
+
+Une fois la population importée on peut procéder à d'autres imports.
+
+* Import des [appartenances à des organisations](DBpedia_importer_memberships.md)
+

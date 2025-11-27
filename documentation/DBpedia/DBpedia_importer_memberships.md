@@ -25,7 +25,7 @@ On relève notamment les propriétés:
 * http://dbpedia.org/ontology/almaMater pour 308 cas
   * "schools that they attended (en)" comme l'indique la notice de l'ontologie
 * http://dbpedia.org/ontology/institution pour 200 cas
-  * la définition de la propriété dans l'ontologie de DBpedia ne donne pas de précisions, juste "institution" mais en cible de la propriété il y a des organisations: rdfs:range dbo:Organisation et on peut donc utiliser pour les appartenances.
+  * la définition de la propriété dans l'ontologie de DBpedia ne donne pas de précisions, juste "institution" mais en cible de la propriété il y a des organisations: *rdfs:range -> dbo:Organisation* et on peut donc utiliser pour les appartenances.
 
 
 
@@ -81,7 +81,9 @@ On rédige la requête qui récupère les données:
 
 
 * télécharger le résultat de la requête sous forme de CSV
-* importer le CSV dans la table ***dbp_appartenance*** déjà existante
+* importer le CSV dans la table ***dbp_appartenance*** déjà existante en ajoutant les lignes:
+  * il faut choisir dans DBeaver la table dbp_appartenance existante
+  * si on ne coche pas 'Truncate target table(s) before load' les données sont automatiquement ajoutées à la fin
 * inspecter le résultat avec les requêtes qui se trouvent [dans ce fichier](../../DBPedia/import_memberships.sql) 
 
 
