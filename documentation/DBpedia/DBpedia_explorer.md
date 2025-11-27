@@ -403,7 +403,7 @@ Toutes les personnes ont donc un (et apparemment un seul) nom en anglais, mais o
 
 Cette requête produit une liste de personnes avec leur nom en anglais et année de naissance.
 
-Pour importer les données dans une base de données SQLite, suivre les [instructions indiquées sur cette page](DBpedia_importer_dans_base_personnelle.md) (et les suivantes): 
+Pour importer les données concernant les personnes dans une base de données SQLite, suivre les [instructions indiquées sur cette page](DBpedia_importer_personnes.md): 
 
 
 
