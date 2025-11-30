@@ -1,0 +1,62 @@
+[
+  {
+    "kind": 1,
+    "language": "markdown",
+    "value": "### Requête sur DBpedia",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\nSELECT ?person ?wikidadaUri\n    WHERE { \n    dbr:List_of_astronomers ?p ?person.\n    ?person a dbo:Person;\n            dbo:birthDate ?birthDate ;\n        <http://www.w3.org/2002/07/owl#sameAs> ?uri.\n        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?uri), 'wikidata'))\n        BIND( URI(REPLACE(STR(?uri), 'http', 'https'))  AS ?wikidadaUri)\n    }\n    LIMIT 5\n\n",
+    "metadata": {}
+  },
+  {
+    "kind": 1,
+    "language": "markdown",
+    "value": "### Query sur Wikidata",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\n    PREFIX dbo: <http://dbpedia.org/ontology/>   \n    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\n    SELECT ?person ?wikidataUri ?p1 ?o1\n    WHERE {\n    \n    #?wikidataUri ?p1 ?o1\n    SERVICE <https://dbpedia.org/sparql> {\n        SELECT ?person ?wikidataUri\n        WHERE {       \n        dbr:List_of_astronomers ?p ?person.\n        ?person a dbo:Person;\n                dbo:birthDate ?birthDate ;\n            <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri.\n            BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n            FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))\n        }\n        LIMIT 5\n        }      \n    }",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>   \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\n\nSELECT  ?wikidataUri ?wikidataUriLabel ?person ?birthYear\nWHERE {\n\n\n{SERVICE <https://dbpedia.org/sparql> {\n    ?person <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri;\n           a dbo:Person.\n    dbr:List_of_astronomers ?p ?person.\n    ?person dbo:birthDate ?birthDate\n        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))\n    } \n}\n?wikidataUri ?wp ?wo.\nFILTER(CONTAINS(STR(?wp), 'direct'))\n\nSERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>   \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\nSELECT ?person ?birthYear ?wikidataUri\nWHERE {\n\n?wikidataUri wdt:P1 wd:Q5.\nSERVICE <https://dbpedia.org/sparql> {\n    SELECT ?person ?birthYear\n    WHERE {       \n    dbr:List_of_astronomers ?p ?person.\n    ?person a dbo:Person;\n            dbo:birthDate ?birthDate ;\n        <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri.\n        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))\n    }\n    LIMIT 5\n    }      \n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\n    PREFIX dbo: <http://dbpedia.org/ontology/>   \n    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\n    SELECT ?person ?wikidataUri ?p1 ?o1\n    WHERE {\n    \n    #?wikidataUri ?p1 ?o1\n    SERVICE <https://dbpedia.org/sparql> {\n        SELECT ?person ?wikidataUri\n        WHERE {       \n        dbr:List_of_astronomers ?p ?person.\n        ?person a dbo:Person;\n                dbo:birthDate ?birthDate ;\n            <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri.\n            BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n            FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))\n        }\n        LIMIT 5\n        }      \n    }",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>   \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nprefix bd: <http://www.bigdata.com/rdf#>\n\nSELECT ?person ?wikidataUri ?p1 ?object1\nWHERE {\n{  #SERVICE <https://dbpedia.org/sparql> \n{\nSELECT ?person ?wikidataUri\n    WHERE { \n    dbr:List_of_astronomers ?p ?person.\n    ?person a dbo:Person;\n            dbo:birthDate ?birthDate ;\n        <http://www.w3.org/2002/07/owl#sameAs> ?uri.\n        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?uri), 'wikidata'))\n        BIND( URI(REPLACE(STR(?uri), 'http', 'https'))  AS ?wikidataUri)\n    }\n    LIMIT 5\n}\n}\n{SELECT ?p1 ?object1 ?object1Label\n                {\n  #SERVICE <https://query.wikidata.org/sparql> \n  {\n    ?wikidataUri ?p1 ?object1.\n\n   SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n\n\n     }\n}\n  }}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>   \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nprefix bd: <http://www.bigdata.com/rdf#>\n\nSELECT ?person ?wikidataUri ?p1 ?object1\nWHERE {\n{  SERVICE <https://dbpedia.org/sparql> \n{\nSELECT ?person ?wikidataUri\n    WHERE { \n    dbr:List_of_astronomers ?p ?person.\n    ?person a dbo:Person;\n            dbo:birthDate ?birthDate ;\n        <http://www.w3.org/2002/07/owl#sameAs> ?uri.\n        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?uri), 'wikidata'))\n        BIND( URI(REPLACE(STR(?uri), 'http', 'https'))  AS ?wikidataUri)\n    }\n    LIMIT 10\n}\n}\n\n  \n  {SELECT ?wikidataUri ?p1 ?object1\n\n   {\nSERVICE <https://query.wikidata.org/sparql> \n  {\n    ?wikidataUri ?p1 ?object1.\n\n   SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n\n\n     }\n    }\n  }\n \n  }",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>   \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nprefix bd: <http://www.bigdata.com/rdf#>\n\nSELECT ?person ?wikidataUri ?p1 ?object1\nWHERE {\n  \n  \n    SERVICE <https://query.wikidata.org/sparql> \n  { \n    {SELECT  ?person ?wikidataUri\n    WHERE {\n    SERVICE <https://dbpedia.org/sparql> \n\t{\n        dbr:List_of_astronomers ?p ?person.\n    \t?person a dbo:Person;\n            dbo:birthDate ?birthDate ;\n        <http://www.w3.org/2002/07/owl#sameAs> ?uri.\n        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)\n        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?uri), 'wikidata'))\n        BIND( URI(REPLACE(STR(?uri), 'http', 'https'))  AS ?wikidataUri)\n    }\n}\n    LIMIT 10\n  }\n  \n    ?wikidataUri ?p1 ?object1.\n\n   #SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n\n\n     }\n    }",
+    "metadata": {}
+  }
+]

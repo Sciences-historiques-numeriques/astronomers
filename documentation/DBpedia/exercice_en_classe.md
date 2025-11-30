@@ -42,13 +42,15 @@ LIMIT 100
 
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX dbo: <http://dbpedia.org/ontology/>
-SELECT DISTINCT ?person ?listId ?list 
+SELECT DISTINCT ?person (STR(?psLabel) as ?persLabel) ?listId ?list 
 WHERE {
   dbr:Lists_of_singers dbo:wikiPageWikiLink  ?list.
  ?list ?p ?person.
-?person a dbo:Person
+?person a dbo:Person;
+     rdfs:label ?psLabel.
 BIND(SUBSTR(STR(?list), STRLEN('http://dbpedia.org/resource/')+1) AS ?listId)
 FILTER(CONTAINS(STR(?list), 'http://dbpedia.org/resource/List_of'))
+FILTER(LANG(?psLabel) = 'en')
     }
 LIMIT 100
 

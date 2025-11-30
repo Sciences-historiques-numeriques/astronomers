@@ -1,0 +1,44 @@
+[
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nSELECT *\nWHERE {\n  ?s owl:sameAs ?wPerson;\n          a dbo:Person.\n  OPTIONAL {\n  SERVICE <https://query.wikidata.org/sparql> {\n            ?wPerson wdt:P268 ?idBNF.\n            BIND(URI(CONCAT('http://data.bnf.fr/ark:/12148/', ?idBNF, '#about')) as ?uriBNF)\n      }     \n    }\n       \n}\nLIMIT 10\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nSELECT *\nWHERE {\n  {?s owl:sameAs ?wPerson;\n          a dbo:Person.\n  SERVICE <https://query.wikidata.org/sparql> {\n            ?wPerson wdt:P268 ?idBNF.\n            BIND(URI(CONCAT('http://data.bnf.fr/ark:/12148/cb', ?idBNF, '#about')) as ?uriBNF)\n      }\n  }     \n  OPTIONAL {\n  SERVICE <https://data.bnf.fr/sparql> {\n            ?uriBNF ?p ?o.\n      }     \n      }\n  }\n  LIMIT 10\n       \n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nSELECT ?p (count(*) as ?number)\nWHERE {\n  {?s owl:sameAs ?wPerson;\n          a dbo:Person.\n  SERVICE <https://query.wikidata.org/sparql> {\n            ?wPerson wdt:P268 ?idBNF.\n            BIND(URI(CONCAT('http://data.bnf.fr/ark:/12148/cb', ?idBNF, '#about')) as ?uriBNF)\n      }\n  }     \n  OPTIONAL {\n  SERVICE <https://data.bnf.fr/sparql> {\n            ?uriBNF ?p ?o.\n      }     \n      }\n  }\n  GROUP BY ?p\n  order by desc(?number)\n       \n",
+    "metadata": {}
+  },
+  {
+    "kind": 1,
+    "language": "markdown",
+    "value": "### Propriétés entrantes",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nSELECT ?p (count(*) as ?number)\nWHERE {\n  {?s owl:sameAs ?wPerson;\n          a dbo:Person.\n  SERVICE <https://query.wikidata.org/sparql> {\n            ?wPerson wdt:P268 ?idBNF.\n            BIND(URI(CONCAT('http://data.bnf.fr/ark:/12148/cb', ?idBNF, '#about')) as ?uriBNF)\n      }\n  }     \n  #OPTIONAL \n  #{\n  SERVICE <https://data.bnf.fr/sparql> {\n            ?s2 ?p ?uriBNF \n      }     \n   #   }\n  }\n  GROUP BY ?p\n  order by desc(?number)\n       \n",
+    "metadata": {}
+  },
+  {
+    "kind": 1,
+    "language": "markdown",
+    "value": "## IdRef",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nSELECT *\nWHERE {\n  ?s owl:sameAs ?wPerson;\n          a dbo:Person.\n  OPTIONAL {\n  SERVICE <https://query.wikidata.org/sparql> {\n            ?wPerson wdt:P268 ?idRef.\n      }     \n    }\n       \n}\nLIMIT 10\n",
+    "metadata": {}
+  }
+]
