@@ -166,32 +166,32 @@ Noter le  http**s**
 
 ### Informations disponibles
 
-PREFIX dbr: <http://dbpedia.org/resource/>
-PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    PREFIX dbr: <http://dbpedia.org/resource/>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?p1 (COUNT(*) as ?number)
-WHERE {
+    SELECT ?p1 (COUNT(*) as ?number)
+    WHERE {
 
-  SERVICE <https://dbpedia.org/sparql> {
-  SELECT ?person ?gndUri ?object
-    WHERE { 
-    dbr:List_of_astronomers ?p ?person.
-    ?person a dbo:Person;
-            dbo:birthDate ?birthDate ;
-        owl:sameAs ?object.
-        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
-        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?object), 'gnd'))
-		BIND( URI(REPLACE(STR(?object), 'http', 'https'))  AS ?gndUri)
+    SERVICE <https://dbpedia.org/sparql> {
+    SELECT ?person ?gndUri ?object
+        WHERE { 
+        dbr:List_of_astronomers ?p ?person.
+        ?person a dbo:Person;
+                dbo:birthDate ?birthDate ;
+            owl:sameAs ?object.
+            BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
+            FILTER ( ?birthYear > 1770 && CONTAINS(STR(?object), 'gnd'))
+            BIND( URI(REPLACE(STR(?object), 'http', 'https'))  AS ?gndUri)
+        }
+        
     }
     
-  }
-  
- ?gndUri ?p1 ?o1
-}
-GROUP BY ?p1
-ORDER BY DESC(?number) 
+    ?gndUri ?p1 ?o1
+    }
+    GROUP BY ?p1
+    ORDER BY DESC(?number) 
 
     
 
@@ -417,7 +417,7 @@ WHERE {
 
 ### Compter les propriétés
 
-Marche sur Yago mais non Allegograph
+Fonctionnne sur Yago mais non Allegograph
 
     PREFIX wikibase: <http://wikiba.se/ontology#>
     PREFIX dbr: <http://dbpedia.org/resource/>
