@@ -379,41 +379,41 @@ It does not work! "Must have SELECT privileges on view DB.DBA.SPARQL_SINV_2 for 
 
 ### Using a third SPARQL endpoint
 
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX dbr: <http://dbpedia.org/resource/>
-PREFIX dbo: <http://dbpedia.org/ontology/>   
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix bd: <http://www.bigdata.com/rdf#>
+    PREFIX wikibase: <http://wikiba.se/ontology#>
+    PREFIX dbr: <http://dbpedia.org/resource/>
+    PREFIX dbo: <http://dbpedia.org/ontology/>   
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    prefix bd: <http://www.bigdata.com/rdf#>
 
-SELECT ?person ?wikidataUri ?p1 ?o1 ?o1Label
-WHERE {
-
-    
-    {SERVICE <https://dbpedia.org/sparql> {
-    SELECT ?person ?wikidataUri
-        WHERE { 
-        dbr:List_of_astronomers ?p ?person.
-        ?person a dbo:Person;
-                dbo:birthDate ?birthDate ;
-            <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri.
-            BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
-            FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))
-        }
-        LIMIT 5
-    }
-    }
-  SERVICE <https://query.wikidata.org/sparql> {
-    {SELECT ?wikidataUri ?p1  ?o1 ?o1Label
+    SELECT ?person ?wikidataUri ?p1 ?o1 ?o1Label
     WHERE {
-        ?wikidataUri ?p1 ?o1.
-      
-    FILTER(CONTAINS(STR(?p1), 'direct'))
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-       
+
+        
+        {SERVICE <https://dbpedia.org/sparql> {
+        SELECT ?person ?wikidataUri
+            WHERE { 
+            dbr:List_of_astronomers ?p ?person.
+            ?person a dbo:Person;
+                    dbo:birthDate ?birthDate ;
+                <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri.
+                BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
+                FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))
+            }
+            LIMIT 5
+        }
+        }
+    SERVICE <https://query.wikidata.org/sparql> {
+        {SELECT ?wikidataUri ?p1  ?o1 ?o1Label
+        WHERE {
+            ?wikidataUri ?p1 ?o1.
+        
+        FILTER(CONTAINS(STR(?p1), 'direct'))
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+        
+        }
+        }
+        }
     }
-     }
-    }
-}
 
 ### Compter les propriétés
 
