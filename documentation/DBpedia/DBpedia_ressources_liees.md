@@ -326,20 +326,20 @@ https://en.wikipedia.org/wiki/Galileo_Galilei
     limit 200
 
 
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX dbr: <http://dbpedia.org/resource/>
-PREFIX dbo: <http://dbpedia.org/ontology/>   
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+    PREFIX dbr: <http://dbpedia.org/resource/>
+    PREFIX dbo: <http://dbpedia.org/ontology/>   
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
-SELECT DISTINCT  ?wdPerson ?wdPersonLabel ?article ?p ?s ?sLabel
-WHERE {?wdPerson wdt:P31 wd:Q5;
-        wdt:P106 wd:Q11063;
-                ^schema:about ?article .
-    ?article schema:isPartOf <https://en.wikipedia.org/>
-    
-    }
-limit 200
+    SELECT DISTINCT  ?wdPerson ?wdPersonLabel ?article ?p ?s ?sLabel
+    WHERE {?wdPerson wdt:P31 wd:Q5;
+            wdt:P106 wd:Q11063;
+                    ^schema:about ?article .
+        ?article schema:isPartOf <https://en.wikipedia.org/>
+        
+        }
+    limit 200
 
 
 
@@ -379,41 +379,46 @@ It does not work! "Must have SELECT privileges on view DB.DBA.SPARQL_SINV_2 for 
 
 ### Using a third SPARQL endpoint
 
-    PREFIX wikibase: <http://wikiba.se/ontology#>
-    PREFIX dbr: <http://dbpedia.org/resource/>
-    PREFIX dbo: <http://dbpedia.org/ontology/>   
-    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-    prefix bd: <http://www.bigdata.com/rdf#>
 
-    SELECT ?person ?wikidataUri ?p1 ?o1 ?o1Label
-    WHERE {
+* YAGO : https://yago-knowledge.org/sparql
+* En alternative: https://qlever.dev/yago-3 
 
-        
-        {SERVICE <https://dbpedia.org/sparql> {
-        SELECT ?person ?wikidataUri
-            WHERE { 
-            dbr:List_of_astronomers ?p ?person.
-            ?person a dbo:Person;
-                    dbo:birthDate ?birthDate ;
-                <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri.
-                BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
-                FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))
-            }
-            LIMIT 5
-        }
-        }
-    SERVICE <https://query.wikidata.org/sparql> {
-        {SELECT ?wikidataUri ?p1  ?o1 ?o1Label
+
+        PREFIX wikibase: <http://wikiba.se/ontology#>
+        PREFIX dbr: <http://dbpedia.org/resource/>
+        PREFIX dbo: <http://dbpedia.org/ontology/>   
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        prefix bd: <http://www.bigdata.com/rdf#>
+
+        SELECT ?person ?wikidataUri ?p1 ?o1 ?o1Label
         WHERE {
-            ?wikidataUri ?p1 ?o1.
-        
-        FILTER(CONTAINS(STR(?p1), 'direct'))
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-        
+
+            
+            {SERVICE <https://dbpedia.org/sparql> {
+            SELECT ?person ?wikidataUri
+                WHERE { 
+                dbr:List_of_astronomers ?p ?person.
+                ?person a dbo:Person;
+                        dbo:birthDate ?birthDate ;
+                    <http://www.w3.org/2002/07/owl#sameAs> ?wikidataUri.
+                    BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
+                    FILTER ( ?birthYear > 1770 && CONTAINS(STR(?wikidataUri), 'wikidata'))
+                }
+                LIMIT 5
+            }
+            }
+        SERVICE <https://query.wikidata.org/sparql> {
+            {SELECT ?wikidataUri ?p1  ?o1 ?o1Label
+            WHERE {
+                ?wikidataUri ?p1 ?o1.
+            
+            FILTER(CONTAINS(STR(?p1), 'direct'))
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+            
+            }
+            }
+            }
         }
-        }
-        }
-    }
 
 ### Compter les propriétés
 
@@ -469,16 +474,17 @@ IRIs:
 * http://www.wikidata.org/entity/Q91
 * http://www.wikidata.org/entity/Q739455
 
+&nbsp;
 
-SELECT DISTINCT ?p ?o ?oLabel
-where {<http://www.wikidata.org/entity/Q705048> ?p ?o .
-      FILTER(CONTAINS(STR(?p), 'direct'))
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-      }
-limit 100
+    SELECT DISTINCT ?p ?o ?oLabel
+    where {<http://www.wikidata.org/entity/Q705048> ?p ?o .
+        FILTER(CONTAINS(STR(?p), 'direct'))
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+        }
+    limit 100
 
 
-
+&nbsp;
 
 
 ### Yago
@@ -486,30 +492,30 @@ limit 100
 https://yago-knowledge.org/sparql
 
 
-PREFIX schema: <http://schema.org/>
-PREFIX yago: <http://yago-knowledge.org/resource/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-SELECT distinct  ?p WHERE {
-  ?s owl:sameAs <http://www.wikidata.org/entity/Q410>;
-      ?p ?o
-} 
-LIMIT 100
+    PREFIX schema: <http://schema.org/>
+    PREFIX yago: <http://yago-knowledge.org/resource/>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    SELECT distinct  ?p WHERE {
+    ?s owl:sameAs <http://www.wikidata.org/entity/Q410>;
+        ?p ?o
+    } 
+    LIMIT 100
 
 
 
 
-PREFIX schema: <http://schema.org/>
-PREFIX yago: <http://yago-knowledge.org/resource/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-SELECT ?p (count(*) as ?number)
-WHERE {
-  ?s owl:sameAs <http://www.wikidata.org/entity/Q6722>;
-      ?p ?o.
-  FILTER( !CONTAINS(STR(?p), 'ame'))
-} 
-group by ?p
-order by desc(?number)
+    PREFIX schema: <http://schema.org/>
+    PREFIX yago: <http://yago-knowledge.org/resource/>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    SELECT ?p (count(*) as ?number)
+    WHERE {
+    ?s owl:sameAs <http://www.wikidata.org/entity/Q6722>;
+        ?p ?o.
+    FILTER( !CONTAINS(STR(?p), 'ame'))
+    } 
+    group by ?p
+    order by desc(?number)
