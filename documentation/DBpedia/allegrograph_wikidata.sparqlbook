@@ -1,0 +1,14 @@
+[
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nSELECT ?p (count(*) as ?number) ('' as ?label)\nWHERE {\n?s owl:sameAs ?wPerson;\n        a dbo:Person.\nOPTIONAL {\nSERVICE <https://query.wikidata.org/sparql> {\n            ?wPerson ?p ?o.\n    FILTER(CONTAINS(STR(?p), 'direct'))\n    }     \n    }\n}\nGROUP by ?p\nORDER BY DESC(?number)",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\n\n\nSELECT ?p ?propLabel (COUNT(*) AS ?number)\nWHERE {\n?s owl:sameAs ?wPerson;\n        a dbo:Person.\n\nSERVICE <https://query.wikidata.org/sparql> {\n\n            {?wPerson ?p ?o.\n            FILTER(CONTAINS(STR(?p), 'direct'))\n            }\n    ?prop wikibase:directClaim ?p.\n    SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n    }     \n    \n    \n}\nGROUP BY ?p ?propLabel   \norder by desc(?number)",
+    "metadata": {}
+  }
+]
