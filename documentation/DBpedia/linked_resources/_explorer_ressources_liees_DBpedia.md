@@ -258,20 +258,20 @@ SPARQL Endpoint: https://sparql.dnb.de
 Apparemment le projet n'a pas eu de suite ou il a uniquement servi à enrichir les relations owl:sameAs
 
 
-
-    PREFIX dbr: <http://dbpedia.org/resource/>
-    PREFIX dbo: <http://dbpedia.org/ontology/>
-    SELECT ?person ?object
-    WHERE { 
-    dbr:List_of_astronomers dbo:wikiPageWikiLink ?person.
-    ?person a dbo:Person;
-            dbo:birthDate ?birthDate ;
-        <http://www.w3.org/2002/07/owl#sameAs> ?object.
-        BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
-        FILTER ( ?birthYear > 1770 && CONTAINS(STR(?object) , 'global'))
-    }
-    LIMIT 10
-
+```
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+SELECT ?person ?object
+WHERE { 
+dbr:List_of_astronomers dbo:wikiPageWikiLink ?person.
+?person a dbo:Person;
+        dbo:birthDate ?birthDate ;
+    <http://www.w3.org/2002/07/owl#sameAs> ?object.
+    BIND(xsd:integer(SUBSTR(STR(?birthDate), 1, 4)) AS ?birthYear)
+    FILTER ( ?birthYear > 1770 && CONTAINS(STR(?object) , 'global'))
+}
+LIMIT 10
+```
 
 ### GlobalFactSyncRE 
 
