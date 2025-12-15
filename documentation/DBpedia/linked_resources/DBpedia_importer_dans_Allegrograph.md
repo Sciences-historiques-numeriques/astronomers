@@ -1,7 +1,12 @@
 # Alimenter un triplestore pour la recherche personnelle
 
 
+
+
 ## Importation des triplets de la population
+
+
+
 
 ### Inspecter les personnes à importer
 
