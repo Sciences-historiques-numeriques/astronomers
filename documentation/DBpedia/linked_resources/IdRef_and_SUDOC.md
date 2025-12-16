@@ -75,6 +75,9 @@ INSERT {?person owl:sameAs ?uriIdRef.}
 
 
 
+## Inspecter les propriétés disponibles pour la population
+
+### Les lister
 
 ```sparql
 PREFIX dbr: <http://dbpedia.org/resource/>
@@ -124,8 +127,9 @@ ORDER BY DESC(?number)
 ```
 
 
-### Propriétés entrantes
+## Propriétés entrantes
 
+Les propriétés dont 
 Utiliser ces propriétés pour trouver les ouvrages
 
 
@@ -212,6 +216,7 @@ Noter ces propriétés:
 
 &nbsp;
 
+### Compter les propriétés sortantes des ouvrages dont les individus de notre population sont auteurs
 
 ```
 PREFIX dbr: <http://dbpedia.org/resource/>
