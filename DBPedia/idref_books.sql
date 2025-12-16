@@ -369,6 +369,23 @@ limit 100;
  * 
  */
 
+SELECT *
+FROM book_titles_clustered btc 
+limit 10;
+
+SELECT cluster, count(*) as eff, min(book_date) min_date, max(book_date) max_date
+FROM book_titles_clustered btc 
+GROUP BY cluster;
+
+
+
+
+
+
+
+
+
+
 
 
 
