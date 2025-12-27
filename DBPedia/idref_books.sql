@@ -176,7 +176,7 @@ limit 50;
 SELECT token, count(*) as number
 FROM v_biblioref_split
 WHERE length(token) < 4
-GROUP BY  token0
+GROUP BY  token
 ORDER BY number desc;
 
 
@@ -196,7 +196,7 @@ AND token not in ('The', 'with', 'from', 'dans',
 )
 SELECT token, count(*) as number, min(book_date) min_date, max(book_date) max_date
 FROM tw1
-GROUP BY token;
+GROUP BY token
 ORDER BY number desc;
 
 
@@ -211,8 +211,8 @@ AND token not in ('The', 'with', 'from', 'dans',
 SELECT token, count(*) as number, min(book_date) min_date, max(book_date) max_date
 FROM tw1
 GROUP BY token
-HAVING COUNT(*) > 5
-ORDER BY max_date;
+HAVING COUNT(*) > 5 and max(book_date) < 1901 
+ORDER BY number desc;
 
 
 /*
@@ -230,6 +230,7 @@ AND token not in ('The', 'with', 'from', 'dans',
 select pk_idref_books, book_date, group_concat(token, ' ') simplified_title
 from tw1
 group by pk_idref_books, book_date;
+
 
 SELECT *
 from v_simplified_titles;
@@ -379,6 +380,10 @@ GROUP BY cluster;
 
 
 
+SELECT *
+FROM book_titles_clustered btc 
+WHERE cluster = 19
+limit 100;
 
 
 
