@@ -98,18 +98,7 @@ FROM membership m
 
 
 
--- personnes qui étudient et travaillent dans la même organisation
-SELECT p.label, da1.person, da1.organisation, da2.organisation 
-from dbp_appartenance da1 
-    JOIN dbp_appartenance da2 ON da1.person = da2.person 
-    join person p on p.dbpedia_uri = da1.person 
-where da1.membership_type = 'almaMater'
-and da2.membership_type = 'institution'
-and da1.organisation = da2.organisation 
-
-
-
--- same query but use the membership table and imported data
+--  personnes qui étudient et travaillent dans la même organisation
 SELECT p.label, o.label 
 FROM membership m 
     JOIN person p on p.pk_person = m.fk_person 

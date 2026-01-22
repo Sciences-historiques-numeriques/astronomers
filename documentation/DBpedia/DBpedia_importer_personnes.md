@@ -14,30 +14,6 @@ Créer une copie de la base de données du projet personnel (par simple copier-c
 N.B.: au fur et à mesure de l'avancement de la recherche faire des *commits* avec Git dans VSCode afin de pouvoir revenir à une version précédente de la base de données si nécessaire. Des *commits* réguliers, notamment avant des changements importants du code ou des imports dans la base de données, permettent plus de sérénité en cas d'erreur.
 
 
-Vider complètement les tables en utilisant l'instruction suivante. Mais attention: cette instruction est irréversible ! On peut certes revenir en arrière d'un commit...
-
-
-    /*
-    La ligne est commentée (ajout de "--" avant la commande) afin d'éviter toute erreur de manipulation — décommenter la ligne afin de l'exécuter, puis recommenter.
-    
-    Ces commandes doivent être exécutées dans DBeaver
-    */
-
-    --DELETE FROM "person" ;
-
-    /*
-    * Remettre la séquence à zéro
-    */
-    UPDATE SQLITE_SEQUENCE 
-    SET seq = 0
-    WHERE name ='person';
-
-    /* 
-    après avoir vidé la table exécuter une instruction vacuum afin de vider la mémoire et scories précédentes dans la base de données. Ça libère de l'espace.
-    */
-    VACUUM;
-
-
 
 &nbsp;
 
@@ -128,7 +104,33 @@ N.B: ouvrir ce document directement dans DBeaver !
 
 
 
-* si nécessaire vider préalablement la table personne, cf. ci-dessus
+Si nécessaire vider la table personne en utilisant l'instruction suivante. Mais attention: cette instruction est irréversible ! On peut certes revenir en arrière d'un commit...
+
+
+    /*
+    La ligne est commentée (ajout de "--" avant la commande) afin d'éviter toute erreur de manipulation — décommenter la ligne afin de l'exécuter, puis recommenter.
+    
+    Ces commandes doivent être exécutées dans DBeaver
+    */
+
+    --DELETE FROM "person" ;
+
+    /*
+    * Remettre la séquence à zéro
+    */
+    UPDATE SQLITE_SEQUENCE 
+    SET seq = 0
+    WHERE name ='person';
+
+    /* 
+    après avoir vidé la table exécuter une instruction vacuum afin de vider la mémoire et scories précédentes dans la base de données. Ça libère de l'espace.
+    */
+    VACUUM;
+
+
+
+
+
 * ajouter à la table personne la colonne _import_metadata_ and _original_uri_ en utilisant DBeaver
 * insérer les personnes avec la requête suivante:
 
