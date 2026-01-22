@@ -142,70 +142,12 @@ Le résultat pour le projet Astronomers:
 
 ## Importer les organisation comme objets
 
-
-### Vérifier l'absence de doublons
- 
-
-
-    # si le résultat est vide (pas de lignes) il n'y a pas de doublons
-    SELECT 
-    FROM dbp_organisations_avec_noms lp 
-    GROUP BY person_uri
-    HAVING COUNT(*) > 1 ;
-
-    -- compter les personnes à importer
-    SELECT COUNT(*)
-    FROM (SELECT organisation, min(label),  
-"Importé le 25 novembre 2025 depuis le résultat d'une requête SPARQL sur DBPedia, 
-cf. table dbp_organisations_avec_noms"
-            FROM dbp_organisations_avec_noms
-            GROUP BY organisation);
-
-
- * Il y a des doublons
-
-        SELECT organisation, min(label),  
-    "Importé le 25 novembre 2025 depuis le résultat d'une requête SPARQL sur DBPedia, 
-    cf. table dbp_organisations_avec_noms"
-                FROM dbp_organisations_avec_noms
-                GROUP BY organisation;
-
-
-
-&nbsp;
-
-### Insertion des organisations
-
-adapter !!!
-
-
-
-* si nécessaire vider préalablement la table personne, cf. ci-dessus
-* ajouter à la table personne la colonne _import_metadata_ and _original_uri_ en utilisant DBeaver
-* insérer les personnes avec la requête suivante:
-
-        INSERT INTO person (birth_year, dbpedia_uri, label, import_metadata)
-        SELECT birthYear, person_uri, persname, "Importé le 22 novembre 2025 depuis le résultat d'une requête SPARQL sur DBPedia, cf. astronomers/DBpedia_importer_dans_base_personnelle"
-        FROM dbp_liste_personnes lp ;    
-
-Noter qu'on a ajouté également une note d'importation qui indique l'origine des données, avec un renvoi à la documentation. On peut aussi créer une documentation plus précise avec la table 'reference' qui fait le lien entre chaque objet et la requête dont il est issu. Un exemple ci-dessous.
+Voir le fichier SQL **[Importer Organisations](../../DBPedia/import_organisations.sql)** à ouvrir et exécuter directement dans DBeaver
 
 
 
 
-### Créer les lignes dans la table référence contenant l'URI
 
-* ajouter une ligne manuellement concernant chaque requête SPARQL dans la table Document
-* utiliser la clé primaire de la ligne concernée dans la requête suivante
+## Importer et explorer les appartenances aux organisations
 
-&nbsp;
-
-   
-    INSERT INTO organisation (label, dbpedia_uri, import_metadata)
-        SELECT min(label), organisation,
-"Importé le 25 novembre 2025 depuis le résultat d'une requête SPARQL sur DBPedia, 
-cf. table dbp_organisations_avec_noms"
-            FROM dbp_organisations_avec_noms
-            GROUP BY organisation ;  
-
-Avec cette requête on créé les lignes dans la table _reference_ associant chaque personne à la requête SPARQL d'origine et on indique quelle est l'URI de la personne dans la requête d'origine. On peut ainsi documenter différentes origines des données.
+La dernière étape consiste à importer les données dans la table 'membership'
