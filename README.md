@@ -1,4 +1,4 @@
-# Astronomers
+# Astronomers & Physicists
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14894993.svg)](https://doi.org/10.5281/zenodo.14894993)
 
