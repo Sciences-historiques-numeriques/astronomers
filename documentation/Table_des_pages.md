@@ -3,12 +3,12 @@
 
 ## Wikidata
 
-* [Exploration](wikidata/Wikidata-exploration.md)
+* [Exploration de la population](wikidata/Wikidata-exploration.md)
 * [Liste des propriétés de la population](wikidata/Wikidata-liste-proprietes-population.md)
 * [Documentation de la production de la population](wikidata/Wikidata-production-population.md)
 
 
-## Wikidata : production de données
+## Wikidata : production des données
 
 ### Sparqlbooks (2025)
 
