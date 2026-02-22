@@ -36,8 +36,11 @@ On choisit quelques personnes et on inspecte leurs notices dans Wikidata afin d'
 
 Par exemple:
 
-* [Johannes Kepler](https://m.wikidata.org/wiki/Q8963)
-* [Werner Heisenberg](https://m.wikidata.org/wiki/Q40904)
+* [Victor Ambartsumian](http://www.wikidata.org/entity/Q164396)
+  * Noter propriétés 'employer' et 'position held'
+  * Cf. sa [notice dans DBpedia](https://dbpedia.org/resource/Viktor_Ambartsumian)
+  * Noter la différence entre une ontologie centrée propriétés et une centrée assertions qui en fait contient des temporalités implicites
+* [Werner Heisenberg](http://www.wikidata.org/entity/Q40904)
 
 
 On retient quelques propriétés qui permettent de retrouver toute la population:
