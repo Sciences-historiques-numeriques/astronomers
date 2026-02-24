@@ -1,9 +1,5 @@
 
-
-Information disponible dans Wikidata concernant la population étudiée.
-
-
-## Documentation concernant les requêtes SPARQL effectuées dans Wikidata
+## Documentation concerning SPARQL queries performed in Wikidata
 
 * Official SPARQL Endpoint: https://query.wikidata.org
 * [QLever Wikidata](https://qlever.dev/wikidata)
@@ -12,6 +8,7 @@ Information disponible dans Wikidata concernant la population étudiée.
 &nbsp;
 
 * [SPARQL query service/queries](https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries): documentation.
+* Library Carpentry Wikidata: [Introduction to querying](https://librarycarpentry.github.io/lc-wikidata/05-intro_to_querying.html#top)
 * [Structure of statements in Wikidata](https://www.wikidata.org/wiki/Help:Statements)
 * Query builder: https://query.wikidata.org/querybuilder/?uselang=en
 * [Wikidata Dates](https://www.wikidata.org/wiki/Help:Dates)

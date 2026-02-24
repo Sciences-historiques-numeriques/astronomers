@@ -1,4 +1,4 @@
-([Retour à la page d'accueil](Home.md))
+([Back to Home Page](Home.md))
 
 
 ## Wikidata
@@ -8,7 +8,7 @@
 * [Documentation de la production de la population](wikidata/Wikidata-production-population.md)
 
 
-## Wikidata : production des données
+## Wikidata : information extraction
 
 ### Sparqlbooks (2025)
 

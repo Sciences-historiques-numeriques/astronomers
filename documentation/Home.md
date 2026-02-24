@@ -6,33 +6,37 @@ This project aims to study the evolution of doctrines and methods in astronomy a
 [Back to the repository README](../README.md)
     
 
-###  Phase exploratoire
+###  Exploratory phase
 
 
 * [Problématique et questionnement](Problematique-Questionnement.md) ([English version](en_research_questions.md))
 * [Listes d'astronomes](Listes-d'astronomes.md)
 * [Catalogue des informations](Catalogue-des-informations.md)
 
-### Création de la base de données
+### Creation of the relational database
 
 *  [Modèle conceptuel](../MCD_to_database_example.png)
 *  [Commentaire du modèle conceptuel](Modèle-conceptuel-commentaire.md)
 *  [Modèle logique ou relationnel](Modèle-logique-ou-relationnel.md)
 
-### Récupération et analyse de données existantes
+### Recovery and analysis of existing data
 
 * [Explorer DBpedia](DBpedia/DBpedia_explorer.md)
 * [Importer les données de DBpedia](DBpedia/DBpedia_importer_dans_base_personnelle.md)
 * [Visualiser les données de DBpedia](DBpedia/DBpedia_analyser_donnees_importees.md)
 
 
-
-### Système d'information
-
-[Table des matières](Table_des_pages.md) qui liste toutes les pages du wiki
+&nbsp;
 
 
-### Analyse des données de Wikidata (notebooks Python)
+### Information extraction from Wikidata and other repositories
+
+[Table of contents](Table_des_pages.md) listing the pages regarding information extraction from Wikidata and analysis.
+
+
+
+### Analysis of collected data (Python notebooks)
+
 * [Distribution des naissances dans le temps](https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/notebooks_jupyter/wikidata_exploration/wdt_distribution_naissances.ipynb)
 * [Nationalités: production et codage des données](https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/notebooks_jupyter/wikidata_exploration/wdt_nationalite_production.ipynb)
 * [Nationalités: analyse des données](https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/notebooks_jupyter/wikidata_exploration/wdt_nationalite_analyse.ipynb)
@@ -41,6 +45,6 @@ This project aims to study the evolution of doctrines and methods in astronomy a
 * [Occupations: analyse des données](https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/notebooks_jupyter/wikidata_exploration/wdt_occupations_analyse.ipynb)
  
 
-### Résultats
+### Results
 
 * [Analyse de la distribution dans le temps et l'espace des naissances](results/birth_places_spatiotemporal_distribution.md)
