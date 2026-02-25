@@ -1,6 +1,7 @@
 
 ## Documentation concerning SPARQL queries performed in Wikidata
 
+
 * Official SPARQL Endpoint: https://query.wikidata.org
 * [QLever Wikidata](https://qlever.dev/wikidata)
   * This is an alternative experimental Wikidata Query service which is much faster (because it uses the [QLever triplestore technology](https://github.com/ad-freiburg/qlever)) but the data is not necessarily up to date. 
