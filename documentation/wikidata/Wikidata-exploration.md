@@ -1,12 +1,12 @@
+## Documentation about SPARQL queries performed in Wikidata
 
-## Documentation concerning SPARQL queries performed in Wikidata
-
+### SPARQL endpoints
 
 * Official SPARQL Endpoint: https://query.wikidata.org
 * [QLever Wikidata](https://qlever.dev/wikidata)
-  * This is an alternative experimental Wikidata Query service which is much faster (because it uses the [QLever triplestore technology](https://github.com/ad-freiburg/qlever)) but the data is not necessarily up to date. 
- 
-&nbsp;
+  * This is an alternative Wikidata Query service which is much faster (because it uses the [QLever triplestore technology](https://github.com/ad-freiburg/qlever)) but the data is not necessarily up to date.
+
+### Documentation about Queries in Wikidata
 
 * [SPARQL query service/queries](https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries): documentation.
 * Library Carpentry Wikidata: [Introduction to querying](https://librarycarpentry.github.io/lc-wikidata/05-intro_to_querying.html#top)
@@ -14,52 +14,55 @@
 * Query builder: https://query.wikidata.org/querybuilder/?uselang=en
 * [Wikidata Dates](https://www.wikidata.org/wiki/Help:Dates)
 
-&nbsp;
+### SPARQL Tutorial and Standard (with examples)
 
 * [Wikidata SPARQL Tutorial](https://www.wikidata.org/wiki/Wikidata:SPARQL_tutorial)
 * [W3C SPARQL Standard (and tutorial)](https://www.w3.org/TR/sparql11-query/)
 
-
-
- 
-
 &nbsp;
 
+## Inspection of available information
 
+The objective of this stage of the workflow is to analyse the available information to answer our research questions about the population in our prosopography.
 
-
-## Inspection des notices
-
-On choisit quelques personnes et on inspecte leurs notices dans Wikidata afin d'observer quelles propriétés permettent de retrouver la population.
-
-Par exemple:
+To begin with, we select a few people from the population chosen for the research and inspect their entries in Wikidata. This allows us to identify the properties that will enable us to find the population and determine what information is available.
 
 * [Victor Ambartsumian](http://www.wikidata.org/entity/Q164396)
-  * Noter propriétés 'employer' et 'position held'
-  * Cf. sa [notice dans DBpedia](https://dbpedia.org/resource/Viktor_Ambartsumian)
-  * Noter la différence entre une ontologie centrée propriétés et une centrée assertions qui en fait contient des temporalités implicites
+  * On this page or 'card' we can inspect the RDF triples available about this person in the Wikidata knowledge graph
+  * Carefullyl inspect the properties ‘employer’ and ‘position held’
+    * Cf. the ['card' of the same person in DBpedia](https://dbpedia.org/resource/Viktor_Ambartsumian)
+    * Note the difference between a property-centered ontology and an assertion-centered ontology, which de facto contains implicit temporalities.
 * [Werner Heisenberg](http://www.wikidata.org/entity/Q40904)
 
+### URI vs URL
 
-On retient quelques propriétés qui permettent de retrouver toute la population:
+* URL -> https://www.wikidata.org/wiki/Q164396
+* URI -> &lt;http://www.wikidata.org/entity/Q164396&gt;
+
+**Dereferencing** is the technical mechanism that allows to insert a **URI** in the browser and be redirected to the **URL** of the page where the entity is described (if it exists). In the case of Wikidata and our population, it is the 'card' about the persons, with all the triples (in fact *statements*) presented in a readable form.
+
+## Querying Wikidata to find the population
+
+For astronomers and physicists, the following properties appear to be an effective way of identifying the population::
+
 * [occupation](https://m.wikidata.org/wiki/Property:P106)
 * [field of work](https://m.wikidata.org/wiki/Property:P101)
 
+### Number of persons with 'occupation' et/ou 'field of work' in astronomy and physics
 
-
-## On effectue des requêtes pour vérifier quels effectifs sont disponibles et de qui il s'agit
-
-
-### Effectifs concernant 'occupation' et/ou 'field of work'
-
-Effectifs relevés au 16 février 2026.
+Figures as of February 16, 2026.
 
 ```
 SELECT (COUNT(*) as ?eff)
 WHERE {
+
+    ## we use this clause in order to get only humans and not
+    ## pages or any other entity wrongly associated to the occupation or field of work
+
     ?item wdt:P31 wd:Q5;  # Any instance of a human.
-    wdt:P106 wd:Q11063  # astronomer 11750
-    
+  
+          wdt:P106 wd:Q11063  # astronomer 11750
+  
     # wdt:P101 wd:Q333  # astronomy 2161
     # wdt:P106 wd:Q169470 # physicist 36002
     #  wdt:P101 wd:Q413 # physics ~ 5625
@@ -73,25 +76,27 @@ WHERE {
 }  
 ```
 
-### Combiner 'occupation' avec 'field of work'
+### Combine 'occupation' with 'field of work'
 
-#### Astronomes
+We use here the **UNION** clause which allows to express an **OR** condition and merge two populations.
 
-14327 le le 16 février 2026
+#### Astronomers
+
+14327 as of February 16, 2026.
 
 ```
 SELECT (COUNT(*) as ?eff)
 WHERE {
-    ?item wdt:P31 wd:Q5;  # Any instance of a human.
+    ?item wdt:P31 wd:Q5.
     {?item wdt:P106 wd:Q11063}
     UNION
-    {?item wdt:P101 wd:Q333}            
+    {?item wdt:P101 wd:Q333}    
 }  
- ```
+```
 
-#### Physiciens
+#### Physicians
 
-41629 le le 16 février 2026
+41629 as of February 16, 2026.
 
 ```
 SELECT (COUNT(*) as ?eff)
@@ -99,63 +104,62 @@ WHERE {
     ?item wdt:P31 wd:Q5;  # Any instance of a human.
     {?item wdt:P106 wd:Q169470}
     UNION
-    {?item wdt:P101 wd:Q413}            
+    {?item wdt:P101 wd:Q413}    
 }  
- ```
+```
 
+#### Both sup-populations
 
-#### Les deux
+55956 as of February 16, 2026.
 
-
-
-55956 le le 16 février 2026.
-
-Mais attention: en fait c'est l'addition des deux, cf. ci-dessous
+But be careful: it's actually the sum of the two, so a person could appear more then once.
 
 ```
 SELECT (COUNT(*) as ?eff)
 WHERE {
     ?item wdt:P31 wd:Q5;  # Any instance of a human.
+
     {?item wdt:P106 wd:Q11063}
     UNION
     {?item wdt:P101 wd:Q333} 
     UNION
     {?item wdt:P106 wd:Q169470}
     UNION
-    {?item wdt:P101 wd:Q413}            
+    {?item wdt:P101 wd:Q413}    
 }  
- ```
+```
 
+### Actual number of people
 
-### Nombre effectif de personnes
-
-48094 le le 16 février 2026.
+48094 las of February 16, 2026.
 
 There is an overlap of approximately 7,800 individuals who are both astronomers and physicists.
 
-Please note that SPARQL operates in a layered manner: the innermost layer is executed first and the result set is sent to the next layer up.
+Please note that **SPARQL operates in a layered manner**: the innermost layer is executed first and the result set is then sent to the next layer up.
 
 ```
 SELECT (COUNT(*) as ?eff)
 WHERE {
     ### subquery adding the distinct clause
-    SELECT DISTINCT ?item
-    WHERE {
-    ?item wdt:P31 wd:Q5;  # Any instance of a human.
-    {?item wdt:P106 wd:Q11063}
-    UNION
-    {?item wdt:P101 wd:Q333} 
-    UNION
-    {?item wdt:P106 wd:Q169470}
-    UNION
-    {?item wdt:P101 wd:Q413}            
-      }
+    {
+        SELECT DISTINCT ?item
+        WHERE {
+        ?item wdt:P31 wd:Q5;  # Any instance of a human.
+        {?item wdt:P106 wd:Q11063}
+        UNION
+        {?item wdt:P101 wd:Q333} 
+        UNION
+        {?item wdt:P106 wd:Q169470}
+        UNION
+        {?item wdt:P101 wd:Q413}    
+        }
+    }
 }  
- ```
+```
 
 ### Add a filter on the birth year
 
-32866 on February 21st
+32866 on February 21st 2026
 
 ```
 SELECT (COUNT(*) as ?eff)
@@ -175,24 +179,21 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}            
+            {?item wdt:P101 wd:Q413}    
             }
-        }        
+        }  
     }  
- ```
+```
 
-
-
-### Les individus
-
+### Inspect individuals
 
 ```
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?item ?itemLabel ?year
+SELECT DISTINCT ?item ?itemLabel ?year
 WHERE {
     {
-      
+  
         {?item wdt:P106 wd:Q11063}
         UNION
         {?item wdt:P101 wd:Q333} 
@@ -204,8 +205,8 @@ WHERE {
     ?item wdt:P31 wd:Q5;  # Any instance of a human.
             wdt:P569 ?birthDate.
   BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
-        FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)# Any instance of a human.
-    
+        FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)
+  
     ### Two ways of getting labels
     # SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 
@@ -216,9 +217,7 @@ WHERE {
 LIMIT 100
 ```
 
-
 ### Count population with English labels
-
 
 ```
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -239,14 +238,13 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}            
+            {?item wdt:P101 wd:Q413}    
         ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
             }
-        }        
+        }  
     }  
- ```
-
+```
 
 ### Number of individuals without English label
 
@@ -269,15 +267,14 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}            
+            {?item wdt:P101 wd:Q413}    
         MINUS {?item rdfs:label ?itemLabel.
             FILTER(LANG(?itemLabel) = 'en')
             }
             }
-        }        
+        }  
     }  
- ```
-
+```
 
 ### Individuals without English label
 
@@ -303,64 +300,28 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}            
+            {?item wdt:P101 wd:Q413}    
         MINUS {?item rdfs:label ?itemLabel.
             FILTER(LANG(?itemLabel) = 'en')
             }
             }
-        }        
-      
+        }  
+  
         ?item rdfs:label ?itemLabel. 
 		BIND(LANG(?itemLabel) as ?iso_lang)
-            
+    
        }
 	   GROUP BY ?item ?year
 	   ORDER BY ?item
 	   LIMIT 100
- ```
-
-
-
-### Persons filtered by birth year
-
-Par exemple ici les astronomes et physiciens du 19e et 20e siècles 
-
-
 ```
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT DISTINCT ?item ?itemLabel ?year
-        WHERE {
-        ?item wdt:P31 wd:Q5; 
-              wdt:P569 ?birthDate.
-        BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
-        FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)# Any instance of a human.
-            {?item wdt:P106 wd:Q11063}
-            UNION
-            {?item wdt:P101 wd:Q333} 
-            UNION
-            {?item wdt:P106 wd:Q169470}
-            UNION
-            {?item wdt:P101 wd:Q413}            
-        ?item rdfs:label ?itemLabel.
-        FILTER(LANG(?itemLabel) = 'en')
-            }
-ORDER BY ?item            
-LIMIT 20
-```
-NB: il peut y avoir des doublons si les dates de naissance sont multiples. La clause DISTINCT permet d'enlever les doublons il faut toutefois enlever la variable *?birthDate* de la sortie et laisser seulement l'année
+## List the available properties and their numbers.
 
-
-
-
-## Lister les propriétés disponibles avec effectifs
-
-
-!!! filtrer par discipline et période et voir différentes propriétés
-
-### Sortantes
+### Outgoing
 
 Cf. [sur cette page](./Wikidata-liste-proprietes-population.md) les listes de propiétés qui résultent de cette requête
+
 ```
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -387,6 +348,60 @@ WHERE {
         }
 		GROUP BY ?p
     }
+
+    ## we need this construct to get the label of the property
+    ## properties are also entities in Wikidata,
+    ## but only in the entities' namespace
+
+    ?prop wikibase:directClaim ?p .
+    ?prop rdfs:label ?propLabel.
+        FILTER(LANG(?propLabel) = 'en')
+    }  
+ORDER BY DESC(?eff) 
+```
+
+**NB**. Note that there may be timeout issues: the query is too long, and an error message appears.
+&nbsp;
+In this case, you must restrict the period or limit the number of UNION clauses and break the query down into different parts. Usually the QLever SPARQL Endpoint (cf. above) works fine.
+
+This list is then exported and transformed to a table in order to document the sequence of operations. This is done as follows:
+
+* execute the query then export the result in csv format into your projet's repository: cf. the file in this directory:
+* il faut exécuter la requête SPARQL dans Wikidata, puis exporter le résultat au format  HTML
+* si on eouvrir  la page HTML avec VS Code, on peut mettre en forme avec la commande (click droit) _format document_, puis on copie seulement la partie 'table' depuis la balise &lt;table&gt; jusqu'à &lt;/table&gt;, balises comprises, et on la colle dans un nouveau document Markdown, cf. [Wikidata-liste-proprietes-population.md](Wikidata-liste-proprietes-population.md)
+
+On pourra prendre des notes concernant les opérations effectuées sur les différentes propriétés directement dans ce document et documenter ainsi les choix effectués.
+
+### Incoming
+
+```
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT ?p ?propLabel ?eff   
+WHERE {
+{
+    SELECT DISTINCT  ?p  (count(*) as ?eff)
+    WHERE {
+        ?item wdt:P31 wd:Q5; 
+             wdt:P569 ?birthDate.
+        BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
+        FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)# Any instance of a human.
+            {?item wdt:P106 wd:Q11063}
+            UNION
+            {?item wdt:P101 wd:Q333} 
+            UNION
+            {?item wdt:P106 wd:Q169470}
+            UNION
+            {?item wdt:P101 wd:Q413}.
+
+            ## inversed triple
+			?s ?p ?item.
+        }
+		GROUP BY ?p
+    }
     ?prop wikibase:directClaim ?p .
 
     ?prop rdfs:label ?propLabel.
@@ -395,16 +410,22 @@ WHERE {
 ORDER BY DESC(?eff) 
 ```
 
-NB Noter qu'il peut y avoir des problèmes de time-out, la requête est trop longue et on a un message d'erreur.
-<br/>
-Dans ce cas il faut restreindre la période ou limiter le nombre de clauses UNION et décomposer la requête en différentes parties.
+| property | label | number |
+| ---- | ---------------------- | --------- |
+| P50  | author                 | 1,011,309 |
+| P61  | discoverer or inventor | 83,912    |
+| P184 | doctoral advisor       | 25,019    |
 
-On exporte ensuite cette liste sous forme d'une _table HTML_ afin de documenter la suite des opérations. On ouvre la page HTML avec VS Code, on peut mettre en forme avec la commande (click droit) _format document_, puis on copie seulement la partie 'table' depuis la balise &lt;table&gt; jusqu'à &lt;/table&gt;, balises comprises, et on la colle dans un nouveau document Markdown, cf. [Wikidata-liste-proprietes-population.md](Wikidata-liste-proprietes-population.md)
 
 
-On pourra prendre des notes concernant les opérations effectuées sur les différentes propriétés directement dans ce document et documenter ainsi les choix effectués.
 
-## Add the subpopulation code
+## Define subpopulations (optional)
+
+More complex query that adds a code to both parts of the populations, astronomers and physicists.
+
+Only use if relevant for your project.
+
+### Add the subpopulation code
 
 ```
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -447,8 +468,7 @@ WHERE {
 ORDER BY ?propLabel ?itemType 
 ```
 
-##  Same query but grouped
-
+## Same query but grouped
 
 ```
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -497,119 +517,4 @@ WHERE {
 	GROUP BY ?p ?propLabel
      ORDER BY desc(?max_eff)
 
-```
-
-
-
-### Entrantes
-```
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-SELECT ?p ?propLabel ?eff
-WHERE {
-{
-    SELECT DISTINCT  ?p  (count(*) as ?eff)
-    WHERE {
-        ?item wdt:P31 wd:Q5; 
-             wdt:P569 ?birthDate.
-        BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
-        FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)# Any instance of a human.
-            {?item wdt:P106 wd:Q11063}
-            UNION
-            {?item wdt:P101 wd:Q333} 
-            UNION
-            {?item wdt:P106 wd:Q169470}
-            UNION
-            {?item wdt:P101 wd:Q413}.
-
-            ## inversed triple
-			?s ?p ?item.
-        }
-		GROUP BY ?p
-    }
-    ?prop wikibase:directClaim ?p .
-
-    ?prop rdfs:label ?propLabel.
-        FILTER(LANG(?propLabel) = 'en')
-    }  
-ORDER BY DESC(?eff) 
- ```
-
-
-## Exemple de requête concernant les appartenances à une organisation, avec dates optionnelles si connues
-
-
-On doit dans cette requête sortir du cadre classique de la simple propriété 'member of' et passer à travers l'assertion, le *statement*. Un statement de _Wikidata_ apparait en quelques sortes comme une entité temporelle même si elle n'associe que deux entités principales, comme une propriété.
-
-```
-    SELECT DISTINCT ?item ?itemLabel ?birthYear ?statement ?organization ?organizationLabel 
-                    ?startYear ?endYear  ?startTime ?endTime
-    where {
-            
-        {?item wdt:P106 wd:Q11063}
-                UNION
-                {?item wdt:P101 wd:Q333}
-            
-        ?item wdt:P31 wd:Q5; # Any instance of a human.
-                wdt:P569 ?birthDate;
-                # member of
-                p:P463 ?statement.
-            ?statement ps:P463 ?organization.
-        OPTIONAL {
-                        ?statement pq:P580 ?startTime;
-                        pq:P582 ?endTime.
-            }
-        
-        BIND(REPLACE(str(?startTime), "(.*)([0-9]{4})(.*)", "$2") AS ?startYear)
-        BIND(REPLACE(str(?endTime), "(.*)([0-9]{4})(.*)", "$2") AS ?endYear)
-        
-        BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?birthYear)
-        FILTER(xsd:integer(?birthYear) > 1700 && xsd:integer(?birthYear) < 1801)
-            
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-        }
-    ORDER BY ?birthYear ?startYear
-```
-
-### Autre exemple
-
-```
-     SELECT DISTINCT ?item ?itemLabel ?birthYear ?statement ?organization ?organizationLabel 
-                    ?startYear ?endYear  ?startTime ?endTime
-    where {
-            
-        {?item wdt:P106 wd:Q11063}
-                UNION
-                {?item wdt:P101 wd:Q333}
-            
-        ?item wdt:P31 wd:Q5; # Any instance of a human.
-                wdt:P569 ?birthDate;
-                # member of
-                # p:P463 ?statement.
-                # ?statement ps:P463 ?organization.
-                # educated at
-                p:P69 ?statement.
-                ?statement ps:P69 ?organization.
-              # employer
-                #p:P108 ?statement.
-                #?statement ps:P108 ?organization.
-      #  OPTIONAL
-      {
-                        ?statement pq:P580 ?startTime;
-                        pq:P582 ?endTime.
-            }
-        
-        BIND(REPLACE(str(?startTime), "(.*)([0-9]{4})(.*)", "$2") AS ?startYear)
-        BIND(REPLACE(str(?endTime), "(.*)([0-9]{4})(.*)", "$2") AS ?endYear)
-        
-        BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?birthYear)
-        FILTER(xsd:integer(?birthYear) > 1800 && xsd:integer(?birthYear) < 1901)
-            
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-        }
-    ORDER BY ?item
-    
 ```
