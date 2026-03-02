@@ -90,7 +90,7 @@ WHERE {
     ?item wdt:P31 wd:Q5.
     {?item wdt:P106 wd:Q11063}
     UNION
-    {?item wdt:P101 wd:Q333}    
+    {?item wdt:P101 wd:Q333}  
 }  
 ```
 
@@ -104,7 +104,7 @@ WHERE {
     ?item wdt:P31 wd:Q5;  # Any instance of a human.
     {?item wdt:P106 wd:Q169470}
     UNION
-    {?item wdt:P101 wd:Q413}    
+    {?item wdt:P101 wd:Q413}  
 }  
 ```
 
@@ -125,7 +125,7 @@ WHERE {
     UNION
     {?item wdt:P106 wd:Q169470}
     UNION
-    {?item wdt:P101 wd:Q413}    
+    {?item wdt:P101 wd:Q413}  
 }  
 ```
 
@@ -151,7 +151,7 @@ WHERE {
         UNION
         {?item wdt:P106 wd:Q169470}
         UNION
-        {?item wdt:P101 wd:Q413}    
+        {?item wdt:P101 wd:Q413}  
         }
     }
 }  
@@ -179,7 +179,7 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}    
+            {?item wdt:P101 wd:Q413}  
             }
         }  
     }  
@@ -238,7 +238,7 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}    
+            {?item wdt:P101 wd:Q413}  
         ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
             }
@@ -267,7 +267,7 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}    
+            {?item wdt:P101 wd:Q413}  
         MINUS {?item rdfs:label ?itemLabel.
             FILTER(LANG(?itemLabel) = 'en')
             }
@@ -300,7 +300,7 @@ WHERE
             UNION
             {?item wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}    
+            {?item wdt:P101 wd:Q413}  
         MINUS {?item rdfs:label ?itemLabel.
             FILTER(LANG(?itemLabel) = 'en')
             }
@@ -309,7 +309,7 @@ WHERE
   
         ?item rdfs:label ?itemLabel. 
 		BIND(LANG(?itemLabel) as ?iso_lang)
-    
+  
        }
 	   GROUP BY ?item ?year
 	   ORDER BY ?item
@@ -320,7 +320,8 @@ WHERE
 
 ### Outgoing
 
-Cf. [sur cette page](./Wikidata-liste-proprietes-population.md) les listes de propiétés qui résultent de cette requête
+Cf. [on this page](./Wikidata-liste-proprietes-population.md) the list of properties resulting from this query.
+
 
 ```
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -328,7 +329,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-SELECT ?p ?propLabel ?eff
+SELECT ?p ?propLabel ?eff ('' as ?notes)
 WHERE {
 {
     SELECT DISTINCT  ?p  (count(*) as ?eff)
@@ -360,17 +361,22 @@ WHERE {
 ORDER BY DESC(?eff) 
 ```
 
-**NB**. Note that there may be timeout issues: the query is too long, and an error message appears.
+**NB**. Please note that timeout issues may occur when executing the query on the Wikidata SPARQL endpoint. This is because the query takes too long to process and an error message appears.
 &nbsp;
-In this case, you must restrict the period or limit the number of UNION clauses and break the query down into different parts. Usually the QLever SPARQL Endpoint (cf. above) works fine.
+In this case, you must restrict the period of time considered or limit the number of UNION clauses and break the query down into different parts.
+
+Or you can switch to the QLever SPARQL Endpoint (cf. above) that normally works fine.
 
 This list is then exported and transformed to a table in order to document the sequence of operations. This is done as follows:
 
-* execute the query then export the result in csv format into your projet's repository: cf. the file in this directory:
-* il faut exécuter la requête SPARQL dans Wikidata, puis exporter le résultat au format  HTML
-* si on eouvrir  la page HTML avec VS Code, on peut mettre en forme avec la commande (click droit) _format document_, puis on copie seulement la partie 'table' depuis la balise &lt;table&gt; jusqu'à &lt;/table&gt;, balises comprises, et on la colle dans un nouveau document Markdown, cf. [Wikidata-liste-proprietes-population.md](Wikidata-liste-proprietes-population.md)
+* execute the query then download the result in csv format into your projet's repository. Cf. the file in this directory: data_queries/Wikidata/wdt_population_outgoing_properties_20260302.csv
+* open the CSV in VSCode as text and convert it to a Markdown Table using the plugin 'CSV to Markdown Table (phoihos)'
+* copy the whole table and paste it a new Markdown document, cf. [Wikidata-liste-proprietes-population.md](Wikidata-liste-proprietes-population.md)
+* close the CSV file
 
-On pourra prendre des notes concernant les opérations effectuées sur les différentes propriétés directement dans ce document et documenter ainsi les choix effectués.
+In the column 'notes' of the property table you can add links to the pages where you document the treatement of the corresponding information.   
+
+
 
 ### Incoming
 
@@ -380,7 +386,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-SELECT ?p ?propLabel ?eff   
+SELECT ?p ?propLabel ?eff  ('' as ?notes)
 WHERE {
 {
     SELECT DISTINCT  ?p  (count(*) as ?eff)
@@ -410,11 +416,27 @@ WHERE {
 ORDER BY DESC(?eff) 
 ```
 
-| property | label | number |
-| ---- | ---------------------- | --------- |
-| P50  | author                 | 1,011,309 |
-| P61  | discoverer or inventor | 83,912    |
-| P184 | doctoral advisor       | 25,019    |
+Relevant incoming properties:
+| p                                          | propLabel                                        | eff     | notes |
+| ------------------------------------------ | ------------------------------------------------ | ------- | ----- |
+| http://www.wikidata.org/prop/direct/P50    | author                                           | 1012032 |       |
+| http://www.wikidata.org/prop/direct/P61    | discoverer or inventor                           | 83956   |       |
+| http://www.wikidata.org/prop/direct/P184   | doctoral advisor                                 | 25018   |       |
+| http://www.wikidata.org/prop/direct/P138   | named after                                      | 18336   |       |
+| http://www.wikidata.org/prop/direct/P921   | main subject                                     | 8428    |       |
+| http://www.wikidata.org/prop/direct/P185   | doctoral student                                 | 7617    |       |
+| http://www.wikidata.org/prop/direct/P40    | child                                            | 3218    |       |
+| http://www.wikidata.org/prop/direct/P22    | father                                           | 2835    |       |
+| http://www.wikidata.org/prop/direct/P1346  | winner                                           | 2644    |       |
+| http://www.wikidata.org/prop/direct/P26    | spouse                                           | 2120    |       |
+| http://www.wikidata.org/prop/direct/P1066  | student of                                       | 2035    |       |
+| http://www.wikidata.org/prop/direct/P3373  | sibling                                          | 1982    |       |
+| http://www.wikidata.org/prop/direct/P1889  | different from                                   | 1618    |       |
+| http://www.wikidata.org/prop/direct/P802   | student                                          | 1375    |       |
+
+
+This is just a portion of the resulting downloaded CSV. If you have more you should also create a dedicated page for the incoming properties.
+
 
 
 
