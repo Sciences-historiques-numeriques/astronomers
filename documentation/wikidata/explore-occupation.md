@@ -8,7 +8,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-SELECT ?occupation ?occupationLabel (COUNT(*) as ?eff)
+
+SELECT ?object ?objectLabel (COUNT(*) as ?eff)
 WHERE
     {
     ### subquery adding the distinct clause
@@ -29,12 +30,31 @@ WHERE
             }
         } 
 	
-      ?item wdt:P106 ?occupation.
-        ?occupation rdfs:label ?occupationLabel.
-        FILTER(LANG(?occupationLabel) = 'en')
+        ### The property P106 associates occupations to persons
+        # we call here the target variable ?object 
+        # in order to more easily reuse the query. 
+        # ?occupation would be also a good name for the variable
+        ?item wdt:P106 ?object.
+        ?object rdfs:label ?objectLabel.
+        FILTER(LANG(?objectLabel) = 'en')
 }  
-GROUP BY ?occupation ?occupationLabel 
+GROUP BY ?object ?objectLabel 
 ORDER BY DESC(?eff)
+LIMIT 10
 ```
 
+### Most frequent occupations
+
+| object                                  | objectLabel        | eff   |
+| --------------------------------------- | ------------------ | ----- |
+| http://www.wikidata.org/entity/Q169470  | physicist          | 26091 |
+| http://www.wikidata.org/entity/Q1622272 | university teacher | 8094  |
+| http://www.wikidata.org/entity/Q11063   | astronomer         | 6804  |
+| http://www.wikidata.org/entity/Q170790  | mathematician      | 2299  |
+| http://www.wikidata.org/entity/Q1650915 | researcher         | 1403  |
+| http://www.wikidata.org/entity/Q752129  | astrophysicist     | 1064  |
+| http://www.wikidata.org/entity/Q81096   | engineer           | 1029  |
+| http://www.wikidata.org/entity/Q593644  | chemist            | 951   |
+| http://www.wikidata.org/entity/Q901     | scientist          | 869   |
+| http://www.wikidata.org/entity/Q36180   | writer             | 868   |
 

@@ -10,9 +10,9 @@ La période considérée ici est 1701-1800 inclus (cf. [cette page](Wikidata-exp
 | http://www.wikidata.org/prop/direct/P106   | occupation                                                                        | 82496 | Cf.  [this document](explore-occupation.md). |
 | http://www.wikidata.org/prop/direct/P166   | award received                                                                    | 48502 |                                            |
 | http://www.wikidata.org/prop/direct/P569   | date of birth                                                                     | 40391 |                                            |
-| http://www.wikidata.org/prop/direct/P108   | employer                                                                          | 40220 |                                            |
+| http://www.wikidata.org/prop/direct/P108   | employer                                                                          | 40220 |          Cf.  [this document](explore-employer.md.md).                                  |
 | http://www.wikidata.org/prop/direct/P31    | instance of                                                                       | 39398 |                                            |
-| http://www.wikidata.org/prop/direct/P101   | field of work                                                                     | 39352 |                                            |
+| http://www.wikidata.org/prop/direct/P101   | field of work                                                                     | 39352 |              Cf.  [this document](explore-field-of-work.md.md).                              |
 | http://www.wikidata.org/prop/direct/P735   | given name                                                                        | 39142 |                                            |
 | http://www.wikidata.org/prop/direct/P21    | sex or gender                                                                     | 39129 |                                            |
 | http://www.wikidata.org/prop/direct/P69    | educated at                                                                       | 37184 |                                            |
