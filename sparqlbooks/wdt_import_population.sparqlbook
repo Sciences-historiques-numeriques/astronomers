@@ -2,7 +2,7 @@
   {
     "kind": 1,
     "language": "markdown",
-    "value": "## Import to Allegrograph\n\nIn this notebook we describe the steps of data import to your Allegrograph repository.\n\n\nThe SPARQL queries are to be executed on the Allegrograph SPARQL Endpoint:\n\nFirst we check the basic properties of the population: name, sex, year of birth.",
+    "value": "## Import the data to a triplestore\n\nIn this notebook we describe the steps neede to import the data into your own triplestore.\n\nThe triplestore can be local or online. The configuration of the access has to be managed at the level of the sparqlbook plugin and a connection must be active in order to execute these queries.\n\nFirst we check the basic properties of the population: name, gender, year of birth.",
     "metadata": {}
   },
   {
@@ -26,7 +26,7 @@
   {
     "kind": 1,
     "language": "markdown",
-    "value": "### Import the triples into a dedicated graph\n\nTwo import strategies are possible: \n* directly through a federated query\n  * the query can be executed on a sparql-book \n  * or directly on the Allegrograph server, if it takes to much time to work through the notebook or it does not work\n* directly in Wikidata with import/export of the data \n  * execute a CONTRUCT query with the complete data (without the SERIVICE and LIMIT clause) and export it to the Turtle format (suffix: .ttl)\n  * then import the data into Allegrograph with the appropriate functionality\n\n\nIn all cases, activate in Allegrograph the 'Duplication suppression' of type SPOG, cf. menu: Repository control -> Manage duplicates -> Duplicate suppression type\n\n\nThe graph URI is in fact a URL pointing to a page with the description of the [imported data](../graphs/wikidata-imported-data.md)",
+    "value": "### Import the triples into a dedicated graph\n\nTwo import strategies are possible: \n* directly in your triplestore using a federated query\n  * the query can be executed on a sparql-book \n  * or directly in the query page of your triplestore\n* directly in Wikidata with export of the data and then import to your triplestore \n  * execute a CONTRUCT query with the complete data (without the SERVICE and LIMIT clause) and export it to the Turtle format (suffix: .ttl)\n  * then import the data into your triplestore using the import graphical interface\n\n\n\n\nThe graph URI is in fact a URL pointing to a page with the description of the [imported data](../graphs/wikidata-imported-data.md)",
     "metadata": {}
   },
   {

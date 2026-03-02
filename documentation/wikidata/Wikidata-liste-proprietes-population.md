@@ -7,7 +7,7 @@ La période considérée ici est 1701-1800 inclus (cf. [cette page](Wikidata-exp
 
 | p                                          | propLabel                                                                         | eff   | notes                                      |
 | -------------------------------------------- | ----------------------------------------------------------------------------------- | ------- | -------------------------------------------- |
-| http://www.wikidata.org/prop/direct/P106   | occupation                                                                        | 82496 | Cf.[this document](explore-occupation.md). |
+| http://www.wikidata.org/prop/direct/P106   | occupation                                                                        | 82496 | Cf.  [this document](explore-occupation.md). |
 | http://www.wikidata.org/prop/direct/P166   | award received                                                                    | 48502 |                                            |
 | http://www.wikidata.org/prop/direct/P569   | date of birth                                                                     | 40391 |                                            |
 | http://www.wikidata.org/prop/direct/P108   | employer                                                                          | 40220 |                                            |

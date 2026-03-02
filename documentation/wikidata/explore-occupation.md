@@ -1,6 +1,7 @@
+## Get the most frequent occupations
 
-
-
+* If your population is in great number, use the [QLever SPARQL Endpoint](https://qlever.dev/wikidata)
+* In the case of this population, we observe that the main occupations are the same that the ones used to define the population. The information appears to be less relevant to answer research questions.
 
 ```
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -27,7 +28,7 @@ WHERE
             {?item wdt:P101 wd:Q413}  
             }
         } 
-		
+	
       ?item wdt:P106 ?occupation.
         ?occupation rdfs:label ?occupationLabel.
         FILTER(LANG(?occupationLabel) = 'en')
@@ -35,3 +36,5 @@ WHERE
 GROUP BY ?occupation ?occupationLabel 
 ORDER BY DESC(?eff)
 ```
+
+

@@ -322,7 +322,6 @@ WHERE
 
 Cf. [on this page](./Wikidata-liste-proprietes-population.md) the list of properties resulting from this query.
 
-
 ```
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -356,7 +355,7 @@ WHERE {
 
     ?prop wikibase:directClaim ?p .
     ?prop rdfs:label ?propLabel.
-        FILTER(LANG(?propLabel) = 'en')
+    FILTER(LANG(?propLabel) = 'en')
     }  
 ORDER BY DESC(?eff) 
 ```
@@ -374,9 +373,7 @@ This list is then exported and transformed to a table in order to document the s
 * copy the whole table and paste it a new Markdown document, cf. [Wikidata-liste-proprietes-population.md](Wikidata-liste-proprietes-population.md)
 * close the CSV file
 
-In the column 'notes' of the property table you can add links to the pages where you document the treatement of the corresponding information.   
-
-
+In the column 'notes' of the property table you can add links to the pages where you document the treatement of the corresponding information.
 
 ### Incoming
 
@@ -417,29 +414,26 @@ ORDER BY DESC(?eff)
 ```
 
 Relevant incoming properties:
-| p                                          | propLabel                                        | eff     | notes |
-| ------------------------------------------ | ------------------------------------------------ | ------- | ----- |
-| http://www.wikidata.org/prop/direct/P50    | author                                           | 1012032 |       |
-| http://www.wikidata.org/prop/direct/P61    | discoverer or inventor                           | 83956   |       |
-| http://www.wikidata.org/prop/direct/P184   | doctoral advisor                                 | 25018   |       |
-| http://www.wikidata.org/prop/direct/P138   | named after                                      | 18336   |       |
-| http://www.wikidata.org/prop/direct/P921   | main subject                                     | 8428    |       |
-| http://www.wikidata.org/prop/direct/P185   | doctoral student                                 | 7617    |       |
-| http://www.wikidata.org/prop/direct/P40    | child                                            | 3218    |       |
-| http://www.wikidata.org/prop/direct/P22    | father                                           | 2835    |       |
-| http://www.wikidata.org/prop/direct/P1346  | winner                                           | 2644    |       |
-| http://www.wikidata.org/prop/direct/P26    | spouse                                           | 2120    |       |
-| http://www.wikidata.org/prop/direct/P1066  | student of                                       | 2035    |       |
-| http://www.wikidata.org/prop/direct/P3373  | sibling                                          | 1982    |       |
-| http://www.wikidata.org/prop/direct/P1889  | different from                                   | 1618    |       |
-| http://www.wikidata.org/prop/direct/P802   | student                                          | 1375    |       |
 
+
+| p                                         | propLabel              | eff     | notes |
+| ------------------------------------------- | ------------------------ | --------- | ------- |
+| http://www.wikidata.org/prop/direct/P50   | author                 | 1012032 |       |
+| http://www.wikidata.org/prop/direct/P61   | discoverer or inventor | 83956   |       |
+| http://www.wikidata.org/prop/direct/P184  | doctoral advisor       | 25018   |       |
+| http://www.wikidata.org/prop/direct/P138  | named after            | 18336   |       |
+| http://www.wikidata.org/prop/direct/P921  | main subject           | 8428    |       |
+| http://www.wikidata.org/prop/direct/P185  | doctoral student       | 7617    |       |
+| http://www.wikidata.org/prop/direct/P40   | child                  | 3218    |       |
+| http://www.wikidata.org/prop/direct/P22   | father                 | 2835    |       |
+| http://www.wikidata.org/prop/direct/P1346 | winner                 | 2644    |       |
+| http://www.wikidata.org/prop/direct/P26   | spouse                 | 2120    |       |
+| http://www.wikidata.org/prop/direct/P1066 | student of             | 2035    |       |
+| http://www.wikidata.org/prop/direct/P3373 | sibling                | 1982    |       |
+| http://www.wikidata.org/prop/direct/P1889 | different from         | 1618    |       |
+| http://www.wikidata.org/prop/direct/P802  | student                | 1375    |       |
 
 This is just a portion of the resulting downloaded CSV. If you have more you should also create a dedicated page for the incoming properties.
-
-
-
-
 
 ## Define subpopulations (optional)
 
