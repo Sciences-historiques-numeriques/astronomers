@@ -18,6 +18,8 @@ PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
 
 SELECT DISTINCT ?item  ?gender ?year
         WHERE {
@@ -46,8 +48,50 @@ SELECT DISTINCT ?item  ?gender ?year
         }
         LIMIT 10
     
-
 ```
+
+
+### Count number of persons to import
+
+32781 personnes le 8 mars 2026
+
+```sparql
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (count(*) as ?effectif)
+WHERE {
+    SELECT DISTINCT ?item  ?gender ?year
+            WHERE {
+
+            ## note the service address            
+            SERVICE <https://query.wikidata.org/sparql>
+                {
+                {?item wdt:P106 wd:Q11063}  # astronomer
+                UNION
+                {?item wdt:P101 wd:Q333}     # astronomy
+                UNION
+                {?item wdt:P106 wd:Q169470}  # physicist
+                UNION
+                {?item wdt:P101 wd:Q413}     # physics   
+            
+                ?item wdt:P31 wd:Q5;  # Any instance of a human.
+                    wdt:P569 ?birthDate; # It must necessarily have a birth date property
+                    wdt:P21 ?gender. # It must necessarily have a gender property
+            BIND(year(?birthDate) as ?year)
+            #BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
+            FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+            
+
+            ## No name is added at this stage
+            }
+            }
+}
+```
+
 ### Preparing to import data
 
 * Here we use the CONSTRUCT query to prepare the triples for import into a graph database.
@@ -60,21 +104,21 @@ PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
-PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
-PREFIX sdh-short: <https://sdhss.org/ontology/shortcuts/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT 
         {
            ?item wdt:P21 ?gender.
-           ?item sdh-short:P2 ?year.
+           ?item  wdt:P569 ?year.
            # ?item  wdt:P31 wd:Q5.
-           # Noter qu'on odifie pour disposer de la propriété standard
+           # Noter qu'on modifie pour disposer de la propriété standard
            # pour déclarer l'appartenance d'une instance à une classe
-           ?item  rdf:type crm:E1. }
+           ?item  rdf:type wd:Q5. }
         
         WHERE {
 
-        ## note the service address            
+        ## note the service address            
         SERVICE <https://query.wikidata.org/sparql>
             {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -90,7 +134,7 @@ CONSTRUCT
                 wdt:P21 ?gender.
         BIND(year(?birthDate) as ?year)
         #BIND(xsd:integer(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2")) AS ?year)
-        FILTER(?year > 1770  && ?year < 1981) 
+        FILTER(?year > 1780  && ?year < 1981) 
 
         
         }
@@ -114,6 +158,8 @@ Two import strategies are possible:
 
 The graph URI is in fact a URL pointing to a page with the description of the [imported data](../graphs/wikidata-imported-data.md)
 
+noter pour écrire l'URL doit être /astronphysicists
+
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -124,9 +170,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 INSERT {
 
         ### Note that the data is imported into a named graph and not the DEFAULT one
-        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>
-        {?item  rdfs:label ?itemLabel.
-           ?item wdt:P21 ?gender.
+        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>
+        {?item  wdt:P21 ?gender.
            ?item wdt:P569 ?year. 
            # ?item  wdt:P31 wd:Q5.
            # modifier pour disposer de la propriété standard
@@ -135,8 +180,7 @@ INSERT {
 }
         
         WHERE {
-
-        ## please note the service address            
+        ## note the service address            
         SERVICE <https://query.wikidata.org/sparql>
             {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -151,17 +195,44 @@ INSERT {
                 wdt:P569 ?birthDate;
                 wdt:P21 ?gender.
         BIND(year(?birthDate) as ?year)
-        FILTER(?year > 1750  && ?year < 2001) 
-
-        ## Add this clause in order to fill the variable      
-        BIND ( ?itemLabel as ?itemLabel)
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }   
+        #BIND(xsd:integer(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2")) AS ?year)
+        FILTER(?year > 1780  && ?year < 1981) 
         }
         }
         
-    
 
 ```
+
+### Explore imported data
+
+```
+SELECT (COUNT(*) as ?number)
+WHERE {
+  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+  ## deux expressions équivalentes
+  # ?item  rdf:type wd:Q5
+  ?item  a wd:Q5
+        }
+}
+        
+```
+
+
+```
+SELECT *
+WHERE {
+  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+  ?item  a wd:Q5.
+        ?p ?o
+        }
+}
+ORDER BY ?item ?p
+LIMIT 20
+        
+```
+
+
+
 #### Add a label to the class "Person"
 
 
@@ -478,6 +549,7 @@ WHERE {
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
 SELECT  ?s (MAX(?label) as ?label) (xsd:integer(MAX(?birthDate)) as ?birthDate) 

@@ -2,7 +2,7 @@
   {
     "kind": 1,
     "language": "markdown",
-    "value": "## Import the data to a triplestore\n\nIn this notebook we describe the steps needed to import the data into your own triplestore.\n\nThe triplestore can be local or online. The configuration of the access has to be managed at the level of the sparqlbook plugin and a connection must be active in order to execute these queries.\n\nFirst we check the basic properties of the population: name, gender, year of birth.",
+    "value": "## Import the data into a triplestore\n\n\n[8 mars 2026] Cf. the new file ...\n\n\n&nbsp;\n\n\nIn this notebook we describe the steps needed to import the data into your own triplestore.\n\nThe triplestore can be local or online. The configuration of the access has to be managed at the level of the sparqlbook plugin and a connection must be active in order to execute these queries.\n\nFirst we check the basic properties of the population: name, gender, year of birth.",
     "metadata": {}
   },
   {
