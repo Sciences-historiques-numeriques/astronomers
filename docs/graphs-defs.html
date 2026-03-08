@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Graphs</title>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        function copyText(elementId) {
+        const span = document.getElementById(elementId);
+        const text = span.textContent;
+
+        // Modern Clipboard API (with fallback)
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text)
+            .then(() => alert(`Copied URI!`))
+            .catch(err => {
+                console.error('Copy failed:', err);
+                fallbackCopy(text);
+            });
+        } else {
+            fallbackCopy(text);
+        }
+        }
+
+        /* Fallback: 
+        not all browsers support the modern 
+        navigator.clipboard.writeText() API 
+        */
+        function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert(`Copied (fallback) succeffully!`);
+        }
+</script>
+
+<!--favicon-->
+  <link rel="icon" href="public/favicon.ico" type="image/x-icon">
+</head>
+
+</head>
+<body>
+
+    <h2>Documentation about triplestore graphs</h2>
+    <p>
+        Description of triplestore graphs
+    </p>
+
+    <br/>
+    <h3 id="wikidata">Data imported from Wikidata</h3>
+
+    Graph URI: <span id="wikidata-uri" class="background_highlight">&lt;https://historian.digital/astronomers/index.html#wikidata&gt;   </span>
+    <button onclick="copyText(this.previousElementSibling.id)">Copy</button>
+
+
+
+</body>
+</html>
