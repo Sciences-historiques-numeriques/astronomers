@@ -1,9 +1,6 @@
 ## Import the data into a triplestore
 
 
-[8 mars 2026] Cf. the new file ...
-
-
 &nbsp;
 
 
@@ -146,7 +143,7 @@ CONSTRUCT
 ### Import the triples into a dedicated graph
 
 Two import strategies are possible: 
-* directly in your triplestore using a federated query
+* [to be preferred] directly in your triplestore using a federated query
   * the query can be executed on a sparql-book 
   * or directly in the query page of your triplestore
 * directly in Wikidata with export of the data and then import to your triplestore 
@@ -203,9 +200,35 @@ INSERT {
 
 ```
 
-### Explore imported data
+
+
+
+### Inspect imported data
+```
+PREFIX wd: <http://www.wikidata.org/entity/>
+
+SELECT *
+WHERE {
+  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+  ?item  a wd:Q5.
+        ?p ?o
+        }
+}
+ORDER BY ?item ?p
+LIMIT 20
+        
+```
+
+
+### Count imported data
+
+Imported: 32677
+
+La différence d'effectif peut s'expliquer par des propriétés doubles.
 
 ```
+PREFIX wd: <http://www.wikidata.org/entity/>
+
 SELECT (COUNT(*) as ?number)
 WHERE {
   GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
@@ -218,18 +241,101 @@ WHERE {
 ```
 
 
+### Multiple dates
 ```
-SELECT *
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT (COUNT(*) as ?number) ?item
 WHERE {
   GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
-  ?item  a wd:Q5.
-        ?p ?o
+  ## deux expressions équivalentes
+  # ?item  rdf:type wd:Q5
+  ?item  a wd:Q5;
+   wdt:P569 ?birthDate.
         }
 }
-ORDER BY ?item ?p
-LIMIT 20
-        
+GROUP BY ?item
+HAVING (COUNT(*) > 1)
 ```
+
+
+
+### Multiple genders
+```
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT (COUNT(*) as ?number) ?item
+WHERE {
+  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+  ## deux expressions équivalentes
+  # ?item  rdf:type wd:Q5
+  ?item  a wd:Q5;
+   wdt:P21 ?gender.
+        }
+}
+GROUP BY ?item
+HAVING (COUNT(*) > 1)
+```
+
+## Add labels
+
+
+```
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# CONSTRUCT {?item rdfs:label ?itemLabel}
+INSERT {
+  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> 
+	{?item rdfs:label ?itemLabel}
+}
+WHERE {
+  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+  ## deux expressions équivalentes
+  # ?item  rdf:type wd:Q5
+  ?item  a wd:Q5.
+  SERVICE <https://query.wikidata.org/sparql>
+    {
+      ?item rdfs:label ?itemLabel.
+        FILTER(LANG(?itemLabel) = 'en')
+    }
+    
+        }
+}
+
+```
+
+
+
+
+
+
+### Find English labels
+
+```
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?item ?itemLabel
+WHERE {
+  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+  ## deux expressions équivalentes
+  # ?item  rdf:type wd:Q5
+  ?item  a wd:Q5.
+  SERVICE <https://query.wikidata.org/sparql>
+    {
+      ?item rdfs:label ?itemLabel.
+        FILTER(LANG(?itemLabel) = 'en')
+    }
+    
+        }
+}
+LIMIT 10
+```
+
 
 
 

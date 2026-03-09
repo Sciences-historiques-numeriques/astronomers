@@ -1,6 +1,6 @@
 
 
-## Préparation
+## Préparation
 
 * Vérifier quelle version de Java est installée et isntaller Java si aucune version disponible
 * Télécharger Fuseki et le mettre dans un dossier dédié (mais pas le dosseir GitHub !)
@@ -11,3 +11,4 @@
 * Le serveur va se lancer et l'interface graphique sera disponible à l'adresse http://localhost:3030
 * Créer un nouveau dataset avec un nom correspondant à votre projet et en utilisant le type "Persistent (TDB2)"
 * Ouvrir l'onglet 'Query' du dataset
+* Pour importer des données et écrire dans Fuseki utiliser un URL de endpoint en écriture
