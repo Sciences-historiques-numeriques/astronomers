@@ -11,7 +11,7 @@ The triplestore can be local or online. The configuration of the access has to b
 First we check the basic properties of the population: name, gender, year of birth.
 
 ```sparql
-PPREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
