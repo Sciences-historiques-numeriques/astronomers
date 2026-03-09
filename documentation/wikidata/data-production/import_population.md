@@ -11,17 +11,18 @@ The triplestore can be local or online. The configuration of the access has to b
 First we check the basic properties of the population: name, gender, year of birth.
 
 ```sparql
-PREFIX wd: <http://www.wikidata.org/entity/>
+PPREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 
-SELECT DISTINCT ?item  ?gender ?year
+SELECT DISTINCT ?item  ?gender ?year ?itemLabel
         WHERE {
 
-        ## note the service address            
+        ## note the service address            
         SERVICE <https://query.wikidata.org/sparql>
             {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -38,6 +39,11 @@ SELECT DISTINCT ?item  ?gender ?year
         BIND(year(?birthDate) as ?year)
         #BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+    
+        OPTIONAL {
+	     ?item rdfs:label ?itemLabel.
+        FILTER(LANG(?itemLabel) = 'en')
+    }
         
 
         ## No name is added at this stage
@@ -151,6 +157,15 @@ Two import strategies are possible:
   * then import the data into your triplestore using the import graphical interface
 
 
+This is the recommended format for a graph URI:
+```
+<https://attereb.github.io/astronomers/graphs-defs.html#wikidata>
+```
+
+Or expressed in a generic way:
+```
+<https://[your girhub pseudo].github.io/[your repo name]/graphs-defs.html#wikidata>
+```
 
 
 The graph URI is in fact a URL pointing to a page with the description of the [imported data](../graphs/wikidata-imported-data.md)
@@ -278,6 +293,9 @@ WHERE {
 GROUP BY ?item
 HAVING (COUNT(*) > 1)
 ```
+
+
+
 
 ## Add labels
 
