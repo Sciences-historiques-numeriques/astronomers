@@ -1,8 +1,6 @@
 ## Import the data into a triplestore
 
-
 &nbsp;
-
 
 In this notebook we describe the steps needed to import the data into your own triplestore.
 
@@ -13,8 +11,6 @@ First we check the basic properties of the population: name, gender, year of bir
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -22,7 +18,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?item  ?gender ?year ?itemLabel
         WHERE {
 
-        ## note the service address            
+        ## note the service address          
         SERVICE <https://query.wikidata.org/sparql>
             {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -32,43 +28,39 @@ SELECT DISTINCT ?item  ?gender ?year ?itemLabel
             {?item wdt:P106 wd:Q169470}  # physicist
             UNION
             {?item wdt:P101 wd:Q413}     # physics   
-          
+        
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
                 wdt:P21 ?gender. # It must necessarily have a gender property
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-    
+  
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
     }
-        
-
-        ## No name is added at this stage
         }
         }
         LIMIT 10
-    
+  
 ```
-
 
 ### Count number of persons to import
 
 39170 personnes le 8 mars 2026
 
+Noter toutefois qu'il y a probablement des doubles noms, dates de naissance, etc. donc moins de personnes en principe
+
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT (count(*) as ?effectif)
 WHERE {
 
-        ## note the service address            
+        ## note the service address          
         SERVICE <https://query.wikidata.org/sparql>
             {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -78,18 +70,18 @@ WHERE {
             {?item wdt:P106 wd:Q169470}  # physicist
             UNION
             {?item wdt:P101 wd:Q413}     # physics   
-          
+        
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
                 wdt:P21 ?gender. # It must necessarily have a gender property
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-    
+  
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
     }
-     
+   
         }
         }
 ```
@@ -99,13 +91,11 @@ WHERE {
 * Here we use the CONSTRUCT query to prepare the triples for import into a graph database.
 * We limit the test to a few rows to avoid displaying thousands of them.
 * Inspect and check the triplets that are generated.
-* Reuse if possible the Wikidata properties 
+* Reuse if possible the Wikidata properties
 
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -117,12 +107,12 @@ CONSTRUCT
            ?item rdfs:label ?itemLabel.
            # ?item  wdt:P31 wd:Q5.
            # Noter qu'on modifie pour disposer de la propriété standard
-           # pour déclarer l'appartenance d'une instance à une classe
+           # afin de déclarer l'appartenance d'une instance à une classe
            ?item  rdf:type wd:Q5. }
-        
+      
         WHERE {
 
-        ## note the service address            
+        ## note the service address          
         SERVICE <https://query.wikidata.org/sparql>
             {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -132,49 +122,53 @@ CONSTRUCT
             {?item wdt:P106 wd:Q169470}  # physicist
             UNION
             {?item wdt:P101 wd:Q413}     # physics   
-          
+        
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
                 wdt:P21 ?gender. # It must necessarily have a gender property
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-    
+  
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
     }
-     
+   
         }
         }
         LIMIT 5
-    
+  
 
 ```
+
 ### Import the triples into a dedicated graph
 
-Two import strategies are possible: 
-* [to be preferred] directly in your triplestore using a federated query
-  * the query can be executed on a sparql-book 
+Two import strategies are possible:
+
+* [to be preferred] directly in your triplestore using a federated query (clause SERVICE <service.url>)
+  * the query can be executed on a sparql-book
   * or directly in the query page of your triplestore
-* directly in Wikidata with export of the data and then import to your triplestore 
+* directly in Wikidata with export of the data and then import to your triplestore
   * execute a CONTRUCT query with the complete data (without the SERVICE and LIMIT clause) and export it to the Turtle format (suffix: .ttl)
   * then import the data into your triplestore using the import graphical interface
 
+This is the recommended format for a graph URI in this context:
 
-This is the recommended format for a graph URI:
 ```
 <https://attereb.github.io/astronomers/graphs-defs.html#wikidata>
+
 ```
 
 Or expressed in a generic way:
+
 ```
 <https://[your girhub pseudo].github.io/[your repo name]/graphs-defs.html#wikidata>
+
 ```
 
+The graph URI is in fact a URL pointing to a page with the description of the [imported data](https://historian.digital/astronomers/graphs-defs.html).
 
-The graph URI is in fact a URL pointing to a page with the description of the [imported data](../graphs/wikidata-imported-data.md)
-
-noter pour écrire l'URL doit être /astronphysicists
+#### Requête de base
 
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -196,10 +190,14 @@ INSERT {
            ?item  rdf:type wd:Q5.
            }
 }
-        
+      
         WHERE {
+  
+  			SELECT DISTINCT ?item ?year ?gender ?itemLabel
+  
+  			WHERE {
 
-        ## note the service address            
+        ## note the service address          
         SERVICE <https://query.wikidata.org/sparql>
             {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -209,43 +207,45 @@ INSERT {
             {?item wdt:P106 wd:Q169470}  # physicist
             UNION
             {?item wdt:P101 wd:Q413}     # physics   
-          
+        
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
                 wdt:P21 ?gender. # It must necessarily have a gender property
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-    
+  
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
     }
-     
+   
         }
         }
-        
+    ORDER BY ?item 
+    OFFSET 0
+    LIMIT 10000
+}
+
+      
 
 ```
 
-
-
-
 ### Inspect imported data
+
 ```
 PREFIX wd: <http://www.wikidata.org/entity/>
 
 SELECT *
 WHERE {
   GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
-  ?item  a wd:Q5.
-        ?p ?o
+  ?item  a wd:Q5;
+        ?p ?o.
         }
 }
 ORDER BY ?item ?p
 LIMIT 20
-        
+      
 ```
-
 
 ### Count imported data
 
@@ -264,11 +264,11 @@ WHERE {
   ?item  a wd:Q5
         }
 }
-        
+      
 ```
 
-
 ### Multiple dates
+
 ```
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -286,12 +286,12 @@ GROUP BY ?item
 HAVING (COUNT(*) > 1)
 ```
 
-
-
 ### Multiple genders
+
 ```
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT (COUNT(*) as ?number) ?item
 WHERE {
@@ -306,36 +306,25 @@ GROUP BY ?item
 HAVING (COUNT(*) > 1)
 ```
 
-
-
-
-## Add labels
-
+### Multiple labels
 
 ```
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-# CONSTRUCT {?item rdfs:label ?itemLabel}
-INSERT {
-  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> 
-	{?item rdfs:label ?itemLabel}
-}
+
+SELECT (COUNT(*) as ?number) ?item
 WHERE {
   GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
   ## deux expressions équivalentes
   # ?item  rdf:type wd:Q5
-  ?item  a wd:Q5.
-  SERVICE <https://query.wikidata.org/sparql>
-    {
-      ?item rdfs:label ?itemLabel.
-        FILTER(LANG(?itemLabel) = 'en')
-    }
-    
+  ?item  a wd:Q5;
+    rdfs:label ?label.
         }
 }
-
+GROUP BY ?item
+HAVING (COUNT(*) > 1)
 ```
 
 
@@ -343,7 +332,121 @@ WHERE {
 
 
 
-### Find English labels
+## Requête corrigée pour éviter les doublons de dates
+
+On vide d'abord le graphe préalablement rempli (ATTENTION: tous les triplets sont éliminés)
+
+```
+CLEAR GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>
+
+```
+
+On le remplite ensuite de nouveau.
+
+Noter la clause qui permet de traiter progressivement les données afin d'éviter les blocages du triplestore.
+
+D'abord on prend les 10000 premiers triplets:
+
+```
+OFFSET 0
+LIMIT 10000
+```
+
+puis, après succès de l'update, on prend les dix-mille suivants:
+
+```
+OFFSET 10000
+LIMIT 20000
+```
+et ainsi de suite.
+
+
+La requête perfectionnée:
+
+```sparql
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+INSERT {
+
+        ### Note that the data is imported into a named graph and not the DEFAULT one
+        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>
+        {?item  wdt:P21 ?min_gender.
+           ?item wdt:P569 ?min_year. 
+           ?item rdfs:label ?min_label.           # ?item  wdt:P31 wd:Q5.
+           # modifier pour disposer de la propriété standard
+           ?item  rdf:type wd:Q5.
+           }
+}
+      
+        WHERE {
+  
+  			SELECT ?item (MIN(?year) as ?min_year) (MIN(?gender) as ?min_gender) (MIN(?itemLabel) as ?min_label)
+  
+  			WHERE {
+
+        ## note the service address          
+        SERVICE <https://query.wikidata.org/sparql>
+            {
+            {?item wdt:P106 wd:Q11063}  # astronomer
+            UNION
+            {?item wdt:P101 wd:Q333}     # astronomy
+            UNION
+            {?item wdt:P106 wd:Q169470}  # physicist
+            UNION
+            {?item wdt:P101 wd:Q413}     # physics   
+        
+            ?item wdt:P31 wd:Q5;  # Any instance of a human.
+                wdt:P569 ?birthDate; # It must necessarily have a birth date property
+                wdt:P21 ?gender. # It must necessarily have a gender property
+        BIND(year(?birthDate) as ?year)
+        FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+  
+        OPTIONAL {
+	     ?item rdfs:label ?itemLabel.
+        FILTER(LANG(?itemLabel) = 'en')
+    }
+   
+        }
+        }
+    GROUP BY ?item
+    ORDER BY ?item 
+    OFFSET 0
+    LIMIT 10000
+}
+```
+
+
+
+
+
+
+
+
+
+
+### Find persons without labels
+
+1911 persons
+
+```
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (COUNT(*) AS ?number)
+WHERE {
+    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+    ?item  a wd:Q5.
+    MINUS { ?item rdfs:label ?label}
+    }
+}
+```
+
 
 ```
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -351,16 +454,17 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?item ?itemLabel
 WHERE {
-  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
-  ## deux expressions équivalentes
-  # ?item  rdf:type wd:Q5
-  ?item  a wd:Q5.
+    {GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata> {
+        ?item  a wd:Q5.
+        MINUS { ?item rdfs:label ?label}
+        }
+    }
   SERVICE <https://query.wikidata.org/sparql>
     {
       ?item rdfs:label ?itemLabel.
-        FILTER(LANG(?itemLabel) = 'en')
+        FILTER(LANG(?itemLabel) = 'ru')
     }
-    
+  
         }
 }
 LIMIT 10
@@ -370,8 +474,6 @@ LIMIT 10
 
 
 #### Add a label to the class "Person"
-
-
 
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -387,6 +489,7 @@ INSERT DATA {
 }
 
 ```
+
 ### Add the gender class
 
 ```sparql
@@ -449,6 +552,7 @@ INSERT DATA {
 }
 
 ```
+
 ### Verify imported triples and add labels to genders
 
 ```sparql
@@ -470,6 +574,7 @@ WHERE {
 GROUP BY ?s
 HAVING (?n > 1)
 ```
+
 ### Explore the gender
 
 ```sparql
@@ -510,7 +615,7 @@ WHERE {
     GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>
         {?s wdt:P21 ?gen;
             wdt:P569 ?birthDate.
-        FILTER (?birthDate < '1900')     
+        FILTER (?birthDate < '1900')   
           }
 }
 GROUP BY ?gen
@@ -531,17 +636,17 @@ PREFIX bd: <http://www.bigdata.com/rdf#>
 SELECT ?gen ?genLabel
 WHERE {
 
-    
+  
 
     {SELECT DISTINCT ?gen
     WHERE {
-        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>    
+        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>  
             {?s wdt:P21 ?gen}
     }
     }   
 
     SERVICE  <https://query.wikidata.org/sparql> {
-        ## Add this clause in order to fill the variable      
+        ## Add this clause in order to fill the variable    
         BIND(?gen as ?gen)
         BIND ( ?genLabel as ?genLabel)
         SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  
@@ -560,21 +665,21 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
      ?gen rdfs:label ?genLabel
-    
+  
 } 
 WHERE {
 
-    
+  
 
     {SELECT DISTINCT ?gen
     WHERE {
-        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>    
+        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>  
             {?s wdt:P21 ?gen}
     }
     }   
 
     SERVICE  <https://query.wikidata.org/sparql> {
-        ## Add this clause in order to fill the variable      
+        ## Add this clause in order to fill the variable    
         BIND(?gen as ?gen)
         BIND ( ?genLabel as ?genLabel)
         SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  
@@ -594,19 +699,19 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 WITH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md> 
 INSERT {
      ?gen rdfs:label ?genLabel
-    
+  
 } 
-WHERE {    
+WHERE {  
 
     {SELECT DISTINCT ?gen
     WHERE {
-        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>    
+        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>  
             {?s wdt:P21 ?gen}
     }
     }   
 
     SERVICE  <https://query.wikidata.org/sparql> {
-        ## Add this clause in order to fill the variable      
+        ## Add this clause in order to fill the variable    
         BIND(?gen as ?gen)
         BIND ( ?genLabel as ?genLabel)
         SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }  
@@ -632,13 +737,14 @@ WHERE
                     {
             ?s wdt:P21 ?gen.
             }
-        }    
-        GROUP BY ?gen        
-    }    
+        }  
+        GROUP BY ?gen      
+    }  
     ?gen rdfs:label ?genLabel
     }   
 
 ```
+
 ### Prepare data to analyse
 
 ```sparql
@@ -695,7 +801,7 @@ WHERE {
         {?s wdt:P21 ?gen;
             rdfs:label ?label;
             wdt:P569 ?birthDate.
-        ?gen rdfs:label ?genLabel    
+        ?gen rdfs:label ?genLabel  
           }
 }
 GROUP BY ?s
@@ -735,7 +841,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 INSERT DATA {
 GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>
 {    wdt:P569 rdfs:label "date of birth"
-}    
+}  
 }
 
 
@@ -751,7 +857,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 INSERT DATA {
 GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>
 {    wdt:P21 rdfs:label "sex or gender"
-}    
+}  
 }
 
 

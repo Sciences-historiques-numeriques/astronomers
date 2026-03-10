@@ -2,6 +2,9 @@
 ## configuration !
 config.py
 
+# fichier de test de requêtes SPARQL
+documentation/wikidata/data-production/test-fuseki.md
+
 
 ## database trop volumineuse pour GitHub
 # mettre en ligne un fichier zippé
