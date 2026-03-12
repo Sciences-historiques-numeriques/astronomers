@@ -5,7 +5,7 @@
   * Please note that for Fuseki Version 6, you need at least Java version 21 or higher.
   * Check your Java version with this command:
     $ java --version
-  * If Java version < 21, uninstall Java [following these instructions](https://www.java.com/en/download/uninstalltool.jsp)
+  * If Java version < 21, uninstall Java [following these instructions](https://www.java.com/download/help/uninstall_java.html) for Windows and [these for other operating systems](https://www.java.com/en/download/uninstalltool.jsp)
   * Then install JDK Java according to your [laptop system and hardware](https://www.oracle.com/java/technologies/downloads) version
   * For Windows, prefer the .msi Java installer version
 * [Download Fuseki](https://jena.apache.org/documentation/fuseki2/) and put it into a dedicated folder (but not into the GitHub folder!)

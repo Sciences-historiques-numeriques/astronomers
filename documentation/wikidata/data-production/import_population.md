@@ -31,9 +31,14 @@ SELECT DISTINCT ?item  ?gender ?year ?itemLabel
         
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
-                wdt:P21 ?gender. # It must necessarily have a gender property
+
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+  
+        OPTIONAL {
+            # The item can have or not a gender property
+            ?item wdt:P21 ?gender.
+        }
   
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
@@ -45,7 +50,7 @@ SELECT DISTINCT ?item  ?gender ?year ?itemLabel
   
 ```
 
-### Count number of persons to import
+### Get the number of persons to be imported 
 
 39170 personnes le 8 mars 2026
 
@@ -73,9 +78,14 @@ WHERE {
         
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
-                wdt:P21 ?gender. # It must necessarily have a gender property
+  
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+  
+        OPTIONAL {
+            # The item can have or not a gender property
+            ?item wdt:P21 ?gender.
+        }
   
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
@@ -125,10 +135,15 @@ CONSTRUCT
         
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
-                wdt:P21 ?gender. # It must necessarily have a gender property
+
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-  
+
+        OPTIONAL {
+            # The item can have or not a gender property
+            ?item wdt:P21 ?gender.
+        }
+    
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
@@ -209,10 +224,17 @@ INSERT {
             {?item wdt:P101 wd:Q413}     # physics   
         
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
-                wdt:P569 ?birthDate; # It must necessarily have a birth date property
-                wdt:P21 ?gender. # It must necessarily have a gender property
+                wdt:P569 ?birthDate. # It must necessarily have a birth date property
+
+
+
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+  
+   OPTIONAL {
+            # The item can have or not a gender property
+            ?item wdt:P21 ?gender.
+        }
   
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
@@ -403,10 +425,13 @@ INSERT {
         
             ?item wdt:P31 wd:Q5;  # Any instance of a human.
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
-                wdt:P21 ?gender. # It must necessarily have a gender property
+                
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-  
+        OPTIONAL {
+                # Gender is optional to avoid losing people.
+                ?item rwdt:P21 ?gender.
+            }
         OPTIONAL {
 	     ?item rdfs:label ?itemLabel.
         FILTER(LANG(?itemLabel) = 'en')
