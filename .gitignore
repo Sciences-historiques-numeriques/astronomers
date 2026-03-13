@@ -2,9 +2,10 @@
 ## configuration !
 config.py
 
-# fichier de test de requêtes SPARQL
+# fichier de test 
 documentation/wikidata/data-production/test-fuseki.md
 documentation/wikidata/data-production/test-allegrograph.sparqlbook
+documentation/wikidata/data-production/noto-push-to-github.md
 
 
 ## database trop volumineuse pour GitHub
