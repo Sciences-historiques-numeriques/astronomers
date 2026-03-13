@@ -4,6 +4,7 @@ config.py
 
 # fichier de test de requêtes SPARQL
 documentation/wikidata/data-production/test-fuseki.md
+documentation/wikidata/data-production/test-allegrograph.sparqlbook
 
 
 ## database trop volumineuse pour GitHub
