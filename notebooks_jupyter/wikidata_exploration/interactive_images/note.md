@@ -1,0 +1,1 @@
+This file makes the directory visible in the versioning process, although the other files are ignored according to .gitignore
