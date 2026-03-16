@@ -31,7 +31,6 @@ DBPedia/exports_csv
 
 
 
-
 # CSV non versionnés, sauf exceptions
 *.csv
 
