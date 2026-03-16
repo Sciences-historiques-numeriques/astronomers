@@ -60,12 +60,13 @@ DBPedia/exports_csv
 # HTML non versionnés, sauf exceptions
 *.html
 !/docs/*.html
+!/docs/naissances_distribution_10ans_genre_percent.html
+
 
 !/wiki_documentation/idRef/proprietes_population_entrantes.html
 !/notebooks_jupyter/wikidata_exploration/images/birth_places_choropleth.html
 !/notebooks_jupyter/wikidata_exploration/images/birth_places_points.html
 !/notebooks_jupyter/dbpedia_exploration/pictures/birth_years_20241208.html
-!/notebooks_jupyter/wikidata_exploration/interactive_images/naissances_distribution_10ans_genre_percent.html
 
 
 # JPG non versionnés, sauf exceptions
