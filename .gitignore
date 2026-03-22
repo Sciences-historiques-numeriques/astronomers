@@ -7,6 +7,8 @@ documentation/wikidata/data-production/test-fuseki.md
 documentation/wikidata/data-production/test-allegrograph.sparqlbook
 documentation/wikidata/data-production/noto-push-to-github.md
 
+# dossiers import csv
+/data/wdt_csv_data
 
 ## database trop volumineuse pour GitHub
 # mettre en ligne un fichier zippé
@@ -34,7 +36,7 @@ DBPedia/exports_csv
 # CSV non versionnés, sauf exceptions
 *.csv
 
-!/notebooks_jupyter/wikidata_exploration/da1_data/birth-dates-gender.csv
+!/notebooks_jupyter/wikidata_exploration/da1_data/birth-date-gender.csv
 
 !/Wikidata/wdt_persons_properties_20250309.csv
 !/Wikidata/wdt_organisations_properties_20250502.csv
