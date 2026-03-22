@@ -2,31 +2,31 @@
   {
     "kind": 1,
     "language": "markdown",
-    "value": "# Import Birth Places\n\nIn this notebook we add to the imported Wikidata population properties regarding their birth place and geographical origin",
+    "value": "# Import Birth Places\n\nIn this notebook we add to the imported Wikidata population properties regarding their birth place, notably geographical places with geocoordinates.\n\n\n\nManagement note: This notebook is the master file, the MD esport is this file [Import Birth Places](../wikidata/data-production/wdt_import_birth_places.md)\n\n",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Number of persons in our population\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\nSELECT (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {?s a wd:Q5.}\n}\n",
+    "value": "### Number of persons in our population\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\nSELECT (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {?s a wd:Q5.}\n}\n",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Number of birth places per 10000 persons\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nSELECT (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {SELECT ?item\n        WHERE \n                {?item a wd:Q5.}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        LIMIT 10000\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?item wdt:P19 ?birthPlace.\n                #BIND (?citizenshipLabel as ?citizenshipLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n}\n",
+    "value": "### Number of birth places per 10000 persons\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nSELECT (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {SELECT ?item\n        WHERE \n                {?item a wd:Q5.}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        # LIMIT 10000\n        LIMIT 10000\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?item wdt:P19 ?birthPlace.\n                #SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n                ?birthPlace rdfs:label ?itemLabel.\n                FILTER(LANG(?itemLabel) = 'en')  \n            }\n}\n",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Prepare and inspect the data to be imported\n\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nCONSTRUCT {?item wdt:P19 ?birthPlace.\n            ?birthPlace rdfs:label ?birthPlaceLabel;\n                        rdf:type sdh:C13}\nWHERE\n    {\n        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n\n        ## Find the persons in the imported graph\n        {SELECT ?item\n        WHERE \n                {?item a wd:Q5.}\n        ORDER BY ?item      \n        OFFSET 0\n        #OFFSET 10000\n        LIMIT 10\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?item wdt:P19 ?birthPlace.\n                BIND (?birthPlaceLabel as ?birthPlaceLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n                \n        }",
+    "value": "### Prepare and inspect the data to be imported\n\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nCONSTRUCT {?item wdt:P19 ?birthPlace.\n            ?birthPlace rdfs:label ?birthPlaceLabel;\n\n            ## we add this class from the SDHSS ontology\n                        rdf:type sdh:C13}\nWHERE\n    {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n\n        ## Find the persons in the imported graph\n        {SELECT ?item\n        WHERE \n                {?item a wd:Q5.}\n        ORDER BY ?item      \n        OFFSET 0\n        #OFFSET 10000\n        LIMIT 10\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?item wdt:P19 ?birthPlace.\n                OPTIONAL {\n                    ?birthPlace rdfs:label ?birthPlaceLabel.\n                    FILTER(LANG(?birthPlaceLabel) = 'en')\n                            }\n            }\n                \n        }",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### To be sure, the insert query has to be carried out directly on the Allegrograph server\n# but it also could work if executed in this notebook\n## Also, you have to carry it out in three steps. The accepted limit by Wikidata \n## of instances in a variable ('item' in our case) appears to be 10000.\n## You therefore have to have three steps for a population of around 23000 persons  \n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nWITH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\nINSERT {?item wdt:P19 ?birthPlace.\n            ?birthPlace rdfs:label ?birthPlaceLabel;\n                        rdf:type sdh:C13.}\nWHERE\n    {\n        ## Find the persons in the imported graph\n        {SELECT ?item\n        WHERE \n                {?item a wd:Q5.}\n        ORDER BY ?item      \n        #OFFSET 10000\n        #OFFSET 20000\n        OFFSET 30000\n        LIMIT 10000\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?item wdt:P19 ?birthPlace.\n                BIND (?birthPlaceLabel as ?birthPlaceLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n                \n        }",
+    "value": "## By this number of persons, you have to carry out the query in three steps. The accepted limit by Wikidata \n## of instances in a variable ('item' in our case) appears to be 10000.\n## You therefore have to have three steps for a population of around 23000 persons  \n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nWITH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\nINSERT {?item wdt:P19 ?birthPlace.\n            ?birthPlace rdfs:label ?birthPlaceLabel;\n                        rdf:type sdh:C13.}\nWHERE\n    {\n        ## Find the persons in the imported graph\n        {SELECT ?item\n        WHERE \n                {?item a wd:Q5.}\n        ORDER BY ?item      \n        #OFFSET 10000\n        #OFFSET 20000\n        #OFFSET 30000\n        LIMIT 10000\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?item wdt:P19 ?birthPlace.\n                OPTIONAL {\n                    ?birthPlace rdfs:label ?birthPlaceLabel.\n                    FILTER(LANG(?birthPlaceLabel) = 'en')\n                            }\n            }\n                \n        }",
     "metadata": {}
   },
   {
@@ -38,31 +38,73 @@
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Insert the label of the property\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nINSERT DATA {\n  GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n  {wdt:P19 rdfs:label 'place of birth'.}\n}",
+    "value": "### Insert the label of the property\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nINSERT DATA {\n  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n  {wdt:P19 rdfs:label 'place of birth'.}\n}",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Get the number of created 'citizenships'\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\n    SELECT (COUNT(*) as ?n) \n    WHERE {\n        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n            {\n                ?s wdt:P19 ?o.\n            }\n            }\n    ",
+    "value": "### Get the number of created 'birth places'\n# 22469\n\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\n    SELECT (COUNT(*) as ?n) \n    WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?s wdt:P19 ?place.\n            }\n            }\n    ",
+    "metadata": {}
+  },
+  {
+    "kind": 1,
+    "language": "markdown",
+    "value": "Comment: Missing birth places\n\n* We observe that around a third of the population doesn't have a birth place in Wikidata\n* We could try to get the places from a different source: DBpedia, library catalogs...",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Get the number of created 'citizenships'\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\n    SELECT (COUNT(*) as ?n) \n    WHERE {\n        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n            {\n                ?geogPlace rdf:type sdh:C13.\n            }\n            }\n    ",
+    "value": "### Get the number of created 'places'\n# 8728\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\n    SELECT (COUNT(*) as ?n) \n    WHERE {\n        SELECT DISTINCT ?place\n        WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?place a sdh:C13.\n            }\n            }\n    }\n    ",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Insert the label of the property\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nINSERT DATA {\n  GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n  {sdh:C13 rdfs:label 'Geographical Place'.}\n}",
+    "value": "### Get the number of created 'places' without a label\n# now 13 but this is because labels in other languages \n# were added to 131 places without English label.\n# After import : 136 places without label \nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\n    SELECT (COUNT(*) as ?n) \n    WHERE {\n        SELECT DISTINCT ?place\n        WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?place a sdh:C13.\n                MINUS{ ?place rdfs:label ?label }\n            }\n            }\n    }\n    ",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT DISTINCT ?item ?birthPlace ?birthPlaceLabel\nWHERE { \n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n    {?item wdt:P19 ?birthPlace.\n            ?birthPlace rdfs:label ?birthPlaceLabel;\n                        rdf:type sdh:C13.}}\nLIMIT 5\n\n",
+    "value": "### Get the missing labels in languages other than English\n# \nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nSELECT DISTINCT  ?place (MIN(?placeLabel) AS ?mPlaceLabel)\n    WHERE {\n        {\n        SELECT DISTINCT ?place\n        WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?place a sdh:C13.\n                MINUS{ ?place rdfs:label ?label }\n            }\n            }\n        LIMIT 10\n    } \n    \n    SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?place rdfs:label ?placeLabel.\n                FILTER(LANG(?placeLabel) != 'en')              \n                }\n    }    \n    GROUP BY ?place\n    ",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "\n## Add the missing labels.\n\n# We take only the first one in alphabetical order\n\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nWITH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\nINSERT {?place rdfs:label ?mPlaceLabel}\nWHERE\n    {\n        ## Find the persons in the imported graph\n        {SELECT DISTINCT  ?place (MIN(?placeLabel) AS ?mPlaceLabel)\n    WHERE {\n        {\n        SELECT DISTINCT ?place\n        WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?place a sdh:C13.\n                MINUS{ ?place rdfs:label ?label }\n            }\n            }\n        #LIMIT 10\n    } \n    \n    SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### place of birth\n                ?place rdfs:label ?placeLabel.\n                FILTER(LANG(?placeLabel) != 'en')              \n                }\n    }    \n    GROUP BY ?place}    \n                \n        }",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Inspect the places without a label\n# In fact it appears that the problem is in Wikidata\n\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\n    SELECT ?s ?place\n    WHERE {\n        SELECT DISTINCT ?s ?place\n        WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?s wdt:P19 ?place.\n                MINUS{ ?place rdfs:label ?label }\n            }\n            }\n    }\n    ",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Get the number of created 'places' with a label\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\n    SELECT (COUNT(*) as ?n) \n    WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?geogPlace rdf:type sdh:C13;\n                        rdfs:label ?placeLabel.\n            }\n            }\n    ",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Get the created 'places' with more than one label\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\n    SELECT ?geogPlace (COUNT(*) as ?n) (GROUP_CONCAT(DISTINCT ?placeLabel; separator=\" | \") AS ?placeLabels) \n    WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {\n                ?geogPlace rdf:type sdh:C13;\n                        rdfs:label ?placeLabel.\n            }\n            }\n    GROUP BY ?geogPlace\n    HAVING (COUNT(*) > 1)\n    ORDER BY DESC(?n)\n    LIMIT 10\n    ",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Insert the label of the Geographical Place class\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nINSERT DATA {\n  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n  {sdh:C13 rdfs:label 'Geographical Place'.}\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Inspect your data\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT DISTINCT ?item ?birthPlace ?birthPlaceLabel\nWHERE { \n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n    {?item wdt:P19 ?birthPlace.\n            ?birthPlace rdfs:label ?birthPlaceLabel;\n                        rdf:type sdh:C13.}}\nOFFSET 500\nLIMIT 5\n\n",
     "metadata": {}
   },
   {
@@ -74,7 +116,13 @@
   {
     "kind": 2,
     "language": "sparql",
-    "value": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT DISTINCT *\nWHERE { \n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n    {?item a wd:Q5;\n     rdfs:label ?persLabel.\n     MINUS {?item wdt:P19 ?birthPlace}}\n     }\nORDER BY ?item\nOFFSET 100 \nLIMIT 20\n\n",
+    "value": "### Inspect\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT DISTINCT *\nWHERE { \n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n    {?item a wd:Q5;\n     rdfs:label ?persLabel.\n     MINUS {?item wdt:P19 ?birthPlace}}\n     }\nORDER BY ?item\nOFFSET 100 \nLIMIT 5\n\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "# count: 10872\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT (count(*) as ?number)\nWHERE { \n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n    {?item a wd:Q5;\n     rdfs:label ?persLabel.\n     MINUS {?item wdt:P19 ?birthPlace}}\n     }\n\n\n",
     "metadata": {}
   },
   {
@@ -86,7 +134,7 @@
   {
     "kind": 2,
     "language": "sparql",
-    "value": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT DISTINCT ?item (count(*) as ?n) (GROUP_CONCAT(DISTINCT ?birthPlaceLabel; separator=\" | \") AS ?birthPlaces) \nWHERE { \n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n    {?item a wd:Q5;\n     rdfs:label ?persLabel;\n     wdt:P19 ?birthPlace.\n     ?birthPlace rdfs:label ?birthPlaceLabel}\n     }\nGROUP BY ?item     \nHAVING (count(*) > 1)\nORDER BY DESC(?n)\nLIMIT 5\n\n",
+    "value": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?item ?persLabel (count(*) as ?n) (GROUP_CONCAT(DISTINCT ?birthPlaceLabel; separator=\" | \") AS ?birthPlaces) \nWHERE { \n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n    {?item a wd:Q5;\n           rdfs:label ?persLabel;\n        wdt:P19 ?birthPlace.\n     ?birthPlace rdfs:label ?birthPlaceLabel}\n     }\nGROUP BY ?item ?persLabel\nHAVING (count(*) > 1)\nORDER BY DESC(?n)\n# OFFSET 5\nLIMIT 5\n\n",
     "metadata": {}
   },
   {
@@ -98,55 +146,85 @@
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Number of persons in our population\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?place ?placeLabel ?pseudoClass ?pseudoClassLabel # (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {SELECT ?place ?placeLabel\n        WHERE \n                {?place rdf:type sdh:C13;\n                       rdfs:label  ?placeLabel}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        #LIMIT 10\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### instance of\n                ?place wdt:P31 ?pseudoClass.\n                BIND (?pseudoClassLabel as ?pseudoClassLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n        FILTER(CONTAINS(?pseudoClassLabel, 'country'))    \n}\nlimit 10\n\n",
+    "value": "### Number of persons in our population\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?place ?placeLabel ?pseudoClass ?pseudoClassLabel # (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {SELECT ?place ?placeLabel\n        WHERE \n                {?place rdf:type sdh:C13;\n                       rdfs:label  ?placeLabel}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        #LIMIT 10\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### property: instance of (equivalent to rdf:type)\n                ?place wdt:P31 ?pseudoClass.\n                BIND (?pseudoClassLabel as ?pseudoClassLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n        FILTER(CONTAINS(?pseudoClassLabel, 'country'))    \n}\nlimit 10\n\n",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Prepare and inspect the data to be imported\n\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nCONSTRUCT {?place wdt:P31 ?placeClass.\n            ?placeClass rdfs:label ?placeClassLabel}\nWHERE\n    {\n        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n\n        ## Find the persons in the imported graph\n        {SELECT ?place\n        WHERE \n                {?place rdf:type sdh:C13}\n        ORDER BY ?place      \n        OFFSET 0\n        #OFFSET 10000\n        LIMIT 20\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                 ### instance of\n                ?place wdt:P31 ?placeClass.\n                BIND (?placeClassLabel as ?placeClassLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n                \n        }",
+    "value": "### Prepare and inspect the data to be imported\n\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nCONSTRUCT {?place wdt:P31 ?placeClass.\n            ?placeClass rdfs:label ?placeClassLabel}\nWHERE\n    {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n\n        ## Find the persons in the imported graph\n        {SELECT ?place\n        WHERE \n                {?place rdf:type sdh:C13}\n        ORDER BY ?place      \n        OFFSET 0\n        #OFFSET 10000\n        LIMIT 20\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                 ### property: instance of\n                ?place wdt:P31 ?placeClass.\n                BIND (?placeClassLabel as ?placeClassLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n                \n        }",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Insert the data\n\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nWITH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\nINSERT {?place wdt:P31 ?placeClass.\n            ?placeClass rdfs:label ?placeClassLabel}\nWHERE\n    {\n        GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n\n        ## Find the persons in the imported graph\n        {SELECT ?place\n        WHERE \n                {?place rdf:type sdh:C13}\n        ORDER BY ?place      \n        #OFFSET 0\n        #OFFSET 10000\n        #LIMIT 20\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                 ### instance of\n                ?place wdt:P31 ?placeClass.\n                BIND (?placeClassLabel as ?placeClassLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n                \n        }",
+    "value": "### Insert the data\n\n\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nWITH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\nINSERT {?place wdt:P31 ?placeClass.\n            ?placeClass rdfs:label ?placeClassLabel}\nWHERE\n    {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n\n        ## Find the persons in the imported graph\n        {SELECT ?place\n        WHERE \n                {?place rdf:type sdh:C13}\n        ORDER BY ?place      \n        #OFFSET 0\n        #OFFSET 10000\n        #LIMIT 20\n\n        }\n        ## \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n                 ### property: instance of\n                ?place wdt:P31 ?placeClass.\n                BIND (?placeClassLabel as ?placeClassLabel)\n                SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } \n            }\n                \n        }",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Number of classes\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?placeClass ?placeClassLabel (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {?place rdf:type sdh:C13;\n                       wdt:P31 ?placeClass.\n                ?placeClass rdfs:label ?placeClassLabel\n       }\n        \n}\nGROUP BY ?placeClass ?placeClassLabel\nORDER BY DESC(?n)\nLIMIT 5\n",
+    "value": "### Number of classes\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?placeClass ?placeClassLabel (COUNT(*) as ?n)\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {?place rdf:type sdh:C13;\n                       wdt:P31 ?placeClass.\n                ?placeClass rdfs:label ?placeClassLabel\n       }\n        \n}\nGROUP BY ?placeClass ?placeClassLabel\nORDER BY DESC(?n)\nLIMIT 5\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Places without classes\n# The issue is in Wikidata \nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?place ?placeLabel\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {?place rdf:type sdh:C13.\n        ?place rdfs:label ?placeLabel.\n        MINUS{?place wdt:P31 ?placeClass.}\n       }\n        \n}\nLIMIT 5\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Places without classes\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT (COUNT(*) AS ?n)\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {?place rdf:type sdh:C13.\n        ?place rdfs:label ?placeLabel.\n        MINUS{?place wdt:P31 ?placeClass.}\n       }\n        \n}\n",
     "metadata": {}
   },
   {
     "kind": 1,
     "language": "markdown",
-    "value": "### Get the geogr. coordinates",
+    "value": "### Get the geographical coordinates",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Inspect the available data\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?place ?placeLabel ?coordinates\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {SELECT ?place ?placeLabel\n        WHERE \n                {?place rdf:type sdh:C13;\n                       rdfs:label  ?placeLabel}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        #LIMIT 10\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### coordinate location\n                ?place wdt:P625 ?coordinates.\n            }\n}\nORDER BY ?place\nLIMIT 10",
+    "value": "### Inspect the available data\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?place ?placeLabel ?coordinates\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {SELECT ?place ?placeLabel\n        WHERE \n                {?place rdf:type sdh:C13;\n                       rdfs:label  ?placeLabel}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        #LIMIT 10\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### coordinate location\n                ?place wdt:P625 ?coordinates.\n            }\n}\nORDER BY ?place\nLIMIT 5",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Prepare the import\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nCONSTRUCT {?place wdt:P625 ?coordinates.}\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {SELECT ?place ?placeLabel\n        WHERE \n                {?place rdf:type sdh:C13;\n                       rdfs:label  ?placeLabel}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        LIMIT 10\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### coordinate location\n                ?place wdt:P625 ?coordinates.\n            }\n}\nORDER BY ?place",
+    "value": "### Inspect the available data\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT (COUNT(*) AS ?n)\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {SELECT DISTINCT ?place \n                WHERE \n                {?place rdf:type sdh:C13}\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### coordinate location\n                ?place wdt:P625 ?coordinates.\n            }\n}",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Insert the data\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nWITH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\nINSERT {?place wdt:P625 ?coordinates.}\nWHERE {\n        {SELECT ?place \n        WHERE \n                {?place rdf:type sdh:C13}\n        #ORDER BY ?item      \n        #OFFSET 10000\n        #LIMIT 10\n\n        }\n\n         SERVICE <https://query.wikidata.org/sparql>\n            {\n                ### coordinate location\n                ?place wdt:P625 ?coordinates.\n            }\n}\n\n\n",
+    "value": "### Inspect the available data\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\n\nSELECT ?place (COUNT(*) AS ?n) (GROUP_CONCAT(DISTINCT ?coordinates; separator=\" | \") AS ?geoCoords) \nWHERE {\n    {SELECT ?place ?coordinates\n    WHERE {\n        GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n            {SELECT DISTINCT ?place \n                    WHERE \n                    {?place rdf:type sdh:C13}\n            }\n\n            SERVICE <https://query.wikidata.org/sparql>\n                {\n                    ### coordinate location\n                    ?place wdt:P625 ?coordinates.\n                }\n            }\n    }\n}\nGROUP BY ?place\nHAVING (COUNT(*) > 1)\nOFFSET 100\nLIMIT 10",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Insert the label of the property\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nINSERT DATA {\n  GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n  {wdt:P625 rdfs:label 'coordinate location'.}\n}",
+    "value": "### Prepare the import\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nCONSTRUCT {?place wdt:P625 ?maxCoordinates.}\nWHERE {\n        {\n        SELECT ?place (max(?coordinates) as ?maxCoordinates)\n        WHERE {\n            GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n                {SELECT DISTINCT ?place \n                        WHERE \n                        {?place rdf:type sdh:C13}\n                }\n\n                SERVICE <https://query.wikidata.org/sparql>\n                    {\n                        ### coordinate location\n                        ?place wdt:P625 ?coordinates.\n                    }\n                }\n        GROUP BY ?place\n        }\n    }\nOFFSET 20\nLIMIT 10\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Insert the data\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sdh: <https://sdhss.org/ontology/core/>\n\nWITH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\nINSERT {?place wdt:P625 ?maxCoordinates.}\nWHERE {\n        {\n        SELECT ?place (max(?coordinates) as ?maxCoordinates)\n        WHERE {\n            GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n                {SELECT DISTINCT ?place \n                        WHERE \n                        {?place rdf:type sdh:C13}\n                }\n\n                SERVICE <https://query.wikidata.org/sparql>\n                    {\n                        ### coordinate location\n                        ?place wdt:P625 ?coordinates.\n                    }\n                }\n        GROUP BY ?place\n        }\n    }\n\n\n",
+    "metadata": {}
+  },
+  {
+    "kind": 1,
+    "language": "markdown",
+    "value": "### lieux sans coordonnées cf. merkel\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Insert the label of the property\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\n\nINSERT DATA {\n  GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n  {wdt:P625 rdfs:label 'coordinate location'.}\n}",
     "metadata": {}
   },
   {
@@ -158,13 +236,43 @@
   {
     "kind": 2,
     "language": "sparql",
-    "value": "### Nombre de personnes\n\nPREFIX franzOption_defaultDatasetBehavior: <franz:rdf>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?person ?personLabel ?birthDate ?birthPlace\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {?person a wd:Q5;\n            rdfs:label ?personLabel;\n            wdt:P569 ?birthDate;\n            wdt:P19 ?birthPlace.\n          }\n}\nLIMIT 10",
+    "value": "### Nombre de personnes\n\nPREFIX franzOption_defaultDatasetBehavior: <franz:rdf>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?person ?personLabel ?birthDate ?birthPlace ?placeLabel ?location\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {?person a wd:Q5;\n            rdfs:label ?personLabel;\n            wdt:P569 ?birthDate;\n            wdt:P19 ?birthPlace.\n            ?birthPlace wdt:P625 ?location;\n                rdfs:label ?placeLabel.  \n          FILTER(CONTAINS(?personLabel, 'Eisenberg'))      \n          }\n}\nORDER BY ?person\n#OFFSET 100\nLIMIT 10",
     "metadata": {}
   },
   {
     "kind": 2,
     "language": "sparql",
-    "value": "PREFIX franzOption_defaultDatasetBehavior: <franz:rdf>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?person \n        (MIN(?personLabel) AS ?persLabel) \n        ?birthDate ?geoPlace \n        (MIN(?placeLabel) AS ?geoPlaceLabel)\n        (MIN(?location) AS ?minLocation)\nWHERE {\n    GRAPH <https://github.com/Sciences-historiques-numeriques/astronomers/blob/main/graphs/wikidata-imported-data.md>\n        {\n            ?person a wd:Q5;\n                rdfs:label ?personLabel;\n                wdt:P569 ?birthDate;\n                wdt:P19 ?geoPlace.\n            ?geoPlace wdt:P625 ?location;\n                rdfs:label ?placeLabel.   \n          }\n}\nGROUP BY ?person ?birthDate ?geoPlace \nlimit 10",
+    "value": "### Nombre de personnes\n\nPREFIX franzOption_defaultDatasetBehavior: <franz:rdf>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?person ?personLabel ?birthDate ?birthPlace ?placeLabel ?location\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        {?person a wd:Q5;\n            rdfs:label ?personLabel;\n            wdt:P569 ?birthDate.\n        OPTIONAL {  ?person  wdt:P19 ?birthPlace;\n                        rdfs:label ?placeLabel.}\n        OPTIONAL {   ?birthPlace wdt:P625 ?location\n                \n        }  \n          FILTER(CONTAINS(?personLabel, 'Merkel'))      \n          }\n}\nORDER BY ?person\nLIMIT 10",
+    "metadata": {}
+  },
+  {
+    "kind": 1,
+    "language": "markdown",
+    "value": "### Heisenberg is missing",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Nombre de personnes\n\nPREFIX franzOption_defaultDatasetBehavior: <franz:rdf>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?person ?personLabel ?birthDate ?birthPlace ?placeLabel ?location\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        # Heisenberg\n        {wd:Q40904 a wd:Q5.\n          }\n}\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "### Nombre de personnes\n\nPREFIX franzOption_defaultDatasetBehavior: <franz:rdf>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?person ?personLabel ?birthDate ?birthPlace ?placeLabel ?location\nWHERE {\n    GRAPH <https://historian.digital/astronomers/graphs-defs.html#wikidata>\n        # Heisenberg\n        {wd:Q40904 a wd:Q5.\n          }\n}\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n\nSELECT DISTINCT ?item?itemLabel\n        WHERE {\n\n        ## note the service address  \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n            \n            ?item wdt:P106 wd:Q169470;  # physicist\n                wdt:P31 wd:Q5;  # Any instance of a human.\n                # wdt:P569 ?birthDate; # It must necessarily have a birth date property\n                    rdfs:label ?itemLabel.\n             FILTER(CONTAINS(?itemLabel, 'Heisenbe'))\n    }\n        }\n        \n    LIMIT 10",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n\nSELECT DISTINCT ?o ?oLabel\nWHERE {\n        ## note the service address  \n        SERVICE <https://query.wikidata.org/sparql>\n            {\n            ### manquent des triplets !\n            wd:Q40904 wdt:P106 ?o.\n             ?o rdfs:label ?oLabel.\n             filter(lang(?oLabel) = 'en')\n            }\n        }\n        \n        \n    LIMIT 100",
     "metadata": {}
   }
 ]
