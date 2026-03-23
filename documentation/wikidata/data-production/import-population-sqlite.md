@@ -55,7 +55,8 @@ ORDER BY ?item
 * Download the CSV version of the SPARQL result and save it in the *wdt_csv_data* directory with the name **person_import.csv**
 * Download and open the [Dbeaver software](https://dbeaver.io/)
 * Create a new Sqlite database *data_analysis.db* in your data directory
-* Add this database to your .gitignore file. It will not be versioned nor pushes ?!?!
+* **Add this database to your .gitignore file**. It will not be versioned nor pushed:
+   data/data_analysis.db
 * Open your database in Dbeaver
 * Right-click on Table > Import data
 * Choose the person_import.csv that you just downladed from Wikidata

@@ -14,6 +14,8 @@ documentation/wikidata/data-production/noto-push-to-github.md
 # mettre en ligne un fichier zippé
 data/astronomers_import_before_202511.db
 
+./data/data_analysis.db
+
 # les csv téléchargés ne seront plus versionnés
 DBPedia/exports_csv
 
