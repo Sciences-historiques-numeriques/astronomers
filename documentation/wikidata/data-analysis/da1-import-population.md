@@ -62,7 +62,7 @@ ORDER BY ?item
 ### Inspect imported data
 
 * Inspect the data in the table using the graphical user interface (GUI)
-* Create a new text file called [*import-population-sqlite.sql*](import-population-sqlite.sql) (copy it from my own example and follow it) on the side of this import file.
+* Create a new text file called [*da1-import-population.sql*](da1-import-population.sql) (copy it from my own example and follow it) on the side of this import file.
 * Open the SQL file in DBeaver, activate the connection to your *data_analysis.db* and follow the instructions in the file, and add your own queries.
 
 ## Import labels

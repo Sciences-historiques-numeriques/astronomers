@@ -1,5 +1,8 @@
 
-
+-- explore first rows
+SELECT *
+FROM person_import
+LIMIT 10;
 
 
 -- observe if a person has many rows
