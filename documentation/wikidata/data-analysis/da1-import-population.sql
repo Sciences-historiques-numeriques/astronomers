@@ -71,26 +71,26 @@ ORDER BY num DESC;
  */
 
 SELECT *
-FROM person_label_en_import
+FROM person_label_import
 LIMIT 10;
 
 -- no person with two labels
 SELECT COUNT(*), person_uri
-FROM person_label_en_import
+FROM person_label_import
 GROUP BY person_uri 
 having count(*) > 1;
 
 -- persons without label
 SELECT COUNT(*)
 FROM person p 
-   LEFT JOIN person_label_en_import pl 
+   LEFT JOIN person_label_import pl 
    		ON pl.person_uri = p.wikidata_uri 
 WHERE pl.person_label IS NULL;
 
 
 -- add the labels where they exist
 UPDATE person SET label = pl.person_label
-FROM person_label_en_import pl 
+FROM person_label_import pl 
 WHERE pl.person_uri = wikidata_uri
 AND pl.person_label IS NOT NULL;
 
