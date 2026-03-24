@@ -85,9 +85,9 @@ GROUP BY ?birth_place_uri ?place_class_label ?place_class_uri
 
 ```
 
-* export the data to as CSV file:
+* export the data to as CSV file:
 data/wdt_csv_data/birth_places_import.csv
-* import into the SQlite database as a new table:
+* import into the SQlite database as a new table:
 *birth_places_import*
 
 * inspect the new tables with the SQL code in the [da2-birth-places.sql file](da2-birth-places.sql).
