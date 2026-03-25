@@ -32,7 +32,7 @@ DBPedia/exports_csv
 /notebooks_jupyter/geo_data/natural_earth
 /notebooks_jupyter/geo_data
 
-
+!/notebooks_jupyter/geo_data/esri/World_Regions_6144914380456424035.geojson
 
 
 # CSV non versionnés, sauf exceptions
