@@ -38,7 +38,7 @@ DBPedia/exports_csv
 # CSV non versionnés, sauf exceptions
 *.csv
 
-!/notebooks_jupyter/wikidata_exploration/da1_data/birth-date-gender.csv
+!/notebooks_jupyter/wikidata_exploration/da_data/*.csv
 
 !/Wikidata/wdt_persons_properties_20250309.csv
 !/Wikidata/wdt_organisations_properties_20250502.csv
