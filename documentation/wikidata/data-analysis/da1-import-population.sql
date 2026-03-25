@@ -1,13 +1,13 @@
 
 -- explore first rows
 SELECT *
-FROM person_import
+FROM import_person
 LIMIT 10;
 
 
 -- observe if a person has many rows
 SELECT person_uri, COUNT(*) as num
-FROM person_import
+FROM import_person
 GROUP BY person_uri
 ORDER BY num DESC
 LIMIT 10;
@@ -24,6 +24,10 @@ notes TEXT,
 dbpedia_uri TEXT,
 wikidata_uri TEXT);
 
+--DROP INDEX idx_person;
+CREATE UNIQUE INDEX idx_person ON person(wikidata_uri);
+
+
 /*
  * !!! After creating a new table refresh the connection 
  * to the database or close and reopen it 
@@ -33,14 +37,14 @@ wikidata_uri TEXT);
 
 -- prepare data import from the import table
 SELECT DISTINCT person_uri , MIN("year"), MIN(gender_label)
-FROM person_import 
+FROM import_person
 GROUP BY person_uri
 LIMIT 10;
 
 -- import the data to the person table
 INSERT INTO person (wikidata_uri, birth_year, gender)
 SELECT DISTINCT person_uri , MIN("year"), MIN(gender_label)
-FROM person_import 
+FROM import_person
 GROUP BY person_uri;
 
 
@@ -74,26 +78,30 @@ ORDER BY num DESC;
  */
 
 SELECT *
-FROM person_label_import
+FROM person_label
 LIMIT 10;
+
+--DROP INDEX idx_person_label;
+CREATE UNIQUE INDEX idx_person_label ON person_label(person_uri, person_label);
+
 
 -- no person with two labels
 SELECT COUNT(*), person_uri
-FROM person_label_import
+FROM person_label
 GROUP BY person_uri 
 having count(*) > 1;
 
 -- persons without label
 SELECT COUNT(*)
 FROM person p 
-   LEFT JOIN person_label_import pl 
+   LEFT JOIN person_label pl 
    		ON pl.person_uri = p.wikidata_uri 
 WHERE pl.person_label IS NULL;
 
 
 -- add the labels where they exist
 UPDATE person SET label = pl.person_label
-FROM person_label_import pl 
+FROM person_label pl 
 WHERE pl.person_uri = wikidata_uri
 AND pl.person_label IS NOT NULL;
 

@@ -50,14 +50,14 @@ ORDER BY ?item
 
 * Create on your computer a directory outside the directory of your GitHub repository called *data*
 * Create a sub-directory of the *data* directory called *wdt_csv_data*
-* Download the CSV version of the SPARQL query result and save it in the *wdt_csv_data* directory with the name **person_import.csv**
+* Download the CSV version of the SPARQL query result and save it in the *wdt_csv_data* directory with the name **import_person.csv**
 * Download and open the [DBeaver software](https://dbeaver.io/)
 * Create a new Sqlite database **data_analysis.db** in your *data* directory (outside the GitHub repository!)
 * Open your database in DBeaver
 * Right-click on *Tables* > Import data
-* Choose the *person_import.csv* file that you just downladed from Wikidata
-* Verify if the columns are correctly mapped, call the new table 'person_import' then create the table (button: 'proceed')
-* Open the new 'person_import' table
+* Choose the *import_person.csv* file that you just downladed from Wikidata
+* Verify if the columns are correctly mapped, call the new table 'import_person' then create the table (button: 'proceed')
+* Open the new 'import_person' table
 
 ### Inspect imported data
 
@@ -99,8 +99,8 @@ ORDER BY ?item
 ```
 
 * execute the SPARQL query
-* export the result in a CSV file called 'data/wdt_csv_data/person_label_en_import.csv'
-* import the CSV into the SQLITE database as you did above, into a new table called "person_label_import".
+* export the result in a CSV file called 'data/wdt_csv_data/import_person_label_en.csv'
+* import the CSV into the SQLITE database as you did above, into a new table called "import_person_label".
 
 ### We then look for non-English labels for the missing ones
 
@@ -134,10 +134,10 @@ WHERE {
 GROUP BY ?item
 ```
 
-* save the query result in a CSV file called 'data/wdt_csv_data/person_label_non_en_import.csv'
+* save the query result in a CSV file called 'data/wdt_csv_data/import_person_label_non_en.csv'
 
-  * import the CSV file into the same table as the English labels: *person_label_import*
-  * select the person_label_import table in DBeaver, then right-click menu import data, from CSV file, inspect the columns and data before import, do not select "Truncate the target table" and the data will be added at the bottom of the existing table
+  * import the CSV file into the same table as the English labels: *import_person_label*
+  * select the import_person_label table in DBeaver, then right-click menu import data, from CSV file, inspect the columns and data before import, do not select "Truncate the target table" and the data will be added at the bottom of the existing table
 * inspect the new table with the scripts available in the file [*import-population-sqlite.sql*](import-population-sqlite.sql)
 
 ## Prepare the data for the analysis of birth year and gender

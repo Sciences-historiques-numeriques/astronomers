@@ -1,7 +1,12 @@
 # Import Birth Places
 
+For this challenge, we need to find the birthplaces for our population, and their geo-coordinates adn place types.
 
-## Get all birth places of our population
+&nbsp;
+
+## Get all birth places of the population
+
+Get the places with English labels if existing
 
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -10,7 +15,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 
-SELECT DISTINCT (?item AS ?person_uri) ?birth_place_uri
+SELECT DISTINCT (?item AS ?person_uri) ?birth_place_uri (MIN(?birth_place_label) as ?place_label) 
 #SELECT (COUNT(*) AS ?n)
 WHERE {
             {?item wdt:P106 wd:Q11063}  # astronomer
@@ -25,21 +30,22 @@ WHERE {
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-       
+   
        ?item wdt:P19 ?birth_place_uri.
-       
+        OPTIONAL {?birth_place_uri rdfs:label ?birth_place_label.
+                FILTER(LANG(?birth_place_label) = 'en')
+                }
+   
         }
+        GROUP BY ?item ?birth_place_uri
 ```
 
-* execute the SPARQL query and store the result as a CSV: 
-data/wdt_csv_data/person_birth_place_import.csv
+* execute the SPARQL query and store the result as a CSV:
+  data/wdt_csv_data/import_person_birth_place.csv
 * import into the database as a new table with this same name
 
 
-### Get the places with English labels, class and coordinates
-
-You must execute this query on the QLever SPARQL-endpoint, it won't work on Wikidata because of timeout
-
+### Get the places' geo-coordinates
 
 ```sparql
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -48,11 +54,11 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 
-SELECT ?birth_place_uri (MIN(?birth_place_label) as ?place_label) (MIN(?coordinates) as ?long_lat) ?place_class_label ?place_class_uri
+SELECT ?birth_place_uri (MIN(?coordinates) as ?long_lat)
 #SELECT (COUNT(*) AS ?n)
 WHERE {  
        {SELECT DISTINCT ?birth_place_uri
-        WHERE {                
+        WHERE {  
             {?item wdt:P106 wd:Q11063}  # astronomer
             UNION
             {?item wdt:P101 wd:Q333}     # astronomy
@@ -65,32 +71,138 @@ WHERE {
                 wdt:P569 ?birthDate; # It must necessarily have a birth date property
         BIND(year(?birthDate) as ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
-       
+   
        ?item wdt:P19 ?birth_place_uri.
           }
-        ORDER BY ?birth_place_uri
-       
         }
-
-       OPTIONAL {?birth_place_uri rdfs:label ?birth_place_label.
-       FILTER(LANG(?birth_place_label) = 'en')
-                }
+   
        ?birth_place_uri wdt:P625 ?coordinates.
-       ?birth_place_uri wdt:P31 ?place_class_uri.
-       ?place_class_uri rdfs:label ?place_class_label.
-       FILTER(LANG(?place_class_label) = 'en')
-       
+   
         }
-GROUP BY ?birth_place_uri ?place_class_label ?place_class_uri  
-
+GROUP BY ?birth_place_uri
 ```
 
 * export the data to as CSV file:
-data/wdt_csv_data/birth_places_import.csv
+  data/wdt_csv_data/import_birth_places_coordinates.csv
 * import into the SQlite database as a new table:
-*birth_places_import*
-
+  *import_birth_places_coordinates*
 * inspect the new tables with the SQL code in the [da2-birth-places.sql file](da2-birth-places.sql).
   * open the file in DBeaver
   * activate a connection to the database
   * run the different queries
+
+### Get the 'classes' of the places
+
+We import the 'classes' the places belong to, i.e. their types according to Wikidata
+
+We take in this query also the classes of the classes at two levels.
+
+The aim is to explore the Wikidata place taxonomy.
+
+```sparql
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT DISTINCT ?birth_place_uri ?place_class_label ?place_class_uri 
+?place_class_of_class_uri_label ?place_class_of_class_uri 
+?place_class_of_class_l2_uri_label ?place_class_of_class_l2_uri
+WHERE {
+{SELECT DISTINCT ?birth_place_uri
+WHERE {
+{?item wdt:P106 wd:Q11063}  # astronomer
+UNION
+{?item wdt:P101 wd:Q333}     # astronomy
+UNION
+{?item wdt:P106 wd:Q169470}  # physicist
+UNION
+{?item wdt:P101 wd:Q413}     # physics
+
+        ?item wdt:P31 wd:Q5;  # Any instance of a human.
+            wdt:P569 ?birthDate; # It must necessarily have a birth date property
+    BIND(year(?birthDate) as ?year)
+    FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+
+   ?item wdt:P19 ?birth_place_uri.
+      }
+    ORDER BY ?birth_place_uri
+    }
+
+   ?birth_place_uri wdt:P31 ?place_class_uri.
+   ?place_class_uri rdfs:label ?place_class_label.
+   FILTER(LANG(?place_class_label) = 'en')
+   OPTIONAL {
+    # wdt:P279 subclass of
+    ?place_class_uri wdt:P279 ?place_class_of_class_uri.
+	?place_class_of_class_uri rdfs:label ?place_class_of_class_uri_label .
+	FILTER(LANG(?place_class_of_class_uri_label) = 'en')
+   }
+   OPTIONAL {
+    # wdt:P279 subclass of
+    ?place_class_of_class_uri wdt:P279 ?place_class_of_class_l2_uri.
+	?place_class_of_class_l2_uri rdfs:label ?place_class_of_class_l2_uri_label .
+	FILTER(LANG(?place_class_of_class_l2_uri_label) = 'en')
+   }
+  
+
+    }
+
+```
+
+* export the data to as CSV file:
+  data/wdt_csv_data/import_birth_places_classes.csv
+* import into the SQlite database as a new table:
+  *import_birth_places_classes*
+* inspect the new tables with the SQL code in the [da2-birth-places.sql file](da2-birth-places.sql)
+
+
+
+
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT DISTINCT ?birth_place_uri 
+(GROUP_CONCAT(DISTINCT ?place_class_label; separator=", ") AS ?place_class_labels)
+(GROUP_CONCAT(DISTINCT ?place_class_of_class_uri_label; separator=", ") AS ?place_class_of_class_uri_labels) 
+?place_class_of_class_l2_uri_label ?place_class_of_class_l2_uri
+WHERE {
+{SELECT DISTINCT ?birth_place_uri
+WHERE {
+{?item wdt:P106 wd:Q11063}  # astronomer
+UNION
+{?item wdt:P101 wd:Q333}     # astronomy
+UNION
+{?item wdt:P106 wd:Q169470}  # physicist
+UNION
+{?item wdt:P101 wd:Q413}     # physics
+
+        ?item wdt:P31 wd:Q5;  # Any instance of a human.
+            wdt:P569 ?birthDate; # It must necessarily have a birth date property
+    BIND(year(?birthDate) as ?year)
+    FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
+
+   ?item wdt:P19 ?birth_place_uri.
+      }
+    ORDER BY ?birth_place_uri
+    }
+
+   ?birth_place_uri wdt:P31 ?place_class_uri.
+   ?place_class_uri rdfs:label ?place_class_label.
+   FILTER(LANG(?place_class_label) = 'en')
+   OPTIONAL {
+    # wdt:P279 subclass of
+    ?place_class_uri wdt:P279 ?place_class_of_class_uri.
+	?place_class_of_class_uri rdfs:label ?place_class_of_class_uri_label .
+	FILTER(LANG(?place_class_of_class_uri_label) = 'en')
+   }
+   OPTIONAL {
+    # wdt:P279 subclass of
+    ?place_class_of_class_uri wdt:P279 ?place_class_of_class_l2_uri.
+	?place_class_of_class_l2_uri rdfs:label ?place_class_of_class_l2_uri_label .
+	FILTER(LANG(?place_class_of_class_l2_uri_label) = 'en')
+   }
+  
+
+    }
+	GROUP BY ?birth_place_uri ?place_class_of_class_l2_uri_label ?place_class_of_class_l2_uri 

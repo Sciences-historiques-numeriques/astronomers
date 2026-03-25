@@ -175,10 +175,10 @@ Execute the import queries directly in your triplestore using a federated query 
 In a triplestore so called GRAPHs allow to keep together a set of triples. This kind of triples are then called *quads* because they have this form:
 
 
-| g                         | s                     | p                     | o                     |
-| ------------------------- | --------------------- | --------------------- | --------------------- |
+| g                               | s                           | p                           | o                           |
+| ------------------------------- | --------------------------- | --------------------------- | --------------------------- |
 | &lt;http://test1.org/graph1&gt; | &lt;http://test1.org/i1&gt; | &lt;http://test1.org/p1&gt; | &lt;http://test1.org/i2&gt; |
-|                           |                       |                       |                       |
+|                                 |                             |                             |                             |
 
 A *quad*: graph, subject, property, opject
 
@@ -381,7 +381,7 @@ WHERE {
    wdt:P569 ?birthDate.
         }
 }
-GROUP BY ?item
+w BY ?item
 HAVING (COUNT(*) > 1)
 ```
 
