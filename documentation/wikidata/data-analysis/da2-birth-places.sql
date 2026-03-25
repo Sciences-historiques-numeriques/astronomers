@@ -4,6 +4,8 @@ SELECT *
 FROM import_person_birth_place 
 LIMIT 10;
 
+SELECT COUNT(*)
+FROM import_person_birth_place ;
 
 
 -- persons having more than one birth place
@@ -24,6 +26,9 @@ HAVING COUNT(*) > 1
 )
 SELECT COUNT(*) as num
 FROM tw1;
+
+
+
 
 
 /*
@@ -65,14 +70,8 @@ SELECT DISTINCT place_label, COUNT(*) AS n, birth_place_uri
 FROM import_person_birth_place
 GROUP BY birth_place_uri, place_label
 ORDER BY n DESC
-LIMIT 20;
+LIMIT 30;
 
-
--- Places without labels
-SELECT *
-FROM import_person_birth_place
-WHERE LENGTH(place_label) = 0
-LIMIT 10;
 
 -- Places without labels
 SELECT *
@@ -86,9 +85,114 @@ FROM import_person_birth_place
 WHERE LENGTH(place_label) = 0;
 
 
+/*
+ * Geocoordinates
+ */
+
+
+-- first exploration
+SELECT *
+FROM import_birth_places_coordinates 
+LIMIT 10;
+
+-- places with many coordinates ?
+-- no unique set place_uri-geocoordinates
+SELECT birth_place_uri, COUNT(*) AS num
+FROM import_birth_places_coordinates 
+GROUP BY birth_place_uri 
+HAVING COUNT(*) > 1
+ORDER BY num DESC
+LIMIT 10;
+
+
+
+-- Create geo_place table
+--DROP TABLE geo_place;
+CREATE TABLE geo_place (pk_geo_place INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+label TEXT,
+definition TEXT,
+geo_coordinates TEXT,
+notes TEXT,
+dbpedia_uri TEXT,
+wikidata_uri TEXT);
+
+--DROP INDEX idx_person;
+CREATE UNIQUE INDEX idx_geo_place ON geo_place(wikidata_uri);
+
+
+
+-- Places with labels and the geocoordinates
+SELECT DISTINCT t1.birth_place_uri, t1.place_label, t2.long_lat 
+FROM import_person_birth_place t1
+	JOIN import_birth_places_coordinates t2 
+		ON t2.birth_place_uri = t1.birth_place_uri 
+GROUP BY t1.person_uri
+LIMIT 10;
+
+
+
+INSERT INTO geo_place (wikidata_uri,label,geo_coordinates)
+SELECT DISTINCT t1.birth_place_uri, t1.place_label, t2.long_lat 
+FROM import_person_birth_place t1
+	JOIN import_birth_places_coordinates t2 
+		ON t2.birth_place_uri = t1.birth_place_uri 
+GROUP BY t1.person_uri;
+
+
+-- inspect
+SELECT *
+FROM geo_place
+LIMIT 10;
+
+SELECT COUNT(*)
+FROM geo_place
+LIMIT 10;
+
+-- inspect if twice the same place
+SELECT wikidata_uri 
+FROM geo_place
+GROUP BY wikidata_uri 
+HAVING COUNT(*) > 1;
+
+
+
+
+
+/*
+ * Query for analysis in notebook: persons and birth places
+ *
+ */
+
+
+-- take just one birth place per person
+SELECT person_uri, MAX(birth_place_uri) birth_place_uri
+FROM import_person_birth_place
+GROUP BY person_uri
+LIMIT 10;
+
+
+WITH tw1 AS(
+SELECT person_uri, MAX(birth_place_uri) birth_place_uri
+FROM import_person_birth_place
+GROUP BY person_uri
+)
+SELECT p.wikidata_uri, p.label, p.gender, gp.label, gp.geo_coordinates, gp.wikidata_uri 
+FROM tw1
+	JOIN person p ON p.wikidata_uri = tw1.person_uri 
+	JOIN geo_place gp ON gp.wikidata_uri = tw1.birth_place_uri 
+
+
+
+
+
+
+
 
 /*
  * Place classes
+ * 
+ * Experiment with taxonomies
+ * 
  */
 
 

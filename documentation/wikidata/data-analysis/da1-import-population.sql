@@ -1,8 +1,15 @@
 
--- explore first rows
+-- explore first rows, all columns
 SELECT *
 FROM import_person
 LIMIT 10;
+
+
+-- explore first rows, just year column
+SELECT year
+FROM import_person
+LIMIT 10;
+
 
 
 -- observe if a person has many rows
@@ -14,7 +21,10 @@ LIMIT 10;
 
 
 
+
+
 -- Create person table
+--DROP TABLE person;
 CREATE TABLE person (pk_person INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 label TEXT,
 birth_year INTEGER,
@@ -130,4 +140,11 @@ WHERE length(gender) > 1
 --ORDER BY birth_year DESC
 ORDER BY gender ASC
 --LIMIT 10
+;
+
+--cleaned up
+SELECT wikidata_uri, label, birth_year, gender
+FROM person
+WHERE length(gender) > 1
+ORDER BY gender ASC
 ;
