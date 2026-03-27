@@ -1,6 +1,8 @@
 # Import Birth Places
 
-For this challenge, we need to find the birthplaces for our population, and their geo-coordinates adn place types.
+For this challenge, we need to find the birthplaces for our population, and their geo-coordinates.
+
+Additionally we will explore the place classes.
 
 &nbsp;
 
@@ -31,6 +33,8 @@ WHERE {
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981 )
    
        ?item wdt:P19 ?birth_place_uri.
+        ### Places without English labels won't be in the result.
+        # We use the next query to get them 
         ?birth_place_uri rdfs:label ?birth_place_label.
                 FILTER(LANG(?birth_place_label) = 'en')
    
@@ -38,12 +42,12 @@ WHERE {
         GROUP BY ?item ?birth_place_uri
 ```
 
-* execute the SPARQL query and store the result as a CSV:
-  data/wdt_csv_data/import_person_birth_place.csv
+* execute the SPARQL query and store the result as a CSV file. Address:
+  *data/wdt_csv_data/import_person_birth_place.csv*
 * import into the database as a new table with this same name
 
-
 ### Get the places with non English names
+
 ```
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -69,21 +73,16 @@ WHERE {
     MINUS{?birth_place_uri rdfs:label ?place_label_en.
                   FILTER(LANG(?place_label_en) = 'en') }
           ?birth_place_uri rdfs:label ?person_name_al. 
-          
+        
         }
         GROUP BY ?item ?birth_place_uri
 
 
 ```
 
-
-* execute the SPARQL query and store the result as a CSV:
-  data/wdt_csv_data/import_person_birth_place_non_en.csv
-* import into the database BY ADDING these rows to ALREADY EXISTING the table *import_person_birth_place*
-
-
-
-
+* execute the SPARQL query and store the result as a CSV file:
+ * data/wdt_csv_data/import_person_birth_place_non_en.csv*
+* import into the database BY ADDING these rows to the ALREADY EXISTING the table *import_person_birth_place*
 
 ### Get the places' geo-coordinates
 
@@ -131,27 +130,21 @@ GROUP BY ?birth_place_uri
   * activate a connection to the database
   * run the different queries
 
-
 ## Export the data for analysis in the Python notebook
 
 Cf. the file **[da2-birth-places.sql](da2-birth-places.sql)** -> Query for analysis in notebook: persons and birth places
 
+Export the result file into a CSV file to be analysed: 
 
 &nbsp;
-
-
 
 ## Explore the place type taxonomy
 
 OPTIONAL
 
-
-
 ### Get the 'classes' of the places
 
 We import the 'classes' the places belong to, i.e. their types according to Wikidata
-
-
 
 ```sparql
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -180,16 +173,12 @@ UNION
    ?birth_place_uri wdt:P31 ?place_class_uri.
    ?place_class_uri rdfs:label ?place_class_label .
 	FILTER(LANG(?place_class_label) = 'en')
-      }    
+      }  
 ```
-
 
 We take in this query also the classes of the classes at two levels.
 
 The aim is to explore the Wikidata place taxonomy.
-
-
-
 
 ```sparql
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -282,16 +271,10 @@ UNION
 
     }
 	GROUP BY ?birth_place_uri ?place_class_of_class_lev2_uri ?place_class_of_class_lev2_label
-  ```
-
+```
 
 * export the data to as CSV file:
   data/wdt_csv_data/import_birth_places_classes.csv
 * import into the SQlite database as a new table:
   *import_birth_places_classes*
 * inspect the new tables with the SQL code in the [da2-birth-places.sql file](da2-birth-places.sql)
-
-
-
-
-
