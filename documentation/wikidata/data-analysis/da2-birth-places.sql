@@ -95,6 +95,10 @@ SELECT *
 FROM import_birth_places_coordinates 
 LIMIT 10;
 
+SELECT COUNT(*)
+FROM import_birth_places_coordinates ;
+
+
 -- places with many coordinates ?
 -- no unique set place_uri-geocoordinates
 SELECT birth_place_uri, COUNT(*) AS num
@@ -171,15 +175,17 @@ GROUP BY person_uri
 LIMIT 10;
 
 
+
+-- FINAL QUERY : export the result as a CSV
 WITH tw1 AS(
 SELECT person_uri, MAX(birth_place_uri) birth_place_uri
 FROM import_person_birth_place
 GROUP BY person_uri
 )
-SELECT p.wikidata_uri, p.label, p.gender, gp.label, gp.geo_coordinates, gp.wikidata_uri 
+SELECT p.wikidata_uri, p.label, p.birth_year, p.gender, gp.label, gp.geo_coordinates, gp.wikidata_uri 
 FROM tw1
 	JOIN person p ON p.wikidata_uri = tw1.person_uri 
-	JOIN geo_place gp ON gp.wikidata_uri = tw1.birth_place_uri 
+	JOIN geo_place gp ON gp.wikidata_uri = tw1.birth_place_uri
 
 
 
