@@ -73,6 +73,10 @@ DBPedia/exports_csv
 # JPG non versionnés, sauf exceptions
 *.jpg
 
+
+
+!/notebooks_jupyter/wikidata_exploration/doc_images/DatendimensionenImGIS.jpg
+
 # bases sqlite, sauf exceptions
 *.sqlite
 
