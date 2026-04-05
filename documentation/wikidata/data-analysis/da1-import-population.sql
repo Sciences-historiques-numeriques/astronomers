@@ -142,7 +142,7 @@ ORDER BY gender ASC
 --LIMIT 10
 ;
 
---cleaned up
+--cleaned up: FINAL QUERY for DATA EXPORT
 SELECT wikidata_uri, label, birth_year, gender
 FROM person
 WHERE length(gender) > 1

@@ -61,7 +61,7 @@ DBPedia/exports_csv
 
 # HTML non versionnés, sauf exceptions
 *.html
-!/docs/*.html
+    !/docs/*.html
 
 !/wiki_documentation/idRef/proprietes_population_entrantes.html
 !/notebooks_jupyter/wikidata_exploration/images/birth_places_choropleth.html
