@@ -6,7 +6,7 @@ In this notebook we describe the steps needed to import the data into a SQlite r
 
 First we check the basic properties of the population: name, gender, year of birth.
 
-All SPARQL QUERIES are to be executed on the [Wikidata SPARQL endpoint](https://query.wikidata.org) or the [QLever Wikidata demo](https://qlever.dev/wikidata) (updated on March 2026)
+All SPARQL QUERIES are to be executed on the [Wikidata SPARQL endpoint](https://query.wikidata.org) or the [QLever Wikidata demo](https://qlever.dev/wikidata) (updated on March 2026), the last being significantly faster.
 
 ## Find and export your population
 
@@ -138,9 +138,8 @@ GROUP BY ?item
 
   * import the CSV file into the same table as the English labels: *import_person_label*
   * select the import_person_label table in DBeaver, then right-click menu import data, from CSV file, inspect the columns and data before import, do not select "Truncate the target table" and the data will be added at the bottom of the existing table
-* inspect the new table with the scripts available in the file [*import-population-sqlite.sql*](import-population-sqlite.sql)
+* inspect the new table with the scripts available in the file  *[da1-import-population.sql](da1-import-population.sql)*
 
 ## Prepare the data for the analysis of birth year and gender
 
-* execute the SQL query at the bottom of the the file [*import-population-sqlite.sql*](import-population-sqlite.sql), export the result as CSV (button export data at the botton) than save the file *wikidata_exploration/da1_data/birth-date-gender.csv*
-* Cf. the same instructions [in this file](da1-distribution-of-births-in-time-sql.md).
+* execute the SQL query at the bottom of the the file [*da1-import-population.sql*](da1-import-population.sql), export the result as CSV (button export data at the botton) than save the CSV file in this path *[notebooks_jupyter/wikidata_exploration/da_data/da1-birth-date-gender.csv](../../../notebooks_jupyter/wikidata_exploration/da_data/da1-birth-date-gender.csv)*
