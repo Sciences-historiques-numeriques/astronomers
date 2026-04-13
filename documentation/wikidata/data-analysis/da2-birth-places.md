@@ -140,7 +140,11 @@ Export the result file into a CSV file to be analysed:
 
 ## Explore the place type taxonomy
 
-OPTIONAL
+
+N.B. This section is incomplete and **should not be implemented** !!!
+
+&nbsp;
+
 
 ### Get the 'classes' of the places
 
