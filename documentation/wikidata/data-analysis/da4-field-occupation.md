@@ -13,24 +13,24 @@ WHERE
     {
     ### subquery adding the distinct clause
         {
-        SELECT DISTINCT ?item
+        SELECT DISTINCT ?person_uri
         WHERE {
-        ?item wdt:P31 wd:Q5; 
+        ?person_uri wdt:P31 wd:Q5; 
               wdt:P569 ?birthDate.
         BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)# Any instance of a human.
-            {?item wdt:P106 wd:Q11063}
+            {?person_uri wdt:P106 wd:Q11063}
             UNION
-            {?item wdt:P101 wd:Q333} 
+            {?person_uri wdt:P101 wd:Q333} 
             UNION
-            {?item wdt:P106 wd:Q169470}
+            {?person_uri wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413}  
+            {?person_uri wdt:P101 wd:Q413}  
             }
         } 
 	
         ### The property P101 associates fields of work to persons
-        ?item wdt:P101 ?object.
+        ?person_uri wdt:P101 ?object.
         ?object rdfs:label ?objectLabel.
         FILTER(LANG(?objectLabel) = 'en')
 }  
@@ -84,28 +84,66 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-SELECT DISTINCT ?item ?field ?fieldLabel ?parentField ?parentFieldLabel ?parentClass ?parentClassLabel
+SELECT DISTINCT ?person_uri ?field_uri ?field_label
 WHERE
     {
     ### subquery adding the distinct clause
         {
-        SELECT DISTINCT ?item
+        SELECT DISTINCT ?person_uri
         WHERE {
-        ?item wdt:P31 wd:Q5; 
+        ?person_uri wdt:P31 wd:Q5; 
               wdt:P569 ?birthDate.
         BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
         FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)# Any instance of a human.
-            {?item wdt:P106 wd:Q11063}
+            {?person_uri wdt:P106 wd:Q11063}
             UNION
-            {?item wdt:P101 wd:Q333} 
+            {?person_uri wdt:P101 wd:Q333} 
             UNION
-            {?item wdt:P106 wd:Q169470}
+            {?person_uri wdt:P106 wd:Q169470}
             UNION
-            {?item wdt:P101 wd:Q413} 
+            {?person_uri wdt:P101 wd:Q413} 
             }
         } 
         ### The property P101 associates fields of work to persons
-        ?item wdt:P101 ?field.
+        ?person_uri wdt:P101 ?field_uri.
+        ?field_uri rdfs:label ?field_label.
+        FILTER(LANG(?field_label) = 'en')
+}  
+LIMIT 100
+
+```
+
+
+
+#### Experimental : DO NOT USE
+```sparql
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+SELECT DISTINCT ?person_uri ?field ?fieldLabel ?parentField ?parentFieldLabel ?parentClass ?parentClassLabel
+WHERE
+    {
+    ### subquery adding the distinct clause
+        {
+        SELECT DISTINCT ?person_uri
+        WHERE {
+        ?person_uri wdt:P31 wd:Q5; 
+              wdt:P569 ?birthDate.
+        BIND(REPLACE(str(?birthDate), "(.*)([0-9]{4})(.*)", "$2") AS ?year)
+        FILTER(xsd:integer(?year) > 1780 && xsd:integer(?year) < 1981)# Any instance of a human.
+            {?person_uri wdt:P106 wd:Q11063}
+            UNION
+            {?person_uri wdt:P101 wd:Q333} 
+            UNION
+            {?person_uri wdt:P106 wd:Q169470}
+            UNION
+            {?person_uri wdt:P101 wd:Q413} 
+            }
+        } 
+        ### The property P101 associates fields of work to persons
+        ?person_uri wdt:P101 ?field.
         ?field rdfs:label ?fieldLabel.
         FILTER(LANG(?fieldLabel) = 'en')
         OPTIONAL {
@@ -124,6 +162,10 @@ WHERE
 # LIMIT 100
 
 ```
+
+
+
+
 ### Create a new table
 
 * Download the result of this query as a CSV file
