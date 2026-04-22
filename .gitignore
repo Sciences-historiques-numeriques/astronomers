@@ -7,6 +7,9 @@ documentation/wikidata/data-production/test-fuseki.md
 documentation/wikidata/data-production/test-allegrograph.sparqlbook
 documentation/wikidata/data-production/noto-push-to-github.md
 
+notebooks_jupyter/wikidata_exploration/da4_AFC-test.ipynb
+
+
 # dossiers import csv
 /data/wdt_csv_data
 
