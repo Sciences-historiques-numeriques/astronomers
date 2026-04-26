@@ -28,6 +28,8 @@ DBPedia/exports_csv
 /notebooks_jupyter/dbpedia_exploration/dbp_merge_relations_interactif.ipynb
 /notebooks_jupyter/wikidata_exploration/wikidata_get_data_from_dbpedia_rdflib.ipynb
 
+weill-*
+
 ## spatial data
 /notebooks_jupyter/geo_data/esri
 /notebooks_jupyter/geo_data/GADM
