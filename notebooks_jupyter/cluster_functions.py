@@ -41,7 +41,7 @@ def plot_cluster_heatmap(df_clustered, categorical_cols):
 
 
 ## function cluster network
-def plot_cluster_networks(df_clustered, categorical_cols, n_clusters):
+def plot_cluster_networks(df_clustered, categorical_cols, n_clusters, pict_address=''):
     fig, axes = plt.subplots(1, n_clusters, figsize=(7 * n_clusters, 7))
     if n_clusters == 1:
         axes = [axes]
@@ -119,5 +119,9 @@ def plot_cluster_networks(df_clustered, categorical_cols, n_clusters):
 
     plt.suptitle(f"Network graph — {n_clusters} clusters", fontsize=14, y=1.02)
     plt.tight_layout()
+
+    if len(pict_address) > 3:
+        plt.savefig(pict_address, dpi=300, bbox_inches='tight')
+    
     plt.show()
 

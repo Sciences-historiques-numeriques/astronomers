@@ -151,3 +151,255 @@ def plot_ca_single_axis(row_coords, col_coords, title="CA — Single axis"):
 
     plt.tight_layout()
     plt.show()
+
+
+### Correct and improve some features of fanalysis
+
+
+
+def custom_mapping(self, num_x_axis, num_y_axis, short_labels=True, 
+                   ax=None, figsize=None):
+    """ Plot the Factor map for rows and columns simultaneously on given ax """
+    if ax is None:
+        fig, ax = plt.subplots(figsize=figsize)
+    else:
+        fig = ax.get_figure()
+
+    if self.model_ == "mca" and short_labels:
+        col_labels = self.col_labels_short_
+    else:
+        col_labels = self.col_labels_
+
+    # Plot row points (invisible scatter, just for scaling)
+    ax.scatter(self.row_coord_[:, num_x_axis - 1],
+               self.row_coord_[:, num_y_axis - 1],
+               marker=".", color="white", zorder=0)
+
+    # Plot column points (invisible scatter)
+    ax.scatter(self.col_coord_[:, num_x_axis - 1],
+               self.col_coord_[:, num_y_axis - 1],
+               marker=".", color="white", zorder=0)
+
+    # Add row labels
+    for i in np.arange(0, self.row_coord_.shape[0]):
+        ax.text(self.row_coord_[i, num_x_axis - 1],
+                self.row_coord_[i, num_y_axis - 1],
+                self.row_labels_[i],
+                horizontalalignment="center", verticalalignment="center",
+                color="red", zorder=5)
+
+    # Add column labels
+    for i in np.arange(0, self.col_coord_.shape[0]):
+        ax.text(self.col_coord_[i, num_x_axis - 1],
+                self.col_coord_[i, num_y_axis - 1],
+                col_labels[i],
+                horizontalalignment="center", verticalalignment="center",
+                color="blue", zorder=5)
+
+    ax.set_title("Factor map")
+    ax.set_xlabel("Dim " + str(num_x_axis) + " ("
+                  + str(np.around(self.eig_[1, num_x_axis - 1], 2)) + "%)")
+    ax.set_ylabel("Dim " + str(num_y_axis) + " ("
+                  + str(np.around(self.eig_[1, num_y_axis - 1], 2)) + "%)")
+    ax.axvline(x=0, linestyle="--", linewidth=0.5, color="k", zorder=0)
+    ax.axhline(y=0, linestyle="--", linewidth=0.5, color="k", zorder=0)
+
+    return ax  # return ax for further customization
+
+
+
+# Use with Monkey-patch in th code: on remplace la fonction de la bibliothèque par celle-ci
+# MCA.mapping = custom_mapping
+
+
+
+
+def custom_mapping_col(self, num_x_axis, num_y_axis, short_labels=True,
+                    ax=None, figsize=None):
+        """ Plot the Factor map for columns only
+        
+        """
+
+        if ax is None:
+            fig, ax = plt.subplots(figsize=figsize)
+        else:
+            fig = ax.get_figure()
+
+        if self.model_ == "mca" and short_labels:
+            col_labels = self.col_labels_short_
+        else:
+            col_labels = self.col_labels_
+        
+        ax.scatter(self.col_coord_[:, num_x_axis - 1],
+                    self.col_coord_[:, num_y_axis - 1],
+                    marker=".", color="white")
+        for i in np.arange(0, self.col_coord_.shape[0]):
+            ax.text(self.col_coord_[i, num_x_axis - 1],
+                     self.col_coord_[i, num_y_axis - 1],
+                     col_labels[i],
+                     horizontalalignment="center", verticalalignment="center",
+                     color="blue")
+        ax.set_title("Factor map for columns")
+        ax.set_xlabel("Dim " + str(num_x_axis) + " ("
+                    + str(np.around(self.eig_[1, num_x_axis - 1], 2)) + "%)")
+        ax.set_ylabel("Dim " + str(num_y_axis) + " ("
+                    + str(np.around(self.eig_[1, num_y_axis - 1], 2)) + "%)")
+        ax.axvline(x=0, linestyle="--", linewidth=0.5, color="k")
+        ax.axhline(y=0, linestyle="--", linewidth=0.5, color="k")
+        
+        return ax 
+
+# Use with Monkey-patch in th code: on remplace la fonction de la bibliothèque par celle-ci
+# MCA.mapping_col = custom_mapping_col
+
+
+
+
+def custom_plot_eigenvalues(self, type="absolute", ax=None, figsize=None):
+        """ Plot the eigen values graph
+        
+        Parameters
+        ----------
+        type : string
+            Select the graph to plot :
+                - If "absolute" : plot the eigenvalues.
+                - If "percentage" : plot the percentage of variance.
+                - If "cumulative" : plot the cumulative percentage of
+                  variance.
+        figsize : tuple of integers or None
+            Width, height of the figure in inches.
+            If not provided, defaults to rc figure.figsize
+
+        Returns
+        -------
+        None
+        """
+        if ax is None:
+            fig, ax = plt.subplots(figsize=figsize)
+
+        if type == "absolute":
+            ax.bar(np.arange(1, self.eig_[0].shape[0] + 1), self.eig_[0],
+                    color="steelblue", align="center")
+            ax.set_xlabel("Axis")
+            ax.set_ylabel("Eigenvalue")
+            ax.set_title("Scree plot: Eigenvalue")
+        elif type == "percentage":
+            ax.bar(np.arange(1, self.eig_[1].shape[0] + 1), self.eig_[1],
+                    color="steelblue", align="center")
+            ax.set_xlabel("Axis")
+            ax.set_ylabel("Percentage of variance")
+            ax.set_title("Scree plot: Percentage")
+        elif type == "cumulative":
+            ax.bar(np.arange(1, self.eig_[2].shape[0] + 1), self.eig_[2],
+                    color="steelblue", align="center")
+            ax.set_xlabel("Axis")
+            ax.set_ylabel("Cumulative percentage of variance")
+            ax.set_title("Scree plot: Cumulative")
+        else:
+            raise ValueError("Error : 'type' variable must be 'absolute' or \
+                            'percentage' or 'cumulative'")
+        
+        
+        ax.grid(True, alpha=0.3)
+
+# Monkey-patch: on remplace la fonction de la bibliothèque par celle-ci
+# MCA.plot_eigenvalues = custom_plot_eigenvalues
+
+
+
+def custom_plot_row_contrib(self, num_axis, nb_values=None, ax=None, figsize=None):
+        """ Plot the eigen values graph
+        
+        Parameters
+        ----------
+        type : string
+            Select the graph to plot :
+                - If "absolute" : plot the eigenvalues.
+                - If "percentage" : plot the percentage of variance.
+                - If "cumulative" : plot the cumulative percentage of
+                  variance.
+        figsize : tuple of integers or None
+            Width, height of the figure in inches.
+            If not provided, defaults to rc figure.figsize
+
+        Returns
+        -------
+        None
+        """
+        if ax is None:
+            fig, ax = plt.subplots(figsize=figsize)
+
+        n_rows = len(self.row_labels_)
+        n_labels = len(self.row_labels_)
+        if (nb_values is not None) and (nb_values < n_labels):
+            n_labels = nb_values
+        limit = n_rows - n_labels
+        contribs = self.row_contrib_[:, num_axis - 1]
+        contribs_sorted = np.sort(contribs)[limit:n_rows]
+        labels = pd.Series(self.row_labels_)[np.argsort(contribs)]\
+                                                        [limit:n_rows]
+        r = range(n_labels)
+        bar_width = 0.5
+        ax.set_yticks([ri + bar_width / 2 for ri in r], labels)
+        ax.barh(r, contribs_sorted, height=bar_width, color="steelblue",
+                 align="edge")
+        ax.set_title("Rows contributions")
+        ax.set_xlabel("Contributions (%)")
+        ax.set_ylabel("Rows")
+        
+        ax.grid(True, alpha=0.3)
+
+# Monkey-patch: on remplace la fonction de la bibliothèque par celle-ci
+# MCA.plot_row_contrib = custom_plot_row_contrib
+
+
+
+
+def custom_plot_col_contrib(self, num_axis, nb_values=None, ax=None, 
+                            short_labels=True, figsize=None):
+        """ Plot the eigen values graph
+        
+        Parameters
+        ----------
+        type : string
+            Select the graph to plot :
+                - If "absolute" : plot the eigenvalues.
+                - If "percentage" : plot the percentage of variance.
+                - If "cumulative" : plot the cumulative percentage of
+                  variance.
+        figsize : tuple of integers or None
+            Width, height of the figure in inches.
+            If not provided, defaults to rc figure.figsize
+
+        Returns
+        -------
+        None
+        """
+        if ax is None:
+            fig, ax = plt.subplots(figsize=figsize)
+
+        n_cols = len(self.col_labels_)
+        n_labels = len(self.col_labels_)
+        if self.model_ == "mca" and short_labels:
+            col_labels = self.col_labels_short_
+        else:
+            col_labels = self.col_labels_
+        if (nb_values is not None) and (nb_values < n_labels):
+            n_labels = nb_values
+        limit = n_cols - n_labels
+        contribs = self.col_contrib_[:, num_axis - 1]
+        contribs_sorted = np.sort(contribs)[limit:n_cols]
+        labels = pd.Series(col_labels)[np.argsort(contribs)][limit:n_cols]
+        r = range(n_labels)
+        bar_width = 0.5
+        ax.set_yticks([ri + bar_width / 2 for ri in r], labels)
+        ax.barh(r, contribs_sorted, height=bar_width, color="steelblue",
+                 align="edge")
+        ax.set_title("Columns contributions")
+        ax.set_xlabel("Contributions (%)")
+        ax.set_ylabel("Columns")
+        
+        ax.grid(True, alpha=0.3)
+
+# Monkey-patch: on remplace la fonction de la bibliothèque par celle-ci
+# MCA.plot_col_contrib = custom_plot_col_contrib
