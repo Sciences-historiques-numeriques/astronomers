@@ -100,6 +100,7 @@ fk_person INTEGER,
 notes TEXT);
 
 -- add column and create 1 to 1 relationship
+-- insert person_uri into the table, uncomment the INSERT when operating
 --INSERT INTO person_features (person_uri, fk_person)
 select wikidata_uri, pk_person 
 from person ;
@@ -109,6 +110,8 @@ from person ;
 
 /* 
  * insert main occupation
+ * 
+ * IF YOU DO NOT HAVE A MAIN OCCUPATION DO NOTHING REGARDING THIS COLUMNS
  * 
  * note that the population was defined 
  * through occupations (physicists, atronomer) 
@@ -254,7 +257,8 @@ SET occupation_sec1 = (
     JOIN temp_global_stats AS stats 
       ON o_inner.occupation_label = stats.occupation_label
     WHERE o_inner.person_uri = pf.person_uri
-    AND o_inner.occupation_label != pf.occupation_main
+    -- UNCOMMENT IF YOU HAVE A MAIN OCCUPATION !!!
+    -- AND o_inner.occupation_label != pf.occupation_main
     ORDER BY stats.global_count DESC, o_inner.occupation_label ASC
     LIMIT 1
 )
@@ -302,8 +306,13 @@ SELECT
 GROUP BY code_o	;
 
 
+
+
 /*
  * Second secondary occupation: occupation_sec2 
+ * 
+ * DO NOT USE if your data is sparse and not consistent
+ * 
  */
 
 --UPDATE person_features
@@ -398,6 +407,53 @@ order by num desc;
 
 
 
+-- CODED OCCUPATION : use this query to prepare the data to be exported for analysis
+
+SELECT 
+CASE 
+	when occupation_sec1 = 'NA' then occupation_main
+	else occupation_sec1
+END coded_occup, count(*) num
+FROM person_features
+group by coded_occup
+order by num desc;
+
+
+
+
+
+select field_main, field_sec1, occupation_main, occupation_sec1, count(*) as num
+from person_features
+where field_main != 'NA'
+and field_sec1 != 'NA'
+group by field_main, field_sec1, occupation_main, occupation_sec1
+order by num desc;
+
+
+
+
+select *
+from person_features
+limit 100
+offset 1000;
+
+select *
+from person_features
+where field_main = 'NA'
+limit 100;
+
+
+
+
+
+-- export to fils da4_
+select *
+from person_features;
+
+
+
+
+
 
 
 
@@ -407,6 +463,10 @@ order by num desc;
 
 /*
 * Explore fields
+* 
+* DO NOT DO if there's not enough data available,
+* but if you have fields 2/3 of your population use them
+* 
 */
 
 -- number of rows
@@ -783,47 +843,6 @@ group by field_main, field_sec1, occupation_main, occupation_sec1
 order by num desc;
 
 
--- CODED OCCUPATION : use this
 
-SELECT 
-CASE 
-	when occupation_sec1 = 'NA' then occupation_main
-	else occupation_sec1
-END coded_occup, count(*) num
-FROM person_features
-group by coded_occup
-order by num desc;
-
-
-
-
-
-select field_main, field_sec1, occupation_main, occupation_sec1, count(*) as num
-from person_features
-where field_main != 'NA'
-and field_sec1 != 'NA'
-group by field_main, field_sec1, occupation_main, occupation_sec1
-order by num desc;
-
-
-
-
-select *
-from person_features
-limit 100
-offset 1000;
-
-select *
-from person_features
-where field_main = 'NA'
-limit 100;
-
-
-
-
-
--- export to fils da4_
-select *
-from person_features;
 
 
