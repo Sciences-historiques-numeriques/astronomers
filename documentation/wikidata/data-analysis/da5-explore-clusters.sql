@@ -1,4 +1,56 @@
 
+-- clean up database and save space
+-- after big deletes, notably tables
+VACUUM;
+
+
+
+
+
+/*
+ * K-modes
+ */
+
+
+
+SELECT run, count(*) as num
+FROM kmodes_clusters
+group BY run ;
+
+
+SELECT run, count(*) as num
+FROM kmodes_clusters_centroids 
+group BY run ;
+
+
+SELECT *
+FROM kmodes_clusters_centroids
+WHERE cluster IN (5,31,29)
+AND run='cen64' --'cen32'
+order by cluster;
+
+
+
+SELECT *
+FROM clusters_kmodes_c54 ckc 
+where ckc.cluster = 1
+order by ckc.gender, ckc.periodsActivity desc ;
+
+
+SELECT ckc.cluster, ckc.periodsActivity, count(*) as num
+FROM clusters_kmodes_c54 ckc 
+group by ckc.cluster, ckc.periodsActivity 
+order by ckc.cluster, num desc ;
+
+
+SELECT ckc.cluster, ckc.periodsActivity, count(*) as num
+FROM clusters_kmodes_c8 ckc 
+group by ckc.cluster, ckc.periodsActivity 
+order by ckc.cluster, num desc ;
+
+
+
+
 select *
 from ACM_kmeans_c21
 where cluster= 17
@@ -31,36 +83,13 @@ from tw1
 	
 	
 	
-	
-SELECT akc.person_uri, akc.cluster cluster_kmean, ckc.cluster cluster_kmode
-from ACM_kmeans_c21 akc, clusters_kmodes_c21 ckc 
-where akc.person_uri = ckc.person_uri
-order by cluster_kmean, cluster_kmode ;
-
-SELECT akc.person_uri, akc.coded_country, akc.gender, akc.coded_employer, akc.occupation_sec1, akc.cluster cluster_kmean, ckc.cluster cluster_kmode
-from ACM_kmeans_c21 akc, clusters_kmodes_c21 ckc 
-where akc.person_uri = ckc.person_uri
-and akc.cluster = 2
+-- Query for cluster alignment test	
+SELECT mkc.person_uri, mkc.cluster cluster_kmean, kc.cluster cluster_kmode
+from mca_kmeans_clusters mkc, kmodes_clusters kc 
+where mkc.person_uri = kc.person_uri
 order by cluster_kmean, cluster_kmode ;
 
 
-/*
- * K-modes
- */
-
-SELECT *
-FROM clusters_kmodes_c15 ckc 
-where ckc.cluster = 1
-order by ckc.gender, ckc.periodsActivity desc ;
 
 
-SELECT ckc.cluster, ckc.periodsActivity, count(*) as num
-FROM clusters_kmodes_c15 ckc 
-group by ckc.cluster, ckc.periodsActivity 
-order by ckc.cluster, num desc ;
 
-
-SELECT ckc.cluster, ckc.periodsActivity, count(*) as num
-FROM clusters_kmodes_c8 ckc 
-group by ckc.cluster, ckc.periodsActivity 
-order by ckc.cluster, num desc ;
