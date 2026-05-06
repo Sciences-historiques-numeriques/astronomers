@@ -3,7 +3,54 @@
 -- after big deletes, notably tables
 VACUUM;
 
+select *
+from person_coded_features
+limit 100;
 
+
+select *
+from mca_kmeans_clusters_centroids
+WHERE "index" IN (19) --(14) --(11,5,30)
+AND run='cen32' 
+order by "index";
+
+SELECT *
+FROM kmodes_clusters_centroids
+WHERE cluster IN (22) --(19,31,14)--(10,28)
+AND run='cen32' --'cen32'
+order by cluster;
+
+
+
+
+SELECT mkc.person_uri, mkc.cluster cluster_kmean, kc.cluster cluster_kmode
+from mca_kmeans_clusters mkc, kmodes_clusters kc 
+where mkc.person_uri = kc.person_uri
+and mkc.run = 'cen32'
+and kc.run = 'cen32'
+order by cluster_kmean, cluster_kmode;
+
+
+SELECT mkc.cluster cluster_kmean, kc.cluster cluster_kmode, pcf.*
+from mca_kmeans_clusters mkc, kmodes_clusters kc, person_coded_features pcf
+where mkc.person_uri = kc.person_uri
+and mkc.run = 'cen32'
+and kc.run = 'cen32'
+and pcf.person_uri = mkc.person_uri 
+and pcf.person_uri = kc.person_uri 
+order by cluster_kmean, cluster_kmode;
+
+
+
+
+
+SELECT mkc.cluster, kc.cluster, 
+	count(*) as num--, count(kc.cluster) c_mode, count(mkc.cluster) c_meand
+from mca_kmeans_clusters mkc, kmodes_clusters kc 
+where mkc.person_uri = kc.person_uri
+and mkc.run = 'cen32'
+and kc.run = 'cen32'
+group BY mkc.cluster, kc.cluster;
 
 
 
@@ -25,8 +72,8 @@ group BY run ;
 
 SELECT *
 FROM kmodes_clusters_centroids
-WHERE cluster IN (5,31,29)
-AND run='cen64' --'cen32'
+WHERE run='cen64' --'cen32'
+--and cluster IN (5,31,29)
 order by cluster;
 
 
@@ -51,17 +98,52 @@ order by ckc.cluster, num desc ;
 
 
 
+
+/*
+ * K-means clusters
+ */
+
 select *
-from ACM_kmeans_c21
-where cluster= 17
-order by gender, periodsActivity;
+from mca_kmeans_clusters
+limit 10;
+
+
+
+select run, count(*) as num
+from mca_kmeans_clusters
+group by run
+order by num desc;
+
+
+select *
+from mca_kmeans_clusters_centroids
+limit 10;
+
+
+select run, count(*) as num
+from mca_kmeans_clusters_centroids
+group by run
+order by num desc;
+
+
+
+
+select *
+from mca_kmeans_clusters_centroids
+WHERE  run='cen32'
+--AND "index" IN (12) --(11,5,30) 
+order by "index";
+
 
 
 
 select cluster, periodsActivity, count(*) as num
-from ACM_kmeans_c15
+from mca_kmeans_clusters_centroids
 group by cluster, periodsActivity
 order by cluster, num desc;
+
+
+
 
 
 select cluster, periodsActivity, count(*) as num
