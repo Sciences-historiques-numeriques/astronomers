@@ -54,27 +54,66 @@ group BY mkc.cluster, kc.cluster;
 
 
 
+-- 
+with tw1 as (SELECT kc.cluster, count(*) as kmodes_num
+from kmodes_clusters kc
+group by kc.cluster
+),
+tw2 as (SELECT mkc.cluster, count(*) as kmeans_num
+from mca_kmeans_clusters mkc
+group BY mkc.cluster)
+SELECT mkc.cluster, kc.cluster, 
+	count(*) as num_common_persons, kmodes_num,
+	kmeans_num, CAST(count(*) AS REAL)/kmodes_num  as prop_kmodes, 
+	CAST(count(*) AS REAL)/kmeans_num as prop_kmeans
+from mca_kmeans_clusters mkc, kmodes_clusters kc, tw1, tw2
+where mkc.person_uri = kc.person_uri
+and mkc.run = 'cen32'
+and kc.run = 'cen32'
+and tw1.cluster = kc.cluster 
+and tw2.cluster = mkc.cluster 
+group BY mkc.cluster, kc.cluster
+having prop_kmodes > 0.4 or prop_kmeans > 0.4
+order by num_common_persons desc;
+order by prop_kmeans desc, prop_kmodes  desc ;
+--order by prop_kmodes desc, prop_kmeans desc ;
+
+
+
+
 /*
  * K-modes
+ * 
+ * Explore
  */
 
 
-
+-- runs are the phases where you test with different 
+-- numbers of clusters
 SELECT run, count(*) as num
+-- persons and their cluster in each run
 FROM kmodes_clusters
 group BY run ;
 
 
+-- cluster profiles
 SELECT run, count(*) as num
 FROM kmodes_clusters_centroids 
 group BY run ;
 
 
-SELECT *
+-- instpect cluster profiles
+SELECT round(CAST(n_centroid AS REAL)/number, 2) prop_centroids, round(CAST(number_f AS REAL)/number, 2) prop_female,
+*
 FROM kmodes_clusters_centroids
-WHERE run='cen64' --'cen32'
---and cluster IN (5,31,29)
-order by cluster;
+WHERE 1 -- 1 is alway true, no filter condition
+-- choose cluster numbers 
+--AND cluster IN (20,18) --(26,20,22, 12,25)
+-- choose runs (i.e. cluster nodes)
+--AND run='cen32'
+AND run='cen64'
+AND prop_female > 0.1
+order by prop_female desc;
 
 
 

@@ -9,6 +9,12 @@ SELECT *
 FROM import_organisations_classes ioc 
 LIMIT 10;
 
+
+-- count rows
+SELECT count(*) as num
+FROM import_organisations_classes ioc ;
+
+
 -- count classes of imported organisations
 -- only organisations, not persons are counted here
 SELECT ioc.organisation_class_label, count(*)as num

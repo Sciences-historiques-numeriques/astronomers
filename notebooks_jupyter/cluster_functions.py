@@ -7,7 +7,7 @@ import seaborn as sns
 
 import networkx as nx
 import itertools
-
+import math
 
 import scipy.cluster.hierarchy as sch
 from scipy.cluster.hierarchy import fcluster
@@ -43,13 +43,31 @@ def plot_cluster_heatmap(df_clustered, categorical_cols):
 
 ## function cluster network
 def plot_cluster_networks(df_clustered, categorical_cols, n_clusters, pict_address=''):
-    fig, axes = plt.subplots(1, n_clusters, figsize=(7 * n_clusters, 7))
-    if n_clusters == 1:
-        axes = [axes]
+    # Configuration
+    n_cols = 4
+    # Calculate rows needed (ceiling division: e.g., 5 clusters -> 2 rows)
+    n_rows = math.ceil(n_clusters / n_cols)
 
-    for cluster_id, ax in zip(sorted(df_clustered['cluster'].unique()), axes):
+    # Create figure with dynamic height based on actual rows needed
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(7 * n_cols, 7 * n_rows))
+    
+    # Flatten axes to a simple list for easy iteration
+    # Handle edge cases where subplots returns a single array or single object
+    if n_rows == 1 and n_cols == 1:
+        axes = [axes]
+    else:
+        axes = axes.flatten()
+
+    cluster_ids = sorted(df_clustered['cluster'].unique())
+
+
+
+    # Plot each cluster
+    for i, cluster_id in enumerate(cluster_ids):
+        ax = axes[i]
         df_cl = df_clustered[df_clustered['cluster'] == cluster_id]
         n_persons = len(df_cl)
+
 
         # Build list of (category_value) nodes per person
         # Each cell value becomes a node, e.g. "gender=Male"
@@ -100,14 +118,14 @@ def plot_cluster_networks(df_clustered, categorical_cols, n_clusters, pict_addre
         # while the full variable=category key is still used internally for color mapping and graph logic.
         node_labels = {n: n.split("=", 1)[1] for n in G.nodes()}
 
-        # Draw
+               # Draw Network
         nx.draw_networkx_nodes(G, pos, ax=ax, node_size=node_sizes,
                                node_color=node_colors, alpha=0.85)
         nx.draw_networkx_edges(G, pos, ax=ax, width=edge_weights,
                                alpha=0.4, edge_color='grey')
-        nx.draw_networkx_labels(G, pos, ax=ax,  labels=node_labels, font_size=7)
+        nx.draw_networkx_labels(G, pos, ax=ax, labels=node_labels, font_size=7)
 
-        # Legend for variables
+        # Legend
         legend_handles = [
             plt.Line2D([0], [0], marker='o', color='w',
                        markerfacecolor=palette[i % len(palette)],
@@ -115,8 +133,13 @@ def plot_cluster_networks(df_clustered, categorical_cols, n_clusters, pict_addre
             for i, col in enumerate(categorical_cols)
         ]
         ax.legend(handles=legend_handles, loc='upper left', fontsize=7)
+        
         ax.set_title(f"Cluster {cluster_id} — {n_persons} persons", fontsize=11)
         ax.axis('off')
+
+    # Remove unused axes (the empty spots in the last row)
+    for j in range(len(cluster_ids), len(axes)):
+        fig.delaxes(axes[j])
 
     plt.suptitle(f"Network graph — {n_clusters} clusters", fontsize=14, y=1.02)
     plt.tight_layout()
