@@ -25,6 +25,9 @@ DBPedia/exports_csv
 *.db
 
 *.gexf
+*.graphml
+
+*.pkl
 
 ## fichiers provisoirement invisibles
 /notebooks_jupyter/dbpedia_exploration/dbp_merge_relations_interactif.ipynb

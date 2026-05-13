@@ -192,22 +192,3 @@ WHERE {
 
 
 
-
-
-
-
-
-  ?organisation rdfs:label ?oLabel;
-
-  # instance of
-
-  wdt:P31 ?groupType.
-  ?groupType rdfs:label ?groupTypeLabel
-
-  # OPTIONAL {
-
-  # ?organisation wdt:P17 ?country.
-
-  # ?country rdfs:label ?countryLabel.
-
-  # }
