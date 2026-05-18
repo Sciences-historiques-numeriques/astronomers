@@ -103,8 +103,8 @@ def plot_chi2_residuals(observed, figsize=(9,3)):
     )
     # 3. Fix Label Rotation (Safe Method)
     # This rotates existing ticks without risking a count mismatch
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=80, ha='right')
-    ax.set_yticklabels(ax.get_yticklabels(), rotation=20, va='center')
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=80, ha='center')
+    ax.set_yticklabels(ax.get_yticklabels(), rotation=20, va='center_baseline')
     ax.set_title("Adjusted Residual", fontsize=12)
     
     # ax.set_title("Heatmap of Adjusted Residuals (via statsmodels)")

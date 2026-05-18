@@ -21,8 +21,6 @@ LIMIT 10;
 
 
 
-
-
 -- Create person table
 --DROP TABLE person;
 CREATE TABLE person (pk_person INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

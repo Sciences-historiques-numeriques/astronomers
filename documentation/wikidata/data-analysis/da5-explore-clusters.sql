@@ -110,31 +110,65 @@ WHERE 1 -- 1 is alway true, no filter condition
 -- choose cluster numbers 
 --AND cluster IN (20,18) --(26,20,22, 12,25)
 -- choose runs (i.e. cluster nodes)
---AND run='cen32'
-AND run='cen64'
+AND run='cen32'
+--AND run='cen64'
 AND prop_female > 0.1
 order by prop_female desc;
 
+with tw1 as (SELECT cluster, count(*) tot
+FROM kmodes_clusters ks
+join person_coded_features pcf on ks.person_uri = pcf.person_uri 
+where run='cen32'
+group by cluster), 
+tw2 AS (
+SELECT cluster, pcf.per_activ, count(*) num
+FROM kmodes_clusters ks
+join person_coded_features pcf on ks.person_uri = pcf.person_uri 
+--where run='cen32'
+where run='cen64'
+group by cluster, pcf.per_activ 
+order by cluster, num DESC)
+select tw1.cluster, tw2.per_activ, tw2.num, tw1.tot, round(CAST(tw2.num AS REAL)/tw1.tot,2) as prop
+from tw2 join tw1 on tw1.cluster = tw2.cluster;
 
 
-SELECT *
-FROM clusters_kmodes_c54 ckc 
-where ckc.cluster = 1
-order by ckc.gender, ckc.periodsActivity desc ;
+with tw1 as (SELECT cluster, count(*) tot
+FROM kmodes_clusters ks
+join person_coded_features pcf on ks.person_uri = pcf.person_uri 
+where run='cen32'
+group by cluster), 
+tw2 AS (
+SELECT cluster, pcf.per_activ, count(*) num
+FROM kmodes_clusters ks
+join person_coded_features pcf on ks.person_uri = pcf.person_uri 
+--where run='cen32'
+where run='cen64'
+group by cluster, pcf.per_activ 
+order by cluster, num DESC),
+tw3 AS (
+select tw1.cluster, tw2.per_activ, tw2.num, tw1.tot, round(CAST(tw2.num AS REAL)/tw1.tot,2) as prop
+from tw2 join tw1 on tw1.cluster = tw2.cluster)
+select cluster, max(prop) as max_prop
+from tw3
+group by cluster
+;
 
 
-SELECT ckc.cluster, ckc.periodsActivity, count(*) as num
-FROM clusters_kmodes_c54 ckc 
-group by ckc.cluster, ckc.periodsActivity 
-order by ckc.cluster, num desc ;
 
 
-SELECT ckc.cluster, ckc.periodsActivity, count(*) as num
-FROM clusters_kmodes_c8 ckc 
-group by ckc.cluster, ckc.periodsActivity 
-order by ckc.cluster, num desc ;
+SELECT cluster, pcf.per_activ, count(*) num
+FROM kmodes_clusters ks
+join person_coded_features pcf on ks.person_uri = pcf.person_uri 
+where run='cen32'
+group by cluster, pcf.per_activ 
+order by cluster, num DESC;
 
 
+SELECT cluster, count(*)
+FROM kmodes_clusters ks
+join person_coded_features pcf on ks.person_uri = pcf.person_uri 
+where run='cen32'
+group by cluster;
 
 
 
@@ -165,12 +199,21 @@ group by run
 order by num desc;
 
 
+SELECT run, count(*) as num
+FROM kmodes_clusters_centroids 
+group BY run ;
 
+--delete from mca_kmeans_clusters_centroids
+where run = 'cen54';
+
+--drop table mca_kmeans_clusters_centroids;
 
 select *
 from mca_kmeans_clusters_centroids
-WHERE  run='cen32'
+WHERE  run='cen54' -- 'cen32'
 --AND "index" IN (12) --(11,5,30) 
+AND country like '%united%'
+order by number_in_cl DESC;
 order by "index";
 
 

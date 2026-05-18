@@ -83,7 +83,7 @@ order by num desc;
 /*
  * Final query to export CSV data:
  * 
- * esport the data to file 'da_data/da6-persons-organisations-relations.csv'
+ * esport the data to file 'da_data/da6-persons-organisations-relations.csv' 
  * 
 */
 
