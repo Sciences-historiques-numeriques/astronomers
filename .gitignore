@@ -97,6 +97,7 @@ weill-*
 
 # docs json, sauf exception
 *.json
+!docs/images/birth_periods_choropleth_frames/*.json
 
 # docs rj, sauf exception
 *.rj

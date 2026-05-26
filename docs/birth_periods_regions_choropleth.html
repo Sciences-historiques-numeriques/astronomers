@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Birth regions by period</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body  { font-family: sans-serif; margin: 0; padding: 10px; background: #fff; }
+    #ctrl { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+    #period-label { font-weight: 600; min-width: 120px; }
+    #play-btn {
+      background: #1f77b4; color: #fff; border: none;
+      padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 14px;
+    }
+    #period-slider { flex: 1; min-width: 200px; max-width: 600px; }
+    #map { width: 1000px; max-width: 100%; height: 800px; }
+    #status { font-size: 12px; color: #888; }
+  </style>
+</head>
+<body>
+ <div id="map"></div>
+  <div id="ctrl">
+    <button id="play-btn" onclick="togglePlay()">&#9654; Play</button>
+    <input  id="period-slider" type="range"
+            min="0" max="19" value="0"
+            oninput="onSlider(this.value)">
+    <span   id="period-label">1781-1790</span>
+  </div>
+ 
+  <p id="status">Loading…</p>
+
+  <script>
+    const periods   = ["1781-1790", "1791-1800", "1801-1810", "1811-1820", "1821-1830", "1831-1840", "1841-1850", "1851-1860", "1861-1870", "1871-1880", "1881-1890", "1891-1900", "1901-1910", "1911-1920", "1921-1930", "1931-1940", "1941-1950", "1951-1960", "1961-1970", "1971-1980"];
+    const fileMap   = {"1781-1790": "1781-1790.json", "1791-1800": "1791-1800.json", "1801-1810": "1801-1810.json", "1811-1820": "1811-1820.json", "1821-1830": "1821-1830.json", "1831-1840": "1831-1840.json", "1841-1850": "1841-1850.json", "1851-1860": "1851-1860.json", "1861-1870": "1861-1870.json", "1871-1880": "1871-1880.json", "1881-1890": "1881-1890.json", "1891-1900": "1891-1900.json", "1901-1910": "1901-1910.json", "1911-1920": "1911-1920.json", "1921-1930": "1921-1930.json", "1931-1940": "1931-1940.json", "1941-1950": "1941-1950.json", "1951-1960": "1951-1960.json", "1961-1970": "1961-1970.json", "1971-1980": "1971-1980.json"};
+    const frameDir  = "images/birth_periods_choropleth_frames/";
+    const maxVal    = 820.0;
+    const frameDur  = 2000;
+
+    let geojson   = null;
+    let curIdx    = 0;
+    let playing   = false;
+    let playTimer = null;
+    let plotted   = false;
+    const cache   = {};          // period string → data payload
+
+    // ── fetch helpers ────────────────────────────────────────────────────────
+    async function fetchJSON(url) {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`HTTP ${r.status} ${url}`);
+      return r.json();
+    }
+
+    async function getPeriodData(period) {
+      if (!cache[period]) cache[period] = await fetchJSON(frameDir + fileMap[period]);
+      return cache[period]};
+    
+
+    // ── render ───────────────────────────────────────────────────────────────
+    async function loadPeriod(period) {
+      document.getElementById("period-label").textContent = period;
+      document.getElementById("period-slider").value = periods.indexOf(period);
+      document.getElementById("status").textContent = `Loading ${period}…`;
+
+      const d = await getPeriodData(period);
+      document.getElementById("status").textContent = "";
+
+      const trace = {
+        type:               "choroplethmapbox",
+        geojson:            geojson,
+        locations:          d.locations,
+        z:                  d.z,
+        text:               d.text,
+        hovertemplate:      "%{text}: %{z}<extra></extra>",
+        colorscale:         "Blues",
+        reversescale:   true, 
+        zmin:               0,
+        zmax:               maxVal,
+        colorbar:           { title: "Count" },
+        marker:             { opacity: 0.8, line: { width: 0.5, color: "#fff" } },
+      };
+
+      const layout = {
+        mapbox:  { style: "carto-positron", center: { lat: 47, lon: 8.5 }, zoom: 1 },
+        margin:  { l: 0, r: 20, t: 30, b: 20 },
+        height:  800,
+        width:   1000,
+        title:   { text: `Birth regions — ${period}`, x: 0.5 },
+      };
+
+      if (!plotted) {
+        Plotly.newPlot("map", [trace], layout, {responsive: true});
+        plotted = true;
+      } else {
+        Plotly.react("map", [trace], layout);
+      }
+    }
+
+    // ── controls ─────────────────────────────────────────────────────────────
+    function onSlider(val) {
+      curIdx = +val;
+      loadPeriod(periods[curIdx]);
+    }
+
+    function togglePlay() {
+      playing = !playing;
+      document.getElementById("play-btn").textContent = playing ? "⏸ Pause" : "▶ Play";
+      if (playing) {
+        advance();
+        playTimer = setInterval(advance, frameDur);
+      } else {
+        clearInterval(playTimer);
+      }
+    }
+
+    function advance() {
+      curIdx = (curIdx + 1) % periods.length;
+      loadPeriod(periods[curIdx]);
+      if (curIdx === periods.length - 1 && playing) { togglePlay(); }
+    }
+
+    // ── init ─────────────────────────────────────────────────────────────────
+    (async () => {
+      geojson = await fetchJSON(frameDir + "geojson.json");
+      // pre-fetch first two periods for snappy start
+      await loadPeriod(periods[0]);
+      if (periods[1]) getPeriodData(periods[1]);
+    })();
+  </script>
+</body>
+</html>
