@@ -73,6 +73,8 @@ weill-*
 *.html
 !/docs/*.html
 
+!/docs/images/*.jpg
+
 !/wiki_documentation/idRef/proprietes_population_entrantes.html
 !/notebooks_jupyter/wikidata_exploration/images/birth_places_choropleth.html
 !/notebooks_jupyter/wikidata_exploration/images/birth_places_points.html
